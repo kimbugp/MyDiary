@@ -8,14 +8,7 @@
     <script src="js/main.js"></script>
     <title>Sign Up</title>
 </head>
-<body>
-    <header class="heading">
-        <h1> 
-            <p>Simon's
-                <span>Diary</span>
-            </p>
-        </h1>
-    </header> 
+<body> 
     <form class="signup" action="#" method="POST">
         <h1>Sign Up</h1>
         <p>Please fill in this form to create an account.</p>
@@ -27,7 +20,8 @@
     
         <input type="password" placeholder="Repeat Password"  required>
         
-        <input type="submit" value="Sign-up" required>
+        <input type="submit" value="Sign-up" onclick="window.location.href='home.html';" required>
+        <a href="index.html" class="forgot">Signin</a>
     </form> 
 </body>
 </html>
