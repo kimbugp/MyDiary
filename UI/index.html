@@ -10,28 +10,21 @@
 </head>
 <body>  
     <header>
-            <h1> 
-                <p>Simon's
-                    <span>Diary</span>
-                </p>
-            </h1>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="addEntry.html">Create Journel</a></li>
+            <li><a href="diaryentries.html">Diary entries</a></li>
+            <li><a href="profile.html">My profile</a></li>
+
+        </ul>
     </header> 
-    <form id="login" action="#" method="post" accept-charset="UTF-8">
-        <fieldset >
-            <legend>Login</legend>
-            <input type="hidden" name="submitted" id="submitted" value="1" required/>
-            
-            <label for="username" >UserName</label>
-            <input type="text" name="username" id="username" required/>
-    
-            <label for="password" >Password</label>
-            <input type="password" name="password" id="password" required/>
-            
-            <input type="submit" name="Sign-in" value="Sign-in" required/>
-        </fieldset>
-    <h3>Don't Have an Account</h3>
-    <a href="signup.html">Sign-up</a>
+    <form class="login" action="#" method="POST">
+            <input type="text" placeholder="Username" id="username" required>  
+            <input type="password" placeholder="password" id="password" required>  
+            <a href="#" class="forgot">forgot password?</a>
+            <input type="submit" value="Sign In" onclick="">
+            <!-- <h3>Don't Have an Account</h3> -->
+            <a href="signup.html" class="forgot">Sign-up</a>
     </form>
-    
 </body>
 </html>
