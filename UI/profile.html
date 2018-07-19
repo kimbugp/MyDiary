@@ -6,9 +6,10 @@
     <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/profile.css" />
     <script src="js/main.js"></script>
 </head>
-<body>
+<body onload="timer()">
     <nav>
         <ul>
             <li><a href="home.html">HOME</a></li>
@@ -18,6 +19,27 @@
             <li onclick="window.location.href='index.html';" style="float:right"><a href="#">Sign Out</a></li>
         </ul>
     </nav>
+</div>
+<div class="card">
+        <img src="media/profilepic.jpg" alt="Simon" style="width:100%; height:5cm;">
+        <h1>Kimbugwe Simon Peter</h1>
+        <p class="title">Prospecting Andela Fellow</p>
+        <p>Andela</p>
+        <p><button>Contact:+256752332136</button></p>
+        <div class="alert" id="alert" onclick="toggleshow()">Notification</div>
+        <script>
+            function toggleshow(){
+                var x=document.getElementById("alert");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                }
+                else {
+                    x.style.display = "none";
+            
+                 }
+            }
+        document.getElementById("alert").hidden
+        </script>
 </div>
     <footer>
             <p>Simon, Copyright &copy; 2018</p>
