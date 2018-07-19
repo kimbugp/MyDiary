@@ -6,6 +6,7 @@
     <title>NEW Entry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/newentry.css" />
     <script src="js/main.js"></script>
 </head>
 <body>
@@ -17,6 +18,20 @@
             <li><a href="profile.html">My Profile</a></li>
             <li onclick="window.location.href='index.html';" style="float:right"><a href="#">Sign Out</a></li>
         </ul>
-    </nav>
+        </nav>
+    <div class="entrytitle">
+        <form class="login" action="home.html" method="POST">
+            <h2>Title</h2>
+            <input type="text" name="" placeholder="Title">
+            <h2>Content</h2>
+            <div class="comment">
+                <textarea class="textarea" placeholder="Type your notes here.."></textarea>
+            </div>
+            <input type="submit" name="" value="Save">
+        </form>
+    </div>
+    <footer>
+            <p>Simon, Copyright &copy; 2018</p>
+    </footer>
 </body>
 </html>
