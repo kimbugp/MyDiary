@@ -1,5 +1,5 @@
 from flask import Flask,jsonify
-
+from v1 import app
 #example entries
 entries=[
     {
@@ -21,7 +21,6 @@ entries=[
         'entry_content':'Test Content'
     },
 ]
-app=Flask(__name__)
 
 @app.route('/')
 def index():
