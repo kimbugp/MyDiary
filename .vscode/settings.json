@@ -6,6 +6,11 @@
         "-p",
         "*test.py"
     ],
-    "python.unitTest.unittestEnabled": true,
-    "python.pythonPath": "C:\\Users\\kimbugp\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
+    "python.unitTest.unittestEnabled": false,
+    "python.pythonPath": "C:\\Users\\kimbugp\\AppData\\Local\\Programs\\Python\\Python36\\python.exe",
+    "python.unitTest.pyTestEnabled": true,
+    "python.unitTest.nosetestsEnabled": false,
+    "python.unitTest.pyTestArgs": [
+        "app"
+    ]
 }
