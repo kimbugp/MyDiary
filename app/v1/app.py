@@ -29,4 +29,4 @@ def index():
 
 @app.route('/entries', methods=['GET'])
 def get_all_entries():
-    return jsonify({'entries':entries})
+    return jsonify({'entries':entries}),200
