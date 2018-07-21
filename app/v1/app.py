@@ -35,9 +35,26 @@ def index():
 @app.route('/entries', methods=['GET','POST'])
 def get_all_entries():
     if request.method=="GET":
-        return jsonify({'entries':entries}),200
+        return jsonify({'entries':entries}),201
+
     elif request.method=="POST":
-        return make_response(jsonify({'result':'posted'})),201
+        # if not request.json or not 'entry_id' in request.json:
+            # return make_response(jsonify({'result':'no data'})),200
+        #test update dictionary
+        new_entry ={
+            'entry_id':'5',
+            'entry_date':'25/10/1995 20:15',
+            'entry_name':'Dummy Entry new',
+            'entry_content':'Test Content2'
+        }
+        # new_entry = {
+        #     'entry_id':len(entries) + 1,
+        #     'entry_date': request.json['date'],
+        #     'entry_name': request.json.get('name', ""),
+        #     'entry_content':request.json.get('content',"")
+        # }
+        entries.append(new_entry)
+        return jsonify({'entries':entries}),201
 
 @app.route('/entries/<entry_no>', methods=['GET','PUT'])
 def single_entry(entry_no):
@@ -49,5 +66,24 @@ def single_entry(entry_no):
             return make_response(jsonify({'result':'not found'})),404
 
     elif request.method=='PUT':
-        return make_response(jsonify({'result':'edited'})),201
+        # update = request.get_json()
+        #test update dictionary
+        update ={
+            'entry_id':'3',
+            'entry_date':'25/10/1995 20:15',
+            'entry_name':'Dummy Entry new',
+            'entry_content':'Test Content2'
+        }
+
+        result = [entry for entry in entries if entry['entry_id'] == entry_no]
+        if result:
+            if 'entry_name' in update:
+                result[0]['entry_name'] = update['entry_name']
+
+            if 'entry_content' in update:
+                result[0]['entry_content'] = update['entry_content']
+                
+            return make_response(jsonify({"Entry updated":"PUT request"})), 201
+        else:
+            return make_response(jsonify({"Update Failed":"ERRor"})), 200
         
