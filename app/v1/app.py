@@ -22,6 +22,12 @@ entries=[
     },
 ]
 app=Flask(__name__)
+
+def search(entry_id):
+    for p in entries:
+        if p['entry_id'] ==entry_id:
+            return p
+
 @app.route('/')
 def index():
     return "Hello, World!"
@@ -32,3 +38,16 @@ def get_all_entries():
         return jsonify({'entries':entries}),200
     elif request.method=="POST":
         return make_response(jsonify({'result':'posted'})),201
+
+@app.route('/entries/<entry_no>', methods=['GET','PUT'])
+def single_entry(entry_no):
+    if request.method=='GET':
+        resultlist = [d for d in entries if d.get('entry_id', '') == entry_no]
+        if resultlist:
+            return make_response(jsonify({'entries':resultlist[0]})),200 
+        else:
+            return make_response(jsonify({'result':'not found'})),404
+
+    elif request.method=='PUT':
+        return make_response(jsonify({'result':'edited'})),201
+        
