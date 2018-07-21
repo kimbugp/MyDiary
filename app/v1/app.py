@@ -1,4 +1,4 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,make_response,request
 from v1 import app
 #example entries
 entries=[
@@ -21,11 +21,14 @@ entries=[
         'entry_content':'Test Content'
     },
 ]
-
+app=Flask(__name__)
 @app.route('/')
 def index():
     return "Hello, World!"
 
-@app.route('/entries', methods=['GET'])
+@app.route('/entries', methods=['GET','POST'])
 def get_all_entries():
-    return jsonify({'entries':entries}),200
+    if request.method=="GET":
+        return jsonify({'entries':entries}),200
+    elif request.method=="POST":
+        return make_response(jsonify({'result':'posted'})),201
