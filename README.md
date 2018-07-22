@@ -6,7 +6,11 @@ MyDiary is an online journal where users can pen down their thoughts and feeling
 * Users can view the contents of a diary entry.
 * Users can add or modify an entry.
 
- **MY DIARY'S ENDPOINTS**
+## Access at:
+### https://kimbugp.github.io/MyDiary/UI/
+### https://simondiary.herokuapp.com
+
+ ##MY DIARY'S ENDPOINTS
 	
 METHOD             ACTIVITY                     ENDPOINT
 
