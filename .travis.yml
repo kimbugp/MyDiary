@@ -1,0 +1,21 @@
+language: python
+python:
+  - "3.6"
+cache: pip
+# command to install dependencies
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+install:
+  - pip install -r requirements.txt
+  - pip install coverage
+
+# for codecoverage on codeclimate.com
+env:
+  global:
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+    - CC_TEST_REPORTER_ID=[ccceefc54859f4b39e35d7dcab007abe0f6dfb6a0407797198019fcb97b73161]
+  
+# command to run tests
+script:
+  - pytest app/v1/all_entries_test.py
