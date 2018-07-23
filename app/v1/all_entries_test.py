@@ -46,7 +46,6 @@ class all_entries_test(unittest.TestCase):
                                      content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.test_entry[0]['entry_name'], str(response.data),msg="No entry made")
-    
     def test_hello_world(self):
         testing_user = app.test_client(self)
         response =testing_user.get('http://localhost:5000')
