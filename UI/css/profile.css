@@ -1,8 +1,9 @@
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 250px;
+    max-width: 400px;
     margin: auto;
     text-align: center;
+    background: #eceeee;
 }
 
 .title {
@@ -35,7 +36,7 @@ button:hover, a:hover {
 
 .alert {
     padding: 20px;
-    background-color: #f44336; /* Red */
+    background-color:#eceeee; /* Red */
     color: white;
     margin-bottom: 15px;
 }
@@ -55,4 +56,10 @@ button:hover, a:hover {
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
+}
+
+.edit{
+    background:white;
+    border: 0;
+    float: right;
 }

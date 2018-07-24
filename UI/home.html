@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Records</title>
+    <title>HOME</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/home.css" />
     <script src="js/main.js"></script>
 </head>
 <body>
@@ -16,27 +17,27 @@
             <li><a href="entry.html">My Entries</a></li>
             <li><a href="profile.html">My Profile</a></li>
             <li><img  alt="Notifications" src="media/bell.png" style="width:.5cm;height:.5cm;"></li>
-            <li onclick="window.location.href='index.html';" style="float:right"><a href="#">Sign In</a></li>
-
+            <li onclick="window.location.href='index.html';" style="float:right"><a href="#" >Sign In</a></li>
         </ul>
     </nav>
     <section>
-        <div class="container">
-            <h1>Welcome to My Diary!</h1>
-            <img src="media/diary.jpeg" alt="Diary" style="width:2cm; height:2cm;">
-        </div>
+            <div class="container">
+                <h1>Welcome to My Diary!</h1>
+                <img src="media/diary.jpeg" alt="Diary" style="width:2cm; height:2cm;">
+            </div>
     </section>
     <section id="Entries">
-    <div class="row">
+        <div class="container">
+            <h2>My Diary Entries</h2>
+        </div>
+
+        <div class="row">
             <div class="column">
                 <a href="entryno.html"><h3>The World Cup 2018</h3></a>
                 <div>12/10/2018</div>
                 <p>Russia World cup 2018 was one world cup that broke the record with Country teams expected to go all the way to teh final being eliminated as early s the group stages.</p>
-                <div>
-                    <div class="row">
-                        <button class="button1" type="button">Edit</button>
-                        <button class="button3" type="button">Delete</button>
-                    </div>
+                <div class="row">
+                    <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
                 </div>
             </div>
             <div class="column">
@@ -45,37 +46,30 @@
                 <p>It's intresting to find that most Ugandans dont know or havent travelled their country.They are stuck to the regions in which they stay in and never want to change.
                     One time i was shocked to find a foreginer knew more intresting places in Uganda compared to me.
                 From this moment i decided to tour Uganda.</p>
-                <div>
-                    <div class="row">
-                        <button class="button1" type="button">Edit</button>
-                        <button class="button3" type="button">Delete</button>
-                    </div>
+                <div class="row">
+                    <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
                 </div>
             </div>
             <div class="column">
                 <a href="entryno.html"><h3>Social Media Tax</h3></a>
                 <div>12/10/2018</div>
                 <p>AKA OTT has caused a lot of in Uganda.Before you would find like 100 people on you account sending statuses but now it's sometimes none.</p>
-                <div>
-                    <div class="row">
-                        <button class="button1" type="button">Edit</button>
-                        <button class="button3" type="button">Delete</button>
-                    </div>
+                <div class="row">
+                    <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
                 </div>
             </div>
             <div class="column">
                     <a href="entryno.html"><h3>Social Media Tax</h3></a>
                     <div>12/10/2018</div>
                     <p>AKA OTT has caused a lot of in Uganda.Before you would find like 100 people on you account sending statuses but now it's sometimes none.</p>
-                    <div>
-                        <div class="row">
-                            <button class="button1" type="button">Edit</button> 
-                            <button class="button3" type="button">Delete</button>
-                        </div>
+                    <div class="row">
+                        <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
                     </div>
                 </div>
+            
+        </div>
+        </section>
     </div>
-    </section>
     <footer>
             <p>Simon, Copyright &copy; 2018</p>
     </footer>
