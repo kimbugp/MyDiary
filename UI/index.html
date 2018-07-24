@@ -3,76 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>HOME</title>
+    <title>Simon's Diary</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/home.css" />
     <script src="js/main.js"></script>
 </head>
-<body>
+<body>  
     <nav>
         <ul>
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="newentry.html">Add Entry</a></li>
-            <li><a href="entry.html">My Entries</a></li>
-            <li><a href="profile.html">My Profile</a></li>
-            <li onclick="window.location.href='signin.html';" style="float:right"><a href="#" >Sign In</a></li>
+            <li><img  alt="Simon's Diary" src="media/diary.jpeg" style="width:1cm;height:1cm;"></li>
+            <div class=sign-heading>My Diary</div>
         </ul>
     </nav>
-    <section>
-            <div class="container">
-                <h1>Welcome to My Diary!</h1>
-                <img src="media/diary.jpeg" alt="Diary" style="width:2cm; height:2cm;">
-            </div>
-    </section>
-    <div>
-        <h1 style="text-align:left;">List of entries</h1>
-        <table>
-            <tr>
-                <th><a href="entryno.html">Social Media Tax</a></th>
-            </tr> 
-            <tr>
-                <th><a href="entryno.html">The World Cup 2018</a></th>
-            </tr> 
-            <tr>
-                <th><a href="entryno.html">Adventures In Uganda</a></th>
-            </tr>
-            <tr>
-                    <th><a href="entryno.html">Social Media Tax</a></th>
-                </tr>  
-        </table>
+    <div class="login">
+            <input type="text" placeholder="Username" id="username" required>  
+            <input type="password" placeholder="password" id="password" required>  
+            <a href="#" class="forgot">forgot password?</a>
+            <input type="submit" value="Sign In" onclick="window.location.href='home.html';">
+            <p class='forgot'>Don't have an account<button class="button3" type="button" onclick="window.location.href='signup.html';">Sign-up</button></p>
     </div>
-    <section id="Entries">
-        <div class="container">
-            <h2>My Diary Entries</h2>
-        </div>
-
-        <div class="row">
-            <div class="column">
-                <a href="entryno.html"><h3 style="color:aqua;">The World Cup 2018</h3></a>
-                <div>12/10/2018</div>
-                <p>Russia World cup 2018 was one world cup that broke the record with Country teams expected to go all the way to teh final being eliminated as early s the group stages.</p>
-            </div>
-            <div class="column">
-                <a href="entryno.html"><h3 style="color:aqua;">Adventures In Uganda</h3></a>
-                <div>12/10/2018</div>
-                <p>It's intresting to find that most Ugandans dont know or havent travelled their country.They are stuck to the regions in which they stay in and never want to change.
-                    One time i was shocked to find a foreginer knew more intresting places in Uganda compared to me.
-                From this moment i decided to tour Uganda.</p>
-            </div>
-            <div class="column">
-                <a href="entryno.html"><h3 style="color:aqua;">Social Media Tax</h3></a>
-                <div>12/10/2018</div>
-                <p>AKA OTT has caused a lot of in Uganda.Before you would find like 100 people on you account sending statuses but now it's sometimes none.</p>
-            </div>
-            <div class="column">
-                    <a href="entryno.html"><h3 style="color:aqua;">Social Media Tax</h3></a>
-                    <div>12/10/2018</div>
-                    <p>AKA OTT has caused a lot of in Uganda.Before you would find like 100 people on you account sending statuses but now it's sometimes none.</p>
-            </div>
-        </div>
-        </section>
-    </div>
+</div>
     <footer>
             <p>Simon, Copyright &copy; 2018</p>
     </footer>

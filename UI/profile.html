@@ -9,25 +9,27 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/profile.css" />
     <script src="js/main.js"></script>
 </head>
-<body onload="timer()">
+<body>
     <nav>
         <ul>
-            <li><a href="index.html">HOME</a></li>
+            <li><a href="home.html">HOME</a></li>
             <li><a href="newentry.html">Add Entry</a></li>
             <li><a href="entry.html">My Entries</a></li>
             <li><a href="profile.html">My Profile</a></li>
-            <li onclick="window.location.href='signin.html';" style="float:right"><a href="#">Sign In</a></li>
+            <li><img  alt="Notifications" src="media/bell.png" style="width:.5cm;height:.5cm;"></li>
+            <li onclick="window.location.href='index.html';" style="float:right"><a href="#">Sign In</a></li>
         </ul>
     </nav>
 </div>
+<div class="container">
+<!-- <div class="alert" id="alert" onclick="toggleshow()">Notification</div> -->
 <div class="card">
-        <img src="media/profilepic.jpg" alt="Simon" style="width:100%; height:5cm;">
-        <h1>Kimbugwe Simon Peter</h1>
+        <img src="media/profilepic.jpg" alt="Simon" style="width:5cm; height:5cm;">
+        <h1>Kimbugwe Simon Peter<div class='edit'><button style="background-color:#eceeee;" onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></button></div></h1>
         <p class="title">Prospecting Andela Fellow</p>
-        <p>Andela</p>
         <p><button>No of Entries:4</button></p>
-        <p><button>Contact:+256752332136</button></p>
-        <div class="alert" id="alert" onclick="toggleshow()">Notification</div>
+        <p><button>Contact:+256752332136<div class='edit' onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></div></button></p>
+        <p><button>Email:kimbsimon2@gmail.com<div class='edit' onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></div></button></p>
         <script>
             function toggleshow(){
                 var x=document.getElementById("alert");

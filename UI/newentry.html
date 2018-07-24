@@ -12,22 +12,22 @@
 <body>
     <nav>
         <ul>
-            <li><a href="index.html">HOME</a></li>
+            <li><a href="home.html">HOME</a></li>
             <li><a href="newentry.html">Add Entry</a></li>
             <li><a href="entry.html">My Entries</a></li>
             <li><a href="profile.html">My Profile</a></li>
-            <li onclick="window.location.href='signin.html';" style="float:right"><a href="#">Sign In</a></li>
+            <li><img  alt="Notifications" src="media/bell.png" style="width:.5cm;height:.5cm;"></li>
+            <li onclick="window.location.href='index.html';" style="float:right"><a href="#">Sign In</a></li>
         </ul>
         </nav>
-    <div class="entrytitle">
-        <form class="login" action="index.html" method="POST">
-            <h2>Title</h2>
-            <input type="text" name="" placeholder="Title">
-            <h2>Content</h2>
+    <div>
+        <form action="index.html" method="POST">
+            <input type="text" name="title" placeholder="Title">
+            <input type="text" name="date" placeholder="Enter Date">
             <div class="comment">
-                <textarea class="textarea" placeholder="Type your notes here.."></textarea>
+                <textarea name='content' class="textarea" cols="50" rows="10" placeholder="Type your notes here.."></textarea>
             </div>
-            <input type="submit" name="" value="Save">
+            <button type="button" onclick="window.location.href='entryno.html';">SAVE</button>
         </form>
     </div>
     <footer>
