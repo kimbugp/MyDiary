@@ -33,7 +33,19 @@ These are the series of commands you need to get it up and running on your machi
 ```python -m flask run ```
 
 ### Running Tests
+* Install nosetests and coverage
+  ```
+  $ pip install nose coverage
+  ```
 
+* Running the tests
+  ```
+  $ nosetests -v --with-coverage --cover-package=api
+  ```
+* Run pytest in root directory
+  ```
+  pytest
+  ```
 ## Features
 * Users can create an account and log in.
 * Users can view all entries to their diary.
