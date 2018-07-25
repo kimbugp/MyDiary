@@ -3,6 +3,10 @@ from flask import Flask,jsonify,make_response,request
 import sys
 import json
 
+from api import app
+from api.v1.app import entries
+
+
 app=Flask(__name__)
 class all_entries_test(unittest.TestCase):
     def create_app(self):
@@ -49,7 +53,7 @@ class all_entries_test(unittest.TestCase):
     
     def test_hello_world(self):
         testing_user = app.test_client(self)
-        response =testing_user.get('http://localhost:5000')
+        response =testing_user.get('http://localhost:5000/api/v1/')
         self.assertEqual(response.json(), {'hello': 'world'})
     
     def test_get_specific_entry(self):

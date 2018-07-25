@@ -18,4 +18,4 @@ env:
   
 # command to run tests
 script:
-  - pytest app/v1/all_entries_test.py
+  - pytest app/tests/all_entries_test.py

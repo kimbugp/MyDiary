@@ -1,5 +1,6 @@
 from flask import Flask,jsonify,make_response,request
-# from v1 import app
+from api import app
+
 #example entries
 entries=[
     {
@@ -21,7 +22,7 @@ entries=[
         'entry_content':'Test Content'
     },
 ]
-app=Flask(__name__)
+# app=Flask(__name__)
 
 
 @app.route('/api/v1/')
@@ -44,7 +45,7 @@ def get_all_entries():
         entries.append(new_entry)
         return jsonify({'Message':new_entry}),201
 
-@app.route('/entries/<entry_no>', methods=['GET','PUT'])
+@app.route('/api/v1/entries/<entry_no>', methods=['GET','PUT'])
 def single_entry(entry_no):
     if request.method=='GET':
         resultlist = [d for d in entries if d.get('entry_id', '') == entry_no]
