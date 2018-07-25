@@ -43,6 +43,11 @@ class all_entries_test(unittest.TestCase):
         assert b'1' in response.data
         assert b'3' in response.data
 
+    def test_API_can_show_all_entries(self):
+        user=app.test_client(self)
+        response=user.get("/api/v1/entries")
+        self.assertIn('1',str(response.data),msg="all entries valid")
+
     def test_API_can_make_new_entry(self):
         # Tests for a new entry
         testing_user = app.test_client(self)
@@ -53,8 +58,8 @@ class all_entries_test(unittest.TestCase):
     
     def test_hello_world(self):
         testing_user = app.test_client(self)
-        response =testing_user.get('http://localhost:5000/api/v1/')
-        self.assertEqual(response.json(), {'hello': 'world'})
+        response =testing_user.get('/api/v1/')
+        self.assertIn('hello',str(response.data))
     
     def test_get_specific_entry(self):
         # Tests getting aspecific entry
