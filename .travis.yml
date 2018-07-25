@@ -22,3 +22,7 @@ env:
 script:
   - pytest 
   - nosetests -v --with-coverage --cover-package=api
+
+#for coveralls
+after_success:
+  - coveralls
