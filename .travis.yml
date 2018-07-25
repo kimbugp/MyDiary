@@ -9,6 +9,8 @@ before_script:
 install:
   - pip install -r requirements.txt
   - pip install coverage
+  - pip install coveralls
+  - pip install nose
 
 # for codecoverage on codeclimate.com
 env:
@@ -18,4 +20,5 @@ env:
   
 # command to run tests
 script:
-  - pytest app/tests/all_entries_test.py
+  - pytest 
+  - nosetests -v --with-coverage --cover-package=api
