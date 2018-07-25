@@ -1,5 +1,6 @@
 from flask import Flask,jsonify,make_response,request
-# from v1 import app
+from api import app
+
 #example entries
 entries=[
     {
@@ -21,12 +22,12 @@ entries=[
         'entry_content':'Test Content'
     },
 ]
-app=Flask(__name__)
+# app=Flask(__name__)
 
 
 @app.route('/api/v1/')
 def index():
-    return {'hello': 'world'}
+    return jsonify({'hello': 'world'}),200
 
     
 @app.route('/api/v1/entries', methods=['GET','POST'])
@@ -37,14 +38,14 @@ def get_all_entries():
     elif request.method=="POST":
         new_entry = {
             'entry_id':len(entries) + 1,
-            'entry_date': request.json.get('date'),
-            'entry_name': request.json.get('name'),
-            'entry_content':request.json.get('content')
+            'entry_date': request.form.get('date'),
+            'entry_name': request.form.get('name'),
+            'entry_content':request.form.get('content')
         }
         entries.append(new_entry)
         return jsonify({'Message':new_entry}),201
 
-@app.route('/entries/<entry_no>', methods=['GET','PUT'])
+@app.route('/api/v1/entries/<entry_no>', methods=['GET','PUT'])
 def single_entry(entry_no):
     if request.method=='GET':
         resultlist = [d for d in entries if d.get('entry_id', '') == entry_no]
@@ -54,11 +55,17 @@ def single_entry(entry_no):
             return make_response(jsonify({'result':'not found'})),404
 
     elif request.method=='PUT':
-        update = request.get_json()
+        update = {
+            'entry_id':entry_no,
+            'entry_date': request.form.get('date'),
+            'entry_name': request.form.get('name'),
+            'entry_content':request.form.get('content')
+        }
+
         result = [entry for entry in entries if entry['entry_id'] == entry_no]
         if result:
             if 'entry_name' in update:
-                result[0]['entry_name'] = update['entry_name']
+                result[0]['entry_name'] = update['entry_id']
 
             if 'entry_content' in update:
                 result[0]['entry_content'] = update['entry_content']
@@ -66,4 +73,4 @@ def single_entry(entry_no):
             return make_response(jsonify({"Entry updated":"PUT request"})), 201
         else:
             return make_response(jsonify({"Update Failed":"ERRor"})),401
-        
+            

@@ -334,3 +334,5 @@ ASALocalRun/
 .vscode/settings.json
 .pytest_cache/v/cache/lastfailed
 app/v1/.pytest_cache/v/cache/nodeids
+tests/.pytest_cache/v/cache/lastfailed
+tests/.pytest_cache/v/cache/nodeids
