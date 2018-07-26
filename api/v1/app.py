@@ -1,26 +1,7 @@
 from flask import Flask,jsonify,make_response,request
 
 #example entries
-entries=[
-    {
-        'entry_id':1,
-        'entry_date':'25/10/1995 20:15',
-        'entry_name':'Dummy Entry',
-        'entry_content':'Test Content'
-    },
-    {
-        'entry_id':2,
-        'entry_date':'25/10/1995 20:15',
-        'entry_name':'Dummy Entry',
-        'entry_content':'Test Content'
-    },
-    {
-        'entry_id':3,
-        'entry_date':'25/10/1995 20:15',
-        'entry_name':'Dummy Entry',
-        'entry_content':'Test Content'
-    },
-]
+entries=[]
 app=Flask(__name__)
 
 
@@ -39,7 +20,7 @@ def make_new_entry():
     if request.method=="POST":
         new_entry = {
             'entry_id':len(entries) + 1,
-            'entry_date': request.form.get('date'),
+            'entry_date': request.form.get('dates'),
             'entry_name': request.form.get('name'),
             'entry_content':request.form.get('content')
         }
