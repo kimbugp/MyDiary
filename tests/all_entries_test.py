@@ -24,11 +24,16 @@ class all_entries_test(unittest.TestCase):
         app.config['TESTING'] = True
         return app
     
+
+    def tearDown(self):
+        entries[:] = []
+
+
     #test if all entries are displayed
     def test_get_all_entries(self):
         # Tests that all entries can be retrieved
-        testing_user = app.test_client(self)
-        response = testing_user.get("/api/v1/entries", content_type="application/json")
+        test_user = app.test_client(self)
+        response = test_user.get("/api/v1/entries", content_type="application/json")
         self.assertEqual(response.status_code,200)
 
     def test_API_can_create_new_entries(self):
@@ -45,20 +50,39 @@ class all_entries_test(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('Test Content', str(response.data))
     
+
     def test_hello_world(self):
         testing_user = app.test_client(self)
         response =testing_user.get('/',content_type="application/json")
-        # self.assertIn('hello',str(response.data))
+        self.assertIn('hello',str(response.data))
         self.assertEqual(response.status_code,200)
     
+
     def test_edit_an_entry(self):
         # Tests to edit an entry
-        testing_user = app.test_client(self)
-        testing_user.post('/api/v1/entries', data=json.dumps(test_entry2),
+        test_user = app.test_client(self)
+        test_user.post('/api/v1/entries', data=json.dumps(test_entry2),
                                     content_type='application/json')
-        response = testing_user.put('/api/v1/entries/1', data=json.dumps(test_entry2),
+        response = test_user.put('/api/v1/entries/1', data=json.dumps(test_entry2),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 201)
+
+    
+    def test_for_wrong_single_entry(self):
+        test_user = app.test_client(self)
+        test_user.post('/api/v1/entries',data=json.dumps(test_entry),content_type="application/json")
+        response = test_user.get('/api/v1/entries/2',data=json.dumps(test_entry),content_type='application/json')
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('not found', str(response.data))
+
+
+    def test_no_entry_to_edit(self):
+        test_user = app.test_client(self)
+        test_user.post('/api/v1/entries', data=json.dumps(test_entry2),
+                                    content_type='application/json')
+        response = test_user.put('/api/v1/entries/7', data=json.dumps(test_entry2),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 204)
         
 if __name__ == '__main__':
     unittest.main()
