@@ -49,12 +49,8 @@ def edit_an_entry_(entry_no):
 
         result = [entry for entry in entries if entry['entry_id'] == entry_no]
         if result:
-            if 'entry_name' in update:
-                result[0]['entry_name'] = update['entry_id']
-
-            if 'entry_content' in update:
-                result[0]['entry_content'] = update['entry_content']
-                
+            result[0]['entry_name'] = update['entry_id']
+            result[0]['entry_content'] = update['entry_content']  
             return make_response(jsonify({"Entry updated":"PUT request"})), 201
         else:
             return make_response(jsonify({"Update Failed":"ERRor"})),401
