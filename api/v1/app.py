@@ -18,11 +18,12 @@ def get_all_entries():
 @app.route('/api/v1/entries', methods=['POST'])
 def make_new_entry():
     if request.method=="POST":
+        data=request.json
         new_entry = {
             'entry_id':len(entries) + 1,
-            'entry_date': request.form.get('dates'),
-            'entry_name': request.form.get('name'),
-            'entry_content':request.form.get('content')
+            'entry_date': data['entry_date'],
+            'entry_name': data['entry_name'],
+            'entry_content':data['entry_content']
         }
         entries.append(new_entry)
         return make_response(jsonify({'Message':new_entry})),201
@@ -39,14 +40,14 @@ def single_entry(entry_no):
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
 def edit_an_entry_(entry_no):
-    if request.method=='PUT':
+    if request.method=="PUT":
+        data=request.json
         update = {
-            'entry_id':entry_no,
-            'entry_date': request.form.get('date'),
-            'entry_name': request.form.get('name'),
-            'entry_content':request.form.get('content')
+            'entry_id':len(entries) + 1,
+            'entry_date': data['entry_date'],
+            'entry_name': data['entry_name'],
+            'entry_content':data['entry_content']
         }
-
         result = [entry for entry in entries if entry['entry_id'] == entry_no]
         if result:
             result[0]['entry_name'] = update['entry_id']
@@ -54,4 +55,3 @@ def edit_an_entry_(entry_no):
             return make_response(jsonify({"Entry updated":"PUT request"})), 201
         else:
             return make_response(jsonify({"Update Failed":"ERRor"})),401
-            

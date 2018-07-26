@@ -13,6 +13,12 @@ test_entry= {
                 'entry_name':'Dummy Entry',
                 'entry_content':'Test Content'
             }
+test_entry2= {
+                'entry_id':'1',
+                'entry_date':'25/10/1995 20:15',
+                'entry_name':'Edited',
+                'entry_content':'Edited'
+            }
 class all_entries_test(unittest.TestCase):
     def create_app(self):
         app.config['TESTING'] = True
@@ -28,16 +34,16 @@ class all_entries_test(unittest.TestCase):
     def test_API_can_create_new_entries(self):
         test_user=app.test_client(self)
         response=test_user.post('/api/v1/entries',data=json.dumps(test_entry),content_type="application/json")
-        print(response)
-        self.assertIn('null',str(response.data),msg="all entries valid")
+        self.assertIn('Test Content',str(response.data),msg="all entries valid")
         self.assertEqual(response.status_code,201)
 
     def test_API_get_one_entry(self):
         # Tests to show one  entry
         test_user = app.test_client(self)
+        test_user.post('/api/v1/entries',data=json.dumps(test_entry),content_type="application/json")
         response = test_user.get('/api/v1/entries/1',data=json.dumps(test_entry),content_type='application/json')
         self.assertEqual(response.status_code, 200)
-        # self.assertIn('Test Content', str(response.data))
+        self.assertIn('Test Content', str(response.data))
     
     def test_hello_world(self):
         testing_user = app.test_client(self)
@@ -45,18 +51,14 @@ class all_entries_test(unittest.TestCase):
         # self.assertIn('hello',str(response.data))
         self.assertEqual(response.status_code,200)
     
-    # def test_get_specific_entry(self):
-    #     # Tests getting aspecific entry
-    #     testing_user = app.test_client(self)
-    #     # add test entry
-    #     response = testing_user.post('/api/v1/entries', data=json.dumps(self.test_entry[0]),
-    #                                 content_type='application/json')
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertIn('Your memory entitled ' + self.test_entry[0]['title'] + ' has been saved', str(response.data))
-    #     #view added entry
-    #     id = {'entry_id': 1}
-    #     response = testing_user.get('/api/v1/entries/{}'.format(id['entry_id']))
-    #     self.assertEqual(response.status_code, 200)
+    def test_edit_an_entry(self):
+        # Tests to edit an entry
+        testing_user = app.test_client(self)
+        testing_user.post('/api/v1/entries', data=json.dumps(test_entry2),
+                                    content_type='application/json')
+        response = testing_user.put('/api/v1/entries/1', data=json.dumps(test_entry2),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 201)
         
 if __name__ == '__main__':
     unittest.main()
