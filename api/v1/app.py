@@ -1,5 +1,4 @@
 from flask import Flask,jsonify,make_response,request
-from api import app
 
 #example entries
 entries=[
@@ -22,7 +21,7 @@ entries=[
         'entry_content':'Test Content'
     },
 ]
-# app=Flask(__name__)
+app=Flask(__name__)
 
 
 @app.route('/api/v1/')
