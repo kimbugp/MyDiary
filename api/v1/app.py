@@ -24,7 +24,7 @@ entries=[
 app=Flask(__name__)
 
 
-@app.route('/api/v1/')
+@app.route('/')
 def index():
     return jsonify({'hello': 'world'}),200
 
