@@ -4,19 +4,19 @@ from api import app
 #example entries
 entries=[
     {
-        'entry_id':'1',
+        'entry_id':1,
         'entry_date':'25/10/1995 20:15',
         'entry_name':'Dummy Entry',
         'entry_content':'Test Content'
     },
     {
-        'entry_id':'2',
+        'entry_id':2,
         'entry_date':'25/10/1995 20:15',
         'entry_name':'Dummy Entry',
         'entry_content':'Test Content'
     },
     {
-        'entry_id':'3',
+        'entry_id':3,
         'entry_date':'25/10/1995 20:15',
         'entry_name':'Dummy Entry',
         'entry_content':'Test Content'
@@ -30,12 +30,14 @@ def index():
     return jsonify({'hello': 'world'}),200
 
     
-@app.route('/api/v1/entries', methods=['GET','POST'])
+@app.route('/api/v1/entries', methods=['GET'])
 def get_all_entries():
     if request.method=="GET":
-        return jsonify({'entries':entries}),200
+        return make_response(jsonify({'entries':entries})),200
 
-    elif request.method=="POST":
+@app.route('/api/v1/entries', methods=['POST'])
+def make_new_entry():
+    if request.method=="POST":
         new_entry = {
             'entry_id':len(entries) + 1,
             'entry_date': request.form.get('date'),
@@ -43,9 +45,9 @@ def get_all_entries():
             'entry_content':request.form.get('content')
         }
         entries.append(new_entry)
-        return jsonify({'Message':new_entry}),201
+        return make_response(jsonify({'Message':new_entry})),201
 
-@app.route('/api/v1/entries/<entry_no>', methods=['GET','PUT'])
+@app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
 def single_entry(entry_no):
     if request.method=='GET':
         resultlist = [d for d in entries if d.get('entry_id', '') == entry_no]
@@ -54,7 +56,10 @@ def single_entry(entry_no):
         else:
             return make_response(jsonify({'result':'not found'})),404
 
-    elif request.method=='PUT':
+
+@app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
+def edit_an_entry_(entry_no):
+    if request.method=='PUT':
         update = {
             'entry_id':entry_no,
             'entry_date': request.form.get('date'),
