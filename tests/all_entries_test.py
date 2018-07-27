@@ -82,7 +82,8 @@ class all_entries_test(unittest.TestCase):
                                     content_type='application/json')
         response = test_user.put('/api/v1/entries/7', data=json.dumps(test_entry2),
                                     content_type='application/json')
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("No record", str(response.data))
         
 if __name__ == '__main__':
     unittest.main()
