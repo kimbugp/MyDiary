@@ -50,7 +50,7 @@ def edit_an_entry_(entry_no):
         update=entry(data)
         result = [entry for entry in entries if entry['entry_id'] == entry_no]
         if result:
-            result[0]['entry_name'] = update['entry_id']
+            result[0]['entry_name'] = update['entry_name']
             result[0]['entry_content'] = update['entry_content']  
             return make_response(jsonify({"Entry updated":"PUT request"})), 201
         else:
