@@ -65,7 +65,7 @@ class all_entries_test(unittest.TestCase):
                                     content_type='application/json')
         response = test_user.put('/api/v1/entries/1', data=json.dumps(test_entry2),
                                     content_type='application/json')
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
 
     
     def test_for_wrong_single_entry(self):
