@@ -1,13 +1,15 @@
 from flask import Flask,jsonify,make_response,request
+import datetime
 
 #example entries
 entries=[]
 app=Flask(__name__)
 
 def entry(var):
+    now = datetime.datetime.now()
     entry = {
             'entry_id':len(entries) + 1,
-            'entry_date': var['entry_date'],
+            'entry_date': now.strftime("%Y-%m-%d %H:%M"),
             'entry_name': var['entry_name'],
             'entry_content':var['entry_content']
         }
