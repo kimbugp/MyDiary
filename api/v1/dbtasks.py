@@ -55,7 +55,8 @@ class dboperations():
                                       self.entry_content, self.entry_id))
 
     def select_user(self, username):
-        self.username = username
-        user = (
-            "SELECT * FROM users WHERE user_id==%s", (self.username))
+        self.username =username
+        signin = ("SELECT * FROM users WHERE username=%s")
+        dict_cursor.execute(signin,(self.username))
+        user=dict_cursor.fetchall()
         return user

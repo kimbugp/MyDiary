@@ -22,9 +22,9 @@ test_entry2 = {
 
 
 class all_entries_test(unittest.TestCase):
-    def create_app(self):
-        app.config['TESTING'] = True
-        return app
+    # def create_app(self):
+    #     app.config['TESTING'] = True
+    #     return app
 
     def tearDown(self):
         entries[:] = []
