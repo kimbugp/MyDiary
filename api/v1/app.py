@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, make_response, request
 import datetime
+from models import dbase
 
 # example entries
 entries = []
