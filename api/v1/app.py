@@ -29,6 +29,12 @@ def process_json(var, id):
             'entry_content': var['entry_content']
         }
         return entry
+    elif id == 'edit':
+        entry = {
+            'entry_name': var['entry_name'],
+            'entry_content': var['entry_content']
+        }
+        return entry
 
 
 @app.route('/api/v1/auth/signup', methods=['POST'])
@@ -92,6 +98,6 @@ def single_entry(entry_no):
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
 def edit_an_entry_(entry_no):
-    data = process_json(request.json, 'entry')
-    database.edit_one_entry(data['entry_name'], data['entry_content'],data['entry_id'])
+    data = process_json(request.json, 'edit')
+    database.edit_one_entry(data['entry_name'],data['entry_content'],entry_no)
     return make_response(jsonify({'Message': 'entry edited'})), 200
