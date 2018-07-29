@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, make_response, request
 import datetime
 from models import dbase
+from werkzeug.security import generate_password_hash,check_password_hash
+
 
 # example entries
 entries = []
@@ -28,6 +30,17 @@ def get_all_entries():
     if request.method == "GET":
         return make_response(jsonify({'entries': entries})), 200
 
+@app.route('/api/v1/auth/signup',methods=['POST'])
+def create_a_user():
+    return make_response(jsonify({'Message':'User created'})), 200
+
+@app.route('/api/v1/auth/signot',methods=['POST'])
+def signout_a_user():
+    return make_response(jsonify({'Message':'User logged out'})), 200
+
+@app.route('/api/v1/auth/login',methods=['POST'])
+def sign_in_a_user():
+    return make_response(jsonify({'Message':'User signed in'})), 200
 
 @app.route('/api/v1/entries', methods=['POST'])
 def make_new_entry():
