@@ -3,6 +3,7 @@ import datetime
 from api.v1.models import dbase
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.v1.dbtasks import dboperations
+import json
 
 # example entries
 entries = []
@@ -10,30 +11,29 @@ app = Flask(__name__)
 database = dboperations()
 
 
-def entry(var):
-    now = datetime.datetime.now()
-    entry = {
-        'entry_id': len(entries) + 1,
-        'entry_date': now.strftime("%Y-%m-%d %H:%M"),
-        'entry_name': var['entry_name'],
-        'entry_content': var['entry_content']
-    }
-    return entry
-
-
-def process_json(var):
-    entry = {
-        'username': var['username'],
-        'name': var['name'],
-        'email': var['email'],
-        'password': var['password']
-    }
-    return entry
+def process_json(var, id):
+    if id == 'user':
+        user = {
+            'username': var['username'],
+            'name': var['name'],
+            'email': var['email'],
+            'password': var['password']
+        }
+        return user
+    elif id == 'entry':
+        now = datetime.datetime.now()
+        entry = {
+            'entry_id': var['entry_id'],
+            'entry_date': now.strftime("%Y-%m-%d %H:%M"),
+            'entry_name': var['entry_name'],
+            'entry_content': var['entry_content']
+        }
+        return entry
 
 
 @app.route('/api/v1/auth/signup', methods=['POST'])
 def create_a_user():
-    data = process_json(request.json)
+    data = process_json(request.json, 'user')
     hashed_password = generate_password_hash(data['password'], method='sha256')
     database.create_a_user(
         data['username'], data['name'], data['email'], hashed_password)
@@ -48,15 +48,15 @@ def create_a_user():
 
 @app.route('/api/v1/auth/login')
 def sign_in_a_user():
-    auth=request.authorization
+    auth = request.authorization
     if not auth or not auth.username or not auth.password:
-        return make_response(jsonify({'Invalid login':'try again'}))
+        return make_response(jsonify({'Invalid login': 'try again'}))
 
-    user=database.select_user(auth.username)
+    user = database.select_user(auth.username)
     if not user:
-        return make_response(jsonify({'Invalid login':'try again'})),401
-    
-    if check_password_hash(user[1],auth.password):
+        return make_response(jsonify({'Invalid login': 'try again'})), 401
+
+    if check_password_hash(user[1], auth.password):
 
         return make_response(jsonify({'Message': 'User signed in'})), 200
 
@@ -68,38 +68,30 @@ def index():
 
 @app.route('/api/v1/entries', methods=['GET'])
 def get_all_entries():
-    if request.method == "GET":
-        return make_response(jsonify({'entries': entries})), 200
+    resultlist = database.get_all_entries()
+    return make_response(jsonify({'entries':resultlist})),200
 
 
 @app.route('/api/v1/entries', methods=['POST'])
 def make_new_entry():
     if request.method == "POST":
-        data = request.json
-        new_entry = entry(data)
-        entries.append(new_entry)
-        return make_response(jsonify({'Message': new_entry})), 201
+        data = process_json(request.json, 'entry')
+        database.make_an_entry(
+            data['entry_id'], data['entry_date'], data['entry_name'], data['entry_content'])
+    return make_response(jsonify({'Message': 'entry created'})), 200
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
 def single_entry(entry_no):
-    if request.method == 'GET':
-        resultlist = [d for d in entries if d.get('entry_id', '') == entry_no]
-        if resultlist:
-            return make_response(jsonify({'entries': resultlist[0]})), 200
-        else:
-            return make_response(jsonify({'result': 'not found'})), 404
+    resultlist =database.get_one_entry(entry_no)
+    if resultlist:
+        return make_response(jsonify({'entries':resultlist})),200
+    else:
+        return make_response(jsonify({'Message': 'no entry'})), 404
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
 def edit_an_entry_(entry_no):
-    if request.method == "PUT":
-        data = request.json
-        update = entry(data)
-        result = [entry for entry in entries if entry['entry_id'] == entry_no]
-        if result:
-            result[0]['entry_name'] = update['entry_name']
-            result[0]['entry_content'] = update['entry_content']
-            return make_response(jsonify({"Entry updated": "PUT request"})), 200
-        else:
-            return make_response(jsonify({"Update Failed": "No record"})), 404
+    data = process_json(request.json, 'entry')
+    database.edit_one_entry(data['entry_name'], data['entry_content'],data['entry_id'])
+    return make_response(jsonify({'Message': 'entry edited'})), 200
