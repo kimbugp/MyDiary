@@ -1,12 +1,13 @@
 from flask import Flask, jsonify, make_response, request
 import datetime
-from models import dbase
-from werkzeug.security import generate_password_hash,check_password_hash
-
+from api.v1.models import dbase
+from werkzeug.security import generate_password_hash, check_password_hash
+from api.v1.dbtasks import dboperations
 
 # example entries
 entries = []
 app = Flask(__name__)
+database = dboperations()
 
 
 def entry(var):
@@ -20,6 +21,46 @@ def entry(var):
     return entry
 
 
+def process_json(var):
+    entry = {
+        'username': var['username'],
+        'name': var['name'],
+        'email': var['email'],
+        'password': var['password']
+    }
+    return entry
+
+
+@app.route('/api/v1/auth/signup', methods=['POST'])
+def create_a_user():
+    data = process_json(request.json)
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    database.create_a_user(
+        data['username'], data['name'], data['email'], hashed_password)
+    return make_response(jsonify({'Message': 'User created'})), 200
+
+
+# @app.route('/api/v1/auth/signout', methods=['POST'])
+# def signout_a_user():
+#     data = process_json(request.json)
+#     return make_response(jsonify({'Message': 'User logged out'})), 200
+
+
+@app.route('/api/v1/auth/login')
+def sign_in_a_user():
+    auth=request.authorization
+    if not auth or not auth.username or not auth.password:
+        return make_response(jsonify({'Invalid login':'try again'}))
+
+    user=database.select_user(auth.username)
+    if not user:
+        return make_response(jsonify({'Invalid login':'try again'})),401
+    
+    if check_password_hash(user[1],auth.password):
+
+        return make_response(jsonify({'Message': 'User signed in'})), 200
+
+
 @app.route('/')
 def index():
     return jsonify({'hello': 'world'}), 200
@@ -30,17 +71,6 @@ def get_all_entries():
     if request.method == "GET":
         return make_response(jsonify({'entries': entries})), 200
 
-@app.route('/api/v1/auth/signup',methods=['POST'])
-def create_a_user():
-    return make_response(jsonify({'Message':'User created'})), 200
-
-@app.route('/api/v1/auth/signot',methods=['POST'])
-def signout_a_user():
-    return make_response(jsonify({'Message':'User logged out'})), 200
-
-@app.route('/api/v1/auth/login',methods=['POST'])
-def sign_in_a_user():
-    return make_response(jsonify({'Message':'User signed in'})), 200
 
 @app.route('/api/v1/entries', methods=['POST'])
 def make_new_entry():

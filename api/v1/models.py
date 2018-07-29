@@ -7,8 +7,9 @@ class dbase():
     def __init__(self):
         try:
             self.conn = psycopg2.connect(
-                "dbname=diary user=postgres password=qwertyuiop")
+                "dbname=diarydb user=postgres password=qwertyuiop")
             self.cursor=self.conn.cursor()
+            self.conn.autocommit = True
         except(Exception, psycopg2.DatabaseError) as error:
             print(error)
 
@@ -27,7 +28,8 @@ class dbase():
                          "entry_date VARCHAR(50) NOT NULL,"
                          "entry_name VARCHAR(50) NOT NULL,"
                          "entry_content VARCHAR(80) NOT NULL,"
-                         "user_id VARCHAR(200) references users(id))")
+                         "user_id VARCHAR(200),FOREIGN KEY(user_id)REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE)")
+            
         self.cursor.execute(entries_table)
 
 if __name__ == '__main__':
