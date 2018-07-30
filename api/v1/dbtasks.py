@@ -37,10 +37,11 @@ class dboperations():
         data = dict_cursor.fetchall()
         return data
 
-    def get_one_entry(self, entry_id):
+    def get_one_entry(self,user_id,entry_id):
+        self.user_id=user_id
         self.entry_id = str(entry_id)
         all_entries = (
-            "SELECT entry_id,entry_date,entry_name,entry_content FROM entries WHERE entry_id={}".format(self.entry_id))
+            "SELECT entry_id,entry_date,entry_name,entry_content FROM entries WHERE entry_id={} AND user_id='{}'".format(self.entry_id,self.user_id))
         dict_cursor.execute(all_entries)
         entries = dict_cursor.fetchall()
         return entries
