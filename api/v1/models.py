@@ -27,7 +27,7 @@ class dbase():
     def create_entries_table(self):
         entries_table = ("CREATE TABLE IF NOT EXISTS entries"
                          "(entry_id serial  NOT NULL PRIMARY KEY,"
-                         "entry_date VARCHAR(50) NOT NULL,"
+                         "entry_date TIMESTAMP NOT NULL,"
                          "entry_name VARCHAR(50) NOT NULL,"
                          "entry_content VARCHAR(80) NOT NULL,"
                          "user_id VARCHAR(200))")

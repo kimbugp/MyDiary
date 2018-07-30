@@ -19,7 +19,7 @@ class dboperations():
         cursor.execute(new_user, (self.username, self.name,
                                   self.email, self.password))
 
-    def make_an_entry(self,entry_date, entry_name, entry_content):
+    def make_an_entry(self, entry_date, entry_name, entry_content):
         self.entry_name = entry_name
         self.entry_date = entry_date
         self.entry_content = entry_content
@@ -31,7 +31,7 @@ class dboperations():
     def get_all_entries(self):
         all_entries = (
             "SELECT entry_id,entry_date,entry_name,entry_content FROM entries")
-            # WHERE user_id={}".format(self.user_id)
+        # WHERE user_id={}".format(self.user_id)
         dict_cursor.execute(all_entries)
         data = dict_cursor.fetchall()
         return data
@@ -49,19 +49,19 @@ class dboperations():
         self.entry_id = str(entry_id)
         self.entry_content = entry_content
         edit_entries = (
-            "UPDATE entries SET entry_name= %s, entry_content= %s WHERE entry_id= %s")
+            "UPDATE entries SET entry_name= %s, entry_content= %s WHERE entry_id= %s AND entry_date>current_date and entry_date<current_date+1")
         cursor.execute(edit_entries, (self.entry_name,
                                       self.entry_content, self.entry_id))
 
-    def select_user(self,username):
-        self.username =username
+    def select_user(self, username):
+        self.username = username
         signin = ("SELECT * FROM users WHERE username='{}'".format(self.username))
         dict_cursor.execute(signin)
-        user=dict_cursor.fetchall()
+        user = dict_cursor.fetchall()
         return user
 
-    def delete_entry(self,entry_id):
-        self.entry_id=entry_id
-        delete=("DELETE FROM entries WHERE entry_id={}".format(self.entry_id))
+    def delete_entry(self, entry_id):
+        self.entry_id = entry_id
+        delete = ("DELETE FROM entries WHERE entry_id={}".format(self.entry_id))
         cursor.execute(delete)
         return 'successfully deleted'
