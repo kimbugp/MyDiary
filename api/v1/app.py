@@ -37,6 +37,12 @@ def process_json(var, id):
             'entry_content': var['entry_content']
         }
         return entry
+    elif id == 'signin':
+        user = {
+            'username': var['username'],
+            'password': var['password']
+        }
+        return user
 
 
 @app.route('/api/v1/auth/signup', methods=['POST'])
@@ -54,23 +60,14 @@ def create_a_user():
 #     return make_response(jsonify({'Message': 'User logged out'})), 200
 
 
-@app.route('/api/v1/auth/login')
+@app.route('/api/v1/auth/login', methods=['POST'])
 def sign_in_a_user():
-    user = database.select_user('simon')
-    return jsonify({'mesage': user})
-    # auth = request.authorization
-    # if not auth or not auth.username or not auth.password:
-    #     return make_response(jsonify({'Invalid login': 'try again'}), 401)
-
-    # user = database.select_user(auth.username)
-    # if not user:
-    #     return make_response(jsonify({'Invalid login': 'try again'}), 401)
-
-    # if check_password_hash(user['password'], auth.password):
-    #     token = jwt.encode({'public_id': user['user_id'], 'exp': datetime.datetime.utcnow(
-    #     )+datetime.timedelta(minutes=20)}, app.config['SECRET_KEY'])
-    #     return jsonify({'token':token.decode('UTF-8')})
-    # return make_response(jsonify({'Invalid login': 'try again'}), 401)
+    data = process_json(request.json, 'signin')
+    user = database.select_user(data['username'])
+    if check_password_hash(user['password'], data['password']):
+        return jsonify({'message':'your token'})
+    else:
+        return make_response(jsonify({'Message': 'Invalid login'}), 401)
 
 
 @app.route('/')
@@ -109,7 +106,8 @@ def edit_an_entry_(entry_no):
         data['entry_name'], data['entry_content'], entry_no)
     return make_response(jsonify({'Message': 'entry edited'})), 200
 
-@app.route('/api/v1/entries/<int:entry_no>',methods=['DELETE'])
+
+@app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
 def delete_an_entry(entry_no):
-    message=database.delete_entry(entry_no)
-    return make_response(jsonify({'Message':message})), 200
+    message = database.delete_entry(entry_no)
+    return make_response(jsonify({'Message': message})), 200

@@ -53,10 +53,10 @@ class dboperations():
         cursor.execute(edit_entries, (self.entry_name,
                                       self.entry_content, self.entry_id))
 
-    def select_user(self, username):
+    def select_user(self,username):
         self.username =username
-        signin = ("SELECT * FROM users WHERE username=%s")
-        dict_cursor.execute(signin,(self.username))
+        signin = ("SELECT * FROM users WHERE username={}".format(self.username))
+        dict_cursor.execute(signin)
         user=dict_cursor.fetchall()
         return user
 
