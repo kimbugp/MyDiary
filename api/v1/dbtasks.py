@@ -55,7 +55,7 @@ class dboperations():
 
     def select_user(self,username):
         self.username =username
-        signin = ("SELECT * FROM users WHERE username={}".format(self.username))
+        signin = ("SELECT * FROM users WHERE username='{}'".format(self.username))
         dict_cursor.execute(signin)
         user=dict_cursor.fetchall()
         return user

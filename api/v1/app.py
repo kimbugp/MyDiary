@@ -64,11 +64,14 @@ def create_a_user():
 def sign_in_a_user():
     data = process_json(request.json, 'signin')
     user = database.select_user(data['username'])
-    if check_password_hash(user['password'], data['password']):
-        return jsonify({'message':'your token'})
+    # import pdb; pdb.set_trace()
+    if user:
+        if check_password_hash(user[0]['password'], data['password']):
+            return jsonify({'message':'your token'})
+        else:
+            return make_response(jsonify({'Message': 'Invalid login'}), 401)
     else:
         return make_response(jsonify({'Message': 'Invalid login'}), 401)
-
 
 @app.route('/')
 def index():
@@ -102,9 +105,13 @@ def single_entry(entry_no):
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
 def edit_an_entry_(entry_no):
     data = process_json(request.json, 'edit')
-    database.edit_one_entry(
+    resultlist = database.get_one_entry(entry_no)
+    if resultlist:
+        database.edit_one_entry(
         data['entry_name'], data['entry_content'], entry_no)
-    return make_response(jsonify({'Message': 'entry edited'})), 200
+        return make_response(jsonify({'Message': 'entry edited'})), 200
+    else:
+        return make_response(jsonify({'Message': 'no such entry'})), 200
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
