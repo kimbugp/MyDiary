@@ -64,9 +64,10 @@ class dboperations():
         user = dict_cursor.fetchall()
         return user
 
-    def delete_entry(self, entry_id):
+    def delete_entry(self,user_id, entry_id):
         self.entry_id = entry_id
-        delete = ("DELETE FROM entries WHERE entry_id={}".format(self.entry_id))
+        self.user_id = user_id
+        delete = ("DELETE FROM entries WHERE entry_id={} and user_id='{}'".format(self.entry_id,self.user_id))
         cursor.execute(delete)
         return 'successfully deleted'
 

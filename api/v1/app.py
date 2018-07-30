@@ -182,5 +182,5 @@ End Point to delete an existing entry
 @app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
 @token_header
 def delete_an_entry(user_id, entry_no):
-    message = database.delete_entry(entry_no)
+    message = database.delete_entry(user_id,entry_no)
     return make_response(jsonify({'Message': message})), 200
