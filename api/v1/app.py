@@ -7,8 +7,6 @@ import json
 import jwt
 
 
-# example entries
-entries = []
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()
@@ -52,12 +50,6 @@ def create_a_user():
     database.create_a_user(
         data['username'], data['name'], data['email'], hashed_password)
     return make_response(jsonify({'Message': 'User created'})), 200
-
-
-# @app.route('/api/v1/auth/signout', methods=['POST'])
-# def signout_a_user():
-#     data = process_json(request.json)
-#     return make_response(jsonify({'Message': 'User logged out'})), 200
 
 
 @app.route('/api/v1/auth/login', methods=['POST'])
