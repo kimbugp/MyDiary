@@ -17,7 +17,7 @@ class dbase():
 
     def create_user_table(self):
         user_table = ("CREATE TABLE IF NOT EXISTS users"
-                      "(id serial  NOT NULL PRIMARY KEY,"
+                      "(user_id serial  NOT NULL PRIMARY KEY,"
                       "username VARCHAR(50) NOT NULL,"
                       "name VARCHAR(50) NOT NULL,"
                       "email VARCHAR(80) NOT NULL,"

@@ -5,11 +5,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from api.v1.dbtasks import dboperations
 import json
 import jwt
+from functools import wraps
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()
+
+
+''' Function to process json recieved from browser'''
 
 
 def process_json(var, id):
@@ -43,6 +47,28 @@ def process_json(var, id):
         return user
 
 
+''' Function to get the token using the header'''
+
+
+def token_header(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        if 'token' in request.headers:
+            token = request.headers['token']
+
+        if not token:
+            return make_response(jsonify({'message': 'No auth token'}), 401)
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            user = database.select_user_id(data['user_id'])
+            user_id = user[0]['user_id']
+        except:
+            return make_response(jsonify({'message': 'Invalid token'}), 401)
+        return f(user_id, *args, **kwargs)
+    return decorated
+
+
 """
 End Point to create an account for a user
 """
@@ -69,7 +95,9 @@ def sign_in_a_user():
     # import pdb; pdb.set_trace()
     if user:
         if check_password_hash(user[0]['password'], data['password']):
-            return jsonify({'message': 'your token'})
+            token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow(
+            )+datetime.timedelta(minutes=20)}, app.config['SECRET_KEY'])
+            return jsonify({'Token': token.decode('UTF-8')})
         else:
             return make_response(jsonify({'Message': 'Invalid login'}), 401)
     else:
@@ -92,8 +120,9 @@ End Point get all entries for a user
 
 
 @app.route('/api/v1/entries', methods=['GET'])
-def get_all_entries():
-    resultlist = database.get_all_entries()
+@token_header
+def get_all_entries(user_id):
+    resultlist = database.get_all_entries(user_id)
     return make_response(jsonify({'entries': resultlist})), 200
 
 
@@ -103,11 +132,12 @@ End Point to create an entry
 
 
 @app.route('/api/v1/entries', methods=['POST'])
-def make_new_entry():
+@token_header
+def make_new_entry(user_id):
     if request.method == "POST":
         data = process_json(request.json, 'entry')
         database.make_an_entry(
-            data['entry_date'], data['entry_name'], data['entry_content'])
+            user_id, data['entry_date'], data['entry_name'], data['entry_content'])
     return make_response(jsonify({'Message': 'entry created'})), 200
 
 
@@ -117,7 +147,8 @@ End Point to get an single entry
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
-def single_entry(entry_no):
+@token_header
+def single_entry(user_id,entry_no):
     resultlist = database.get_one_entry(entry_no)
     if resultlist:
         return make_response(jsonify({'entries': resultlist})), 200
@@ -131,7 +162,8 @@ End Point to edit an existing entry
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
-def edit_an_entry_(entry_no):
+@token_header
+def edit_an_entry_(user_id,entry_no):
     data = process_json(request.json, 'edit')
     resultlist = database.get_one_entry(entry_no)
     if resultlist:
@@ -148,6 +180,7 @@ End Point to delete an existing entry
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
-def delete_an_entry(entry_no):
+@token_header
+def delete_an_entry(user_id,entry_no):
     message = database.delete_entry(entry_no)
     return make_response(jsonify({'Message': message})), 200
