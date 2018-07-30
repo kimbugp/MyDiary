@@ -148,8 +148,8 @@ End Point to get an single entry
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
 @token_header
-def single_entry(user_id,entry_no):
-    resultlist = database.get_one_entry(user_id,entry_no)
+def single_entry(user_id, entry_no):
+    resultlist = database.get_one_entry(user_id, entry_no)
     if resultlist:
         return make_response(jsonify({'entries': resultlist})), 200
     else:
@@ -163,12 +163,12 @@ End Point to edit an existing entry
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
 @token_header
-def edit_an_entry_(user_id,entry_no):
+def edit_an_entry_(user_id, entry_no):
     data = process_json(request.json, 'edit')
-    resultlist = database.get_one_entry(user_id,entry_no)
+    resultlist = database.get_one_entry(user_id, entry_no)
     if resultlist:
         database.edit_one_entry(
-            data['entry_name'], data['entry_content'], entry_no)
+            user_id, data['entry_name'], data['entry_content'], entry_no)
         return make_response(jsonify({'Message': 'entry edited'})), 200
     else:
         return make_response(jsonify({'Message': 'no such entry'})), 200
@@ -181,6 +181,6 @@ End Point to delete an existing entry
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
 @token_header
-def delete_an_entry(user_id,entry_no):
+def delete_an_entry(user_id, entry_no):
     message = database.delete_entry(entry_no)
     return make_response(jsonify({'Message': message})), 200
