@@ -19,11 +19,10 @@ class dboperations():
         cursor.execute(new_user, (self.username, self.name,
                                   self.email, self.password))
 
-    def make_an_entry(self, user_id, entry_date, entry_name, entry_content):
+    def make_an_entry(self,entry_date, entry_name, entry_content):
         self.entry_name = entry_name
         self.entry_date = entry_date
         self.entry_content = entry_content
-        self.user_id = user_id
         new_entry = (
             "INSERT INTO entries(entry_date,entry_name,entry_content) VALUES(%s,%s,%s)")
         cursor.execute(new_entry, (self.entry_date,
@@ -32,7 +31,7 @@ class dboperations():
     def get_all_entries(self):
         all_entries = (
             "SELECT entry_id,entry_date,entry_name,entry_content FROM entries")
-        # WHERE user_id=%s
+            # WHERE user_id={}".format(self.user_id)
         dict_cursor.execute(all_entries)
         data = dict_cursor.fetchall()
         return data
@@ -40,8 +39,8 @@ class dboperations():
     def get_one_entry(self, entry_id):
         self.entry_id = str(entry_id)
         all_entries = (
-            "SELECT entry_id,entry_date,entry_name,entry_content FROM entries WHERE entry_id=%s")
-        dict_cursor.execute(all_entries, (self.entry_id))
+            "SELECT entry_id,entry_date,entry_name,entry_content FROM entries WHERE entry_id={}".format(self.entry_id))
+        dict_cursor.execute(all_entries)
         entries = dict_cursor.fetchall()
         return entries
 
@@ -60,3 +59,9 @@ class dboperations():
         dict_cursor.execute(signin,(self.username))
         user=dict_cursor.fetchall()
         return user
+
+    def delete_entry(self,entry_id):
+        self.entry_id=entry_id
+        delete=("DELETE FROM entries WHERE entry_id={}".format(self.entry_id))
+        cursor.execute(delete)
+        return 'successfully deleted'

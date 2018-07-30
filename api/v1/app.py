@@ -26,7 +26,6 @@ def process_json(var, id):
     elif id == 'entry':
         now = datetime.datetime.now()
         entry = {
-            'entry_id': var['entry_id'],
             'entry_date': now.strftime("%Y-%m-%d %H:%M"),
             'entry_name': var['entry_name'],
             'entry_content': var['entry_content']
@@ -58,7 +57,7 @@ def create_a_user():
 @app.route('/api/v1/auth/login')
 def sign_in_a_user():
     user = database.select_user('simon')
-    return jsonify({'mesage':user})
+    return jsonify({'mesage': user})
     # auth = request.authorization
     # if not auth or not auth.username or not auth.password:
     #     return make_response(jsonify({'Invalid login': 'try again'}), 401)
@@ -72,7 +71,6 @@ def sign_in_a_user():
     #     )+datetime.timedelta(minutes=20)}, app.config['SECRET_KEY'])
     #     return jsonify({'token':token.decode('UTF-8')})
     # return make_response(jsonify({'Invalid login': 'try again'}), 401)
-    
 
 
 @app.route('/')
@@ -91,7 +89,7 @@ def make_new_entry():
     if request.method == "POST":
         data = process_json(request.json, 'entry')
         database.make_an_entry(
-            data['entry_id'], data['entry_date'], data['entry_name'], data['entry_content'])
+            data['entry_date'], data['entry_name'], data['entry_content'])
     return make_response(jsonify({'Message': 'entry created'})), 200
 
 
@@ -110,3 +108,8 @@ def edit_an_entry_(entry_no):
     database.edit_one_entry(
         data['entry_name'], data['entry_content'], entry_no)
     return make_response(jsonify({'Message': 'entry edited'})), 200
+
+@app.route('/api/v1/entries/<int:entry_no>',methods=['DELETE'])
+def delete_an_entry(entry_no):
+    message=database.delete_entry(entry_no)
+    return make_response(jsonify({'Message':message})), 200
