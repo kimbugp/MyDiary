@@ -71,5 +71,10 @@ class UserTests(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertIn('Check your login', str(response.data))
 
+    def test_hello_world(self):
+        testing_user = app.test_client(self)
+        response = testing_user.get('/', content_type="application/json")
+        self.assertIn('hello', str(response.data))
+        self.assertEqual(response.status_code, 200)
 if __name__ == '__main__':
     unittest.main()
