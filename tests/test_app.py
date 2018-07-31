@@ -42,6 +42,8 @@ class all_entries_test(unittest.TestCase):
     def tearDown(self):
         clear_user_table = "DELETE from users"
         cursor.execute(clear_user_table)
+        clear_user_table = "DELETE from entries"
+        cursor.execute(clear_user_table)
 
     def test_get_all_entries(self):
         test_user = app.test_client(self)
