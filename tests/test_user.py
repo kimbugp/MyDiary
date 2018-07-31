@@ -39,15 +39,17 @@ class UserTests(unittest.TestCase):
 
     def test_user_already_exists(self):
         test_user = app.test_client(self)
-        test_user.post("/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
-        response=test_user.post("/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
-        self.assertEqual(response.status_code,400)
-        # self.assertIn('User created', str(response.data))
-        
+        test_user.post("/api/v1/auth/signup",
+                       data=json.dumps(test_user_data), content_type="application/json")
+        response = test_user.post(
+            "/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('User already exists', str(response.data))
 
     def test_can_login_user(self):
         test_user = app.test_client(self)
-        test_user.post("/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
+        test_user.post("/api/v1/auth/signup",
+                       data=json.dumps(test_user_data), content_type="application/json")
         response = test_user.post('/api/v1/auth/login',
                                   data=json.dumps(test_sign_in),
                                   content_type='application/json')
@@ -61,10 +63,11 @@ class UserTests(unittest.TestCase):
                                   content_type='application/json')
         self.assertEqual(response.status_code, 401)
         self.assertIn('Invalid login', str(response.data))
-    
+
     def test_invalid_password(self):
         test_user = app.test_client(self)
-        test_user.post("/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
+        test_user.post("/api/v1/auth/signup",
+                       data=json.dumps(test_user_data), content_type="application/json")
         response = test_user.post('/api/v1/auth/login',
                                   data=json.dumps(test_wrong_sign_in),
                                   content_type='application/json')
@@ -76,5 +79,7 @@ class UserTests(unittest.TestCase):
         response = testing_user.get('/', content_type="application/json")
         self.assertIn('hello', str(response.data))
         self.assertEqual(response.status_code, 200)
+
+
 if __name__ == '__main__':
     unittest.main()
