@@ -47,10 +47,10 @@ class dboperations():
         entries = dict_cursor.fetchall()
         return entries
     def get_an_id(self):
-        entry_id=("select entry_id from entries")
+        entry_id=("select * from entries")
         dict_cursor.execute(entry_id)
         my_id = dict_cursor.fetchone()
-        return my_id
+        return my_id['entry_id']
     def edit_one_entry(self, user_id, entry_name, entry_content, entry_id):
         self.user_id = user_id
         self.entry_name = entry_name

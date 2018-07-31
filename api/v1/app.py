@@ -78,12 +78,12 @@ End Point to create an account for a user
 def create_a_user():
     data = process_json(request.json, 'user')
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    user=database.select_user(data['username'])
+    user = database.select_user(data['username'])
     if not user:
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
         return make_response(jsonify({'Message': 'User created'})), 200
-    return make_response(jsonify({'Message': 'User already exists'}),400)    
+    return make_response(jsonify({'Message': 'User already exists'}), 400)
 
 
 """
@@ -100,7 +100,7 @@ def sign_in_a_user():
         if check_password_hash(user[0]['password'], data['password']):
             token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow(
             )+datetime.timedelta(minutes=20)}, app.config['SECRET_KEY'])
-            return make_response(jsonify({'Token': token.decode('UTF-8')}),200)
+            return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
         else:
             return make_response(jsonify({'Message': 'Check your login'}), 401)
     else:
@@ -174,7 +174,7 @@ def edit_an_entry_(user_id, entry_no):
             user_id, data['entry_name'], data['entry_content'], entry_no)
         return make_response(jsonify({'Message': 'entry edited'})), 200
     else:
-        return make_response(jsonify({'Message': 'no such entry'})), 200
+        return make_response(jsonify({'Message': 'no such entry'})), 404
 
 
 """
@@ -185,5 +185,5 @@ End Point to delete an existing entry
 @app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
 @token_header
 def delete_an_entry(user_id, entry_no):
-    message = database.delete_entry(user_id,entry_no)
+    message = database.delete_entry(user_id, entry_no)
     return make_response(jsonify({'Message': message})), 200
