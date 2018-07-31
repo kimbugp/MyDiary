@@ -33,8 +33,17 @@ class UserTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('User created', str(response.data))
 
+    def test_user_already_exists(self):
+        test_user = app.test_client(self)
+        test_user.post("/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
+        response=test_user.post("/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
+        self.assertEqual(response.status_code,400)
+        # self.assertIn('User created', str(response.data))
+        
+
     def test_can_login_user(self):
         test_user = app.test_client(self)
+        test_user.post("/api/v1/auth/signup", data=json.dumps(test_user_data), content_type="application/json")
         response = test_user.post('/api/v1/auth/login',
                                   data=json.dumps(test_sign_in),
                                   content_type='application/json')
