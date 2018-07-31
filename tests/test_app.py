@@ -66,10 +66,19 @@ class all_entries_test(unittest.TestCase):
         test_user.post('/api/v1/entries', headers=self.token,
                        data=json.dumps(test_entry),
                        content_type='application/json')
-        response = test_user.get('/api/v1/entries/1', headers=self.token,
+        database.get_one_entry
+        response = test_user.get('/api/v1/entries/12', headers=self.token,
                                  content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn("Test content", str(response.data))
+
+    def test_getting_non_existing_entry(self):
+        test_user = app.test_client(self)
+        response = test_user.get('/api/v1/entries/12', headers=self.token,
+                                 content_type='application/json')
+        self.assertEqual(response.status_code, 404)
+        self.assertIn("no entry", str(response.data))
+
 
 if __name__ == '__main__':
     unittest.main()
