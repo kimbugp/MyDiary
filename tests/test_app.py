@@ -78,17 +78,35 @@ class all_entries_test(unittest.TestCase):
                                  content_type='application/json')
         self.assertEqual(response.status_code, 404)
         self.assertIn("no entry", str(response.data))
+
     def test_editing_an_entry(self):
         test_user = app.test_client(self)
         test_user.post('/api/v1/entries', headers=self.token,
                        data=json.dumps(test_entry),
-                       content_type='application/json')   
+                       content_type='application/json')
         response = test_user.put('/api/v1/entries/1', headers=self.token,
-                       data=json.dumps(test_entry),
-                       content_type='application/json')  
+                                 data=json.dumps(test_entry),
+                                 content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn("entry edited", str(response.data))
-    
 
+    def test_deleting_an_entry(self):
+        test_user = app.test_client(self)
+        test_user.post('/api/v1/entries', headers=self.token,
+                       data=json.dumps(test_entry),
+                       content_type='application/json')
+        response = test_user.delete('/api/v1/entries/1', headers=self.token,
+                                    data=json.dumps(test_entry),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("successfully deleted", str(response.data))
+
+    def test_editing_non_existing_entry(self):
+        test_user = app.test_client(self)
+        response = test_user.put('/api/v1/entries/1', headers=self.token,
+                                 data=json.dumps(test_entry),
+                                 content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("entry edited", str(response.data))
 if __name__ == '__main__':
     unittest.main()
