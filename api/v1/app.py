@@ -7,7 +7,9 @@ import json
 import jwt
 from functools import wraps
 
-
+db = dbase()
+db.create_entries_table()
+db.create_user_table()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()

@@ -34,8 +34,3 @@ class dbase():
 
         self.cursor.execute(entries_table)
 
-
-if __name__ == '__main__':
-    db = dbase()
-    db.create_entries_table()
-    db.create_user_table()
