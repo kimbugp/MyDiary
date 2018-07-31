@@ -101,6 +101,22 @@ class all_entries_test(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("successfully deleted", str(response.data))
 
+    def test_user_working_with_no_token(self):
+        test_user = app.test_client(self)
+        response = test_user.post('/api/v1/entries',
+                                  data=json.dumps(test_entry),
+                                  content_type='application/json')
+        self.assertEqual(response.status_code,401)
+        self.assertIn("No auth token", str(response.data))
+    def test_user_with_wrong_token(self):
+        test_user = app.test_client(self)
+        response = test_user.post('/api/v1/entries',headers={"token":"ddddd"},
+                                  data=json.dumps(test_entry),
+                                  content_type='application/json')
+        self.assertEqual(response.status_code,401)
+        self.assertIn("Invalid token", str(response.data))
+        
+
     # def test_editing_non_existing_entry(self):
     #     test_user = app.test_client(self)
     #     response = test_user.put('/api/v1/entries/1', headers=self.token,
