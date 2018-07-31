@@ -50,6 +50,13 @@ class UserTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn('Token', str(response.data))
 
+    def test_wrong_user_login(self):
+        test_user = app.test_client(self)
+        response = test_user.post('/api/v1/auth/login',
+                                  data=json.dumps(test_sign_in),
+                                  content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+        self.assertIn('Invalid login', str(response.data))
 
 if __name__ == '__main__':
     unittest.main()
