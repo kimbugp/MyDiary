@@ -78,9 +78,12 @@ End Point to create an account for a user
 def create_a_user():
     data = process_json(request.json, 'user')
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    database.create_a_user(
-        data['username'], data['name'], data['email'], hashed_password)
-    return make_response(jsonify({'Message': 'User created'})), 200
+    user=database.select_user(data['username'])
+    if not user:
+        database.create_a_user(
+            data['username'], data['name'], data['email'], hashed_password)
+        return make_response(jsonify({'Message': 'User created'})), 200
+    return make_response(jsonify({'Message': 'User already exists'}),400)    
 
 
 """
@@ -97,7 +100,7 @@ def sign_in_a_user():
         if check_password_hash(user[0]['password'], data['password']):
             token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow(
             )+datetime.timedelta(minutes=20)}, app.config['SECRET_KEY'])
-            return jsonify({'Token': token.decode('UTF-8')})
+            return make_response(jsonify({'Token': token.decode('UTF-8')}),200)
         else:
             return make_response(jsonify({'Message': 'Invalid login'}), 401)
     else:
