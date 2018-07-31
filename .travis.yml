@@ -8,7 +8,7 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - psql -c 'create database diarydb;' -U postgres
-  - python /api/v1/models.py
+  - python api/v1/models.py
 install:
   - pip install -r requirements.txt
   - pip install coverage
