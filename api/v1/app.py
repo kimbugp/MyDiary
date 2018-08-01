@@ -20,33 +20,51 @@ database = dboperations()
 
 def process_json(var, id):
     if id == 'user':
-        user = {
-            'username': var['username'],
-            'name': var['name'],
-            'email': var['email'],
-            'password': var['password']
-        }
-        return user
+        try:
+            user = {
+                'username': var['username'],
+                'name': var['name'],
+                'email': var['email'],
+                'password': var['password']
+            }
+            return user
+        except:
+            error = "parameter missing"
+            return error
     elif id == 'entry':
-        now = datetime.datetime.now()
-        entry = {
-            'entry_date': now.strftime("%Y-%m-%d %H:%M"),
-            'entry_name': var['entry_name'],
-            'entry_content': var['entry_content']
-        }
-        return entry
+        try:
+            now = datetime.datetime.now()
+            entry = {
+                'entry_date': now.strftime("%Y-%m-%d %H:%M"),
+                'entry_name': var['entry_name'],
+                'entry_content': var['entry_content']
+            }
+            return entry
+        except:
+            error = "parameter missing"
+            return error
     elif id == 'edit':
-        entry = {
-            'entry_name': var['entry_name'],
-            'entry_content': var['entry_content']
-        }
-        return entry
+        try:
+            entry = {
+                'entry_name': var['entry_name'],
+                'entry_content': var['entry_content']
+            }
+            return entry
+        except:
+            error = "parameter missing"
+            return error
+
     elif id == 'signin':
-        user = {
+        try:
+            user = {
             'username': var['username'],
             'password': var['password']
         }
-        return user
+            return user
+        except:
+            error = "parameter missing"
+            return error
+        
 
 
 ''' Function to get the token using the header'''
@@ -79,6 +97,8 @@ End Point to create an account for a user
 @app.route('/api/v1/auth/signup', methods=['POST'])
 def create_a_user():
     data = process_json(request.json, 'user')
+    if data == "parameter missing":
+        return make_response(jsonify({'message': 'parameter missing'}), 401)
     hashed_password = generate_password_hash(data['password'], method='sha256')
     user = database.select_user(data['username'])
     if not user:
@@ -96,6 +116,8 @@ End Point to log a user into their account
 @app.route('/api/v1/auth/login', methods=['POST'])
 def sign_in_a_user():
     data = process_json(request.json, 'signin')
+    if data == "parameter missing":
+        return make_response(jsonify({'message': 'parameter missing'}), 401)
     user = database.select_user(data['username'])
     # import pdb; pdb.set_trace()
     if user:
@@ -141,6 +163,8 @@ End Point to create an entry
 def make_new_entry(user_id):
     if request.method == "POST":
         data = process_json(request.json, 'entry')
+        if data == "parameter missing":
+            return make_response(jsonify({'message': 'parameter missing'}), 401)
         database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'], data['entry_content'])
     return make_response(jsonify({'Message': 'entry created'})), 200
@@ -170,6 +194,8 @@ End Point to edit an existing entry
 @token_header
 def edit_an_entry_(user_id, entry_no):
     data = process_json(request.json, 'edit')
+    if data == "parameter missing":
+        return make_response(jsonify({'message': 'parameter missing'}), 401)
     resultlist = database.get_one_entry(user_id, entry_no)
     if resultlist:
         database.edit_one_entry(
