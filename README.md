@@ -14,20 +14,35 @@ You need to install the following:
 These are the series of commands you need to get it up and running on your machine 
 #### Clone the repo into your local machine
 
-```git clone https://github.com/kimbugp/Mydiary```
+```
+git clone https://github.com/kimbugp/Mydiary
+```
 #### Install virtual environment 
-``` C:\Users\User>virtualenv venv```
+``` 
+C:\Users\User>virtualenv venv
+```
 #### Activate virtual environment
-``` C:\Users\User>venv\Scripts\activate``` 
+``` 
+C:\Users\User>venv\Scripts\activate
+``` 
 
-```(venv) C:\Users\User> ```
-#### Install flask in the virtual environment 
-```(venv) C:\Users\User>pip install flask```
+```
+(venv) C:\Users\User>
+ ```
 
-### Move to the directory with the app 
-```cd /MyDiary/app/v1```
+### Move to the directory of the cloned repository folder
+  ```
+   (venv)cd /MyDiary
+  ```
+#### Install modules required for the app 
+```
+(venv) $ pip install>requirements.txt
+```
+
 ### Run the server with the command
-```python -m flask run ```
+```
+python -m flask run 
+```
 
 ### Running Tests
 * Install nosetests and coverage
@@ -38,10 +53,6 @@ These are the series of commands you need to get it up and running on your machi
 * Running the tests
   ```
   $ nosetests -v --with-coverage --cover-package=api
-  ```
-* Run pytest in root directory
-  ```
-  pytest
   ```
 ## Features
 * Users can create an account and log in.
