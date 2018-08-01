@@ -3,9 +3,11 @@ python:
   - "3.6"
 cache: pip
 # command to install dependencies
+
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+  - psql -c 'create database diarydb;' -U postgres
 install:
   - pip install -r requirements.txt
   - pip install coverage
@@ -26,3 +28,4 @@ script:
 #for coveralls
 after_success:
   - coveralls
+
