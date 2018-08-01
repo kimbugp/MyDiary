@@ -67,6 +67,13 @@ class dboperations():
         dict_cursor.execute(signin)
         user = dict_cursor.fetchall()
         return user
+    def verify_new_user(self,username,email):
+        self.username = username
+        self.email=email
+        signin = ("SELECT * FROM users WHERE username='{}' or email='{}'".format(self.username,self.email))
+        dict_cursor.execute(signin)
+        user = dict_cursor.fetchall()
+        return user
 
     def delete_entry(self,user_id, entry_id):
         self.entry_id = entry_id

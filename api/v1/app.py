@@ -6,6 +6,7 @@ from api.v1.dbtasks import dboperations
 import json
 import jwt
 from functools import wraps
+from pyisemail import is_email
 
 db = dbase()
 db.create_entries_table()
@@ -100,12 +101,14 @@ def create_a_user():
     if data == "parameter missing":
         return make_response(jsonify({'message': 'parameter missing'}), 401)
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    user = database.select_user(data['username'])
-    if not user:
+    user = database.verify_new_user(data['username'],data['email'])
+    if not user and is_email(data['email']):
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
         return make_response(jsonify({'Message': 'User created'})), 200
-    return make_response(jsonify({'Message': 'User already exists'}), 400)
+    elif not is_email(data['email']):
+        return make_response(jsonify({'Message': 'invalid email'}), 400)
+    return make_response(jsonify({'Message': 'User already exists or invalid email'}), 400)
 
 
 """
