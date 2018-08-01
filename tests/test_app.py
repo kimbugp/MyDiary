@@ -25,6 +25,9 @@ test_entry = {
     "entry_name": "Test name",
     "entry_content": "Test content"
 }
+wrong_test_entry = {
+    "entry_content": "Test content"
+}
 
 
 class all_entries_test(unittest.TestCase):
@@ -62,6 +65,11 @@ class all_entries_test(unittest.TestCase):
                                   content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn("entry created", str(response.data))
+        response2 = test_user.post('/api/v1/entries', headers=self.token,
+                                  data=json.dumps(wrong_test_entry),
+                                  content_type='application/json')
+        self.assertEqual(response2.status_code,401)
+        self.assertIn('parameter missing', str(response2.data))
 
     def test_getting_single_entry(self):
         test_user = app.test_client(self)
@@ -92,6 +100,11 @@ class all_entries_test(unittest.TestCase):
                                  content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn("entry edited", str(response.data))
+        response2 = test_user.put('/api/v1/entries/{}'.format(my_id), headers=self.token,
+                                 data=json.dumps(wrong_test_entry),
+                                 content_type='application/json')
+        self.assertEqual(response2.status_code,401)
+        self.assertIn('parameter missing', str(response2.data))
 
     def test_deleting_an_entry(self):
         test_user = app.test_client(self)
