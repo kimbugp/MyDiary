@@ -33,4 +33,3 @@ class dbase():
                          "user_id VARCHAR(200))")
 
         self.cursor.execute(entries_table)
-
