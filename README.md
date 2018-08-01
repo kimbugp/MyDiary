@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/kimbugp/MyDiary.svg?branch=develop)](https://travis-ci.org/kimbugp/MyDiary)
-[![Coverage Status](https://coveralls.io/repos/github/kimbugp/MyDiary/badge.svg?branch=master)](https://coveralls.io/github/kimbugp/MyDiary?branch=master)
+[![Build Status](https://travis-ci.org/kimbugp/MyDiary.svg?branch=challenge-3)](https://travis-ci.org/kimbugp/MyDiary)
+[![Coverage Status](https://coveralls.io/repos/github/kimbugp/MyDiary/badge.svg?branch=challenge-3)](https://coveralls.io/github/kimbugp/MyDiary?branch=challenge-3)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4b137dbde922e2570098/maintainability)](https://codeclimate.com/github/kimbugp/MyDiary/maintainability)
 # My Diary 
 MyDiary is an online journal where users can pen down their thoughts and feelings.
@@ -61,9 +61,11 @@ This project is licensed under the MIT License
 	
    | METHOD     |        ACTIVITY   |                  ENDPOINT|
    | :---         |     :---:      |          ---: |
-  | GET            | fetching all entries    |      api/v1/entries
-  | POST            |Creating an entry        |      api/v1/entries
- | GET             |Fething a specific entry   |    api/v1/entries/<<int:entryid>>
+   | POST         |  register a user | /api/v1/auth/signup 
+   | POST         |  login a user | /api/v1/auth/login
+  | GET            | fetching all entries for a user   |      api/v1/entries
+  | POST            |Creating an entry for a user      |      api/v1/entries
+ | GET             |Fetching a specific entry for a user |    api/v1/entries/<<int:entryid>>
  | PUT             |Updating a specific entry     | api/v1/entries/<<int:entryid>>
 
 ## Authors
