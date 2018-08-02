@@ -20,13 +20,13 @@ class all_entries_test(TestingClass):
     def test_making_a_new_entry(self):
         """Method to test making an entry"""
         response = create_an_entry(self.test_user)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
         self.assertIn("entry created", str(response.data))
 
     def test_mising_signup_parameter(self):
         """Method to test missing signup parameter"""
         response = create_wrong_entry(self.test_user)
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 400)
         self.assertIn('parameter missing', str(response.data))
 
     def test_getting_single_entry(self):
@@ -51,7 +51,7 @@ class all_entries_test(TestingClass):
     def test_missing_parameter(self):
         """Method to test missing parameter"""
         response = wrong_data(self.test_user)
-        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.status_code, 400)
         self.assertIn('parameter missing', str(response.data))
 
     def test_deleting_an_entry(self):

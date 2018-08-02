@@ -92,13 +92,13 @@ def create_a_user():
     """
     data = process_json(request.json, 'user')
     if data == "parameter missing":
-        return make_response(jsonify({'message': 'parameter missing'}), 401)
+        return make_response(jsonify({'message': 'parameter missing'}), 400)
     hashed_password = generate_password_hash(data['password'], method='sha256')
     user = database.verify_new_user(data['username'], data['email'])
     if not user and is_email(data['email']):
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
-        return make_response(jsonify({'Message': 'User created'})), 200
+        return make_response(jsonify({'Message': 'User created'})), 201
     elif not is_email(data['email']):
         return make_response(jsonify({'Message': 'invalid email'}), 400)
     return make_response(jsonify({'Message': 'User already exists\
@@ -122,9 +122,9 @@ def sign_in_a_user():
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
         else:
-            return make_response(jsonify({'Message': 'Check your login'}), 401)
+            return make_response(jsonify({'Message': 'Check your login'}), 403)
     else:
-        return make_response(jsonify({'Message': 'Invalid login'}), 401)
+        return make_response(jsonify({'Message': 'Invalid login'}), 403)
 
 
 @app.route('/')
@@ -154,11 +154,11 @@ def make_new_entry(user_id):
     if request.method == "POST":
         data = process_json(request.json, 'entry')
         if data == "parameter missing":
-            return make_response(jsonify({'message': 'parameter missing'}), 401)
+            return make_response(jsonify({'message': 'parameter missing'}), 400)
         database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'],
             data['entry_content'])
-    return make_response(jsonify({'Message': 'entry created'})), 200
+    return make_response(jsonify({'Message': 'entry created'})), 201
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
@@ -183,7 +183,7 @@ def edit_an_entry_(user_id, entry_no):
     """
     data = process_json(request.json, 'edit')
     if data == "parameter missing":
-        return make_response(jsonify({'message': 'parameter missing'}), 401)
+        return make_response(jsonify({'message': 'parameter missing'}), 400)
     resultlist = database.get_one_entry(user_id, entry_no)
     if resultlist:
         database.edit_one_entry(

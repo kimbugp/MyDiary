@@ -37,7 +37,15 @@ def user_create_token(test_user):
                               content_type='application/json')
     token = response.json
     return token
-
+def user(test_user):
+    """FUnction to signin"""
+    test_user.post(
+        "/api/v1/auth/signup", data=json.dumps(
+            test_user_data), content_type="application/json")
+    response = test_user.post('/api/v1/auth/login',
+                              data=json.dumps(test_sign_in),
+                              content_type='application/json')
+    return response
 
 def user_create(test_user):
     """Function to create a user"""
