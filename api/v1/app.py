@@ -101,8 +101,7 @@ def create_a_user():
         return make_response(jsonify({'Message': 'User created'})), 201
     elif not is_email(data['email']):
         return make_response(jsonify({'Message': 'invalid email'}), 400)
-    return make_response(jsonify({'Message': 'User already exists\
-                                 or email'}), 400)
+    return make_response(jsonify({'Message': 'User already exists'}), 400)
 
 
 @app.route('/api/v1/auth/login', methods=['POST'])

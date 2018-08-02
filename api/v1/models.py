@@ -1,10 +1,11 @@
+"""Model for database"""
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from config import DevelopmentConfig
 
 
 class dbase():
-
+    """Class  for database"""
     def __init__(self):
         try:
             self.conn = psycopg2.connect(DevelopmentConfig.DATABASE_URL)
@@ -16,6 +17,7 @@ class dbase():
             print(error)
 
     def create_user_table(self):
+        """Method to create user table"""
         user_table = ("CREATE TABLE IF NOT EXISTS users"
                       "(user_id serial  NOT NULL PRIMARY KEY,"
                       "username VARCHAR(50) UNIQUE NOT NULL,"
@@ -25,11 +27,13 @@ class dbase():
         self.cursor.execute(user_table)
 
     def create_entries_table(self):
+        """Method to create entries table"""
         entries_table = ("CREATE TABLE IF NOT EXISTS entries"
                          "(entry_id serial  NOT NULL PRIMARY KEY,"
                          "entry_date TIMESTAMP NOT NULL,"
                          "entry_name VARCHAR(50) NOT NULL,"
                          "entry_content VARCHAR(80) NOT NULL,"
-                         "user_id VARCHAR(200))")
+                         "user_id VARCHAR(200) ,FOREIGN KEY (user_id)\
+                          REFERENCES users(user_id))")
 
         self.cursor.execute(entries_table)
