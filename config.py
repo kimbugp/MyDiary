@@ -4,21 +4,21 @@ user_password = 'qwertyuiop'
 
 
 class Config:
-    DEBUG = False
+    DEBUG = True
     TESTING = False
 
 
 class DevelopmentConfig(Config):
     db_name = 'diarydb'
-    DEBUG = True
-    TESTING = False
+    # DEBUG = True
+    # # TESTING = False
     DATABASE_URL = 'postgresql://' + db_user + ': ' + \
         user_password + '@localhost/' + db_name + ''
 
 
 class TestingConfig(Config):
     db_name = 'diarydb_test'
-    DEBUG = True
+    # DEBUG = True
     TESTING = True
     DATABASE_URL = 'postgresql://' + db_user + ': ' + \
         user_password + '@localhost/' + db_name + ''
@@ -29,5 +29,5 @@ app_config = {
     "testing": TestingConfig
 }
 
-def configure_app(app):
-    app.config.from_object(app_config[DevelopmentConfig])
+# def configure_app(configuration):
+#     app.config.from_object(configuration)
