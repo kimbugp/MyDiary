@@ -1,7 +1,7 @@
 """Model for database"""
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from config import DevelopmentConfig
+from config import DevelopmentConfig,TestingConfig
 
 
 class dbase():
@@ -13,7 +13,7 @@ class dbase():
             self.dict_cursor = self.conn.cursor(
                 cursor_factory=RealDictCursor)
             self.conn.autocommit = True
-        except(Exception, psycopg2.DatabaseError) as error:
+        except psycopg2.DatabaseError as error:
             print(error)
 
     def create_user_table(self):
@@ -33,7 +33,7 @@ class dbase():
                          "entry_date TIMESTAMP NOT NULL,"
                          "entry_name VARCHAR(50) NOT NULL,"
                          "entry_content VARCHAR(80) NOT NULL,"
-                         "user_id VARCHAR(200) ,FOREIGN KEY (user_id)\
-                          REFERENCES users(user_id))")
+                         "user_id INTEGER ,FOREIGN KEY (user_id)\
+                          REFERENCES users(user_id) ON DELETE CASCADE)")
 
         self.cursor.execute(entries_table)

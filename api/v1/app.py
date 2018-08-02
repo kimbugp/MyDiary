@@ -8,10 +8,11 @@ from flask import Flask, jsonify, make_response, request
 from api.v1.models import dbase
 from api.v1.dbtasks import dboperations
 
-db = dbase()
-db.create_entries_table()
-db.create_user_table()
+
 app = Flask(__name__)
+db = dbase()
+db.create_user_table()
+db.create_entries_table()
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()
 
