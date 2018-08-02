@@ -1,50 +1,49 @@
+"""Module to test login/signup user activity """
 import unittest
-import json
-from tests import *
-from tests.base import *
+from tests.base import (TestingClass, user_create, wrong_user,
+                        helo, wrong_details, wrong_sign_in)
+
 
 class UserTests(TestingClass):
+    """Class to test endpoints"""
 
     def test_user_signup(self):
+        """Method to test signup"""
         response = user_create(self.test_user)
         self.assertEqual(response.status_code, 200)
         self.assertIn('User created', str(response.data))
 
     def test_user_signup_wrong(self):
+        """Method to test wrong signup"""
         response = wrong_user(self.test_user)
         self.assertEqual(response.status_code, 401)
         self.assertIn('parameter missing', str(response.data))
 
     def test_user_already_exists(self):
+        """Method to test existing user"""
         user_create(self.test_user)
-        response =user_create(self.test_user)
+        response = user_create(self.test_user)
         self.assertEqual(response.status_code, 400)
         self.assertIn('User already exists', str(response.data))
 
     def test_can_login_user(self):
-        response=user_create(self.test_user)
+        """Method to test signin"""
+        response = user_create(self.test_user)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_user_cant_login_with_wrong_details(self):
+        """Method to test sign in with wrong detail"""
         response = wrong_details(self.test_user)
         self.assertIn('parameter missing', str(response.data))
 
     def test_wrong_user_login(self):
-        response=wrong_sign_in(self.test_user)
+        """Method to test sign in with wrong detail"""
+        response = wrong_sign_in(self.test_user)
         self.assertEqual(response.status_code, 401)
         self.assertIn('Invalid login', str(response.data))
 
-    # def test_invalid_password(self):
-    #     test_user = app.test_client(self)
-    #     test_user.post("/api/v1/auth/signup",
-    #                    data=json.dumps(test_user_data), content_type="application/json")
-    #     response = test_user.post('/api/v1/auth/login',
-    #                               data=json.dumps(test_wrong_sign_in),
-    #                               content_type='application/json')
-    #     self.assertEqual(response.status_code, 401)
-    #     self.assertIn('Check your login', str(response.data))
-
     def test_hello_world(self):
+        """Method to test hello world"""
         response = helo(self.test_user)
         self.assertIn('hello', str(response.data))
         self.assertEqual(response.status_code, 200)

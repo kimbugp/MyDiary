@@ -3,7 +3,6 @@ import datetime
 from api.v1.models import dbase
 from werkzeug.security import generate_password_hash, check_password_hash
 from api.v1.dbtasks import dboperations
-import json
 import jwt
 from functools import wraps
 from pyisemail import is_email
@@ -58,14 +57,13 @@ def process_json(var, id):
     elif id == 'signin':
         try:
             user = {
-            'username': var['username'],
-            'password': var['password']
-        }
+                'username': var['username'],
+                'password': var['password']
+            }
             return user
         except:
             error = "parameter missing"
             return error
-        
 
 
 ''' Function to get the token using the header'''
@@ -101,14 +99,15 @@ def create_a_user():
     if data == "parameter missing":
         return make_response(jsonify({'message': 'parameter missing'}), 401)
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    user = database.verify_new_user(data['username'],data['email'])
+    user = database.verify_new_user(data['username'], data['email'])
     if not user and is_email(data['email']):
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
         return make_response(jsonify({'Message': 'User created'})), 200
     elif not is_email(data['email']):
         return make_response(jsonify({'Message': 'invalid email'}), 400)
-    return make_response(jsonify({'Message': 'User already exists or invalid email'}), 400)
+    return make_response(jsonify({'Message': 'User already exists\
+                                 or email'}), 400)
 
 
 """
@@ -125,8 +124,9 @@ def sign_in_a_user():
     # import pdb; pdb.set_trace()
     if user:
         if check_password_hash(user[0]['password'], data['password']):
-            token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow(
-            )+datetime.timedelta(minutes=20)}, app.config['SECRET_KEY'])
+            token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.
+                                datetime.utcnow()+datetime.timedelta(minutes=20)},
+                               app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
         else:
             return make_response(jsonify({'Message': 'Check your login'}), 401)
@@ -169,7 +169,8 @@ def make_new_entry(user_id):
         if data == "parameter missing":
             return make_response(jsonify({'message': 'parameter missing'}), 401)
         database.make_an_entry(
-            user_id, data['entry_date'], data['entry_name'], data['entry_content'])
+            user_id, data['entry_date'], data['entry_name'],
+            data['entry_content'])
     return make_response(jsonify({'Message': 'entry created'})), 200
 
 

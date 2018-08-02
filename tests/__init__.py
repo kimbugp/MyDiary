@@ -1,12 +1,9 @@
-import unittest
+""" Inintialisation file for tests"""
 from config import TestingConfig
 from api import app
-from api.v1.models import dbase
-from api.v1.dbtasks import dboperations
-#set up the configs
-#
-app.config.from_object(TestingConfig)
 
+app.config.from_object(TestingConfig)
+#Test data
 test_user_data = {
     "username": "peter",
     "name": "Simon Peter",
@@ -36,11 +33,3 @@ test_wrong_sign_in = {
     "username": "peter",
     "password": "12345"
 }
-
-
-
-#define mock data
-
-#create base class with Api test class with setup and teardown and db connection
-
-#hellper methods for repeated scenario code
