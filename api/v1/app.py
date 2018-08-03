@@ -119,8 +119,7 @@ def sign_in_a_user():
     # import pdb; pdb.set_trace()
     if user:
         if check_password_hash(user[0]['password'], data['password']):
-            token = jwt.encode({'user_id': user[0]['user_id'], 'exp\
-                               ': datetime.datetime.utcnow() +
+            token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow() +
                                datetime.timedelta(minutes=20)},
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
