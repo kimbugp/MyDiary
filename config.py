@@ -1,14 +1,16 @@
-import os
+"""Module to configure database"""
 db_user = 'postgres'
 user_password = 'qwertyuiop'
 
 
 class Config:
+    """Class to configure database"""
     DEBUG = True
     TESTING = False
 
 
 class DevelopmentConfig(Config):
+    """Class to configure database to developer"""
     db_name = 'diarydb'
     # DEBUG = True
     # # TESTING = False
@@ -17,6 +19,7 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    """Class to configure database to testing"""
     db_name = 'diarydb_test'
     # DEBUG = True
     TESTING = True

@@ -38,7 +38,10 @@ C:\Users\User>venv\Scripts\activate
 ```
 (venv) $ pip install>requirements.txt
 ```
-
+#### Create database by running the following command
+```
+psql -c 'create database diarydb;' -U postgres
+```
 ### Run the server with the command
 ```
 python -m flask run 

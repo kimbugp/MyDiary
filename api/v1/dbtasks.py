@@ -1,3 +1,4 @@
+"""Module to perform database tasks"""
 from api.v1.models import dbase
 
 db = dbase()
@@ -6,8 +7,10 @@ dict_cursor = db.dict_cursor
 
 
 class dboperations():
+    """Class to perform database operations"""
 
     def create_a_user(self, username, name, email, password):
+        """Method to create a user"""
         self.username = username
         self.name = name
         self.email = email
@@ -19,6 +22,7 @@ class dboperations():
                                   self.email, self.password))
 
     def make_an_entry(self, user_id, entry_date, entry_name, entry_content):
+        """Method to create an entry"""
         self.entry_name = entry_name
         self.user_id = user_id
         self.entry_date = entry_date
@@ -31,6 +35,7 @@ class dboperations():
                                    self.user_id))
 
     def get_all_entries(self, user_id):
+        """Method to get all entries"""
         self.user_id = user_id
         all_entries = (
             "SELECT entry_id,entry_date,entry_name,entry_content FROM entries \
@@ -40,6 +45,7 @@ class dboperations():
         return data
 
     def get_one_entry(self, user_id, entry_id):
+        """Method to get onne entry"""
         self.user_id = user_id
         self.entry_id = str(entry_id)
         all_entries = (
@@ -51,12 +57,14 @@ class dboperations():
         return entries
 
     def get_an_id(self):
+        """Method to get a user id"""
         entry_id = ("select * from entries")
         dict_cursor.execute(entry_id)
         my_id = dict_cursor.fetchone()
         return my_id['entry_id']
 
     def edit_one_entry(self, user_id, entry_name, entry_content, entry_id):
+        """Method to edit an entry"""
         self.user_id = user_id
         self.entry_name = entry_name
         self.entry_id = str(entry_id)
@@ -69,6 +77,7 @@ class dboperations():
                                       self.entry_content, self.entry_id))
 
     def select_user(self, username):
+        """Method to check a user"""
         self.username = username
         signin = ("SELECT * FROM users WHERE username='{}'"
                   .format(self.username))
@@ -77,6 +86,7 @@ class dboperations():
         return user
 
     def verify_new_user(self, username, email):
+        """Method to verify a user"""
         self.username = username
         self.email = email
         signin = (
@@ -87,15 +97,17 @@ class dboperations():
         return user
 
     def delete_entry(self, user_id, entry_id):
+        """Method to delete an entry"""
         self.entry_id = entry_id
         self.user_id = user_id
         delete = ("DELETE FROM entries WHERE entry_id={} and \
-                    user_id='{}'".format(
-                    self.entry_id, self.user_id))
+                  user_id='{}'".format(
+            self.entry_id, self.user_id))
         cursor.execute(delete)
         return 'successfully deleted'
 
     def select_user_id(self, user_id):
+        """Method to get a user-id"""
         self.user_id = user_id
         signin = ("SELECT * FROM users WHERE user_id='{}'"
                   .format(self.user_id))

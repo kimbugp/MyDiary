@@ -22,7 +22,6 @@ env:
   
 # command to run tests
 script:
-  - pytest 
   - nosetests -v --with-coverage --cover-package=api
 
 #for coveralls
