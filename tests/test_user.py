@@ -2,7 +2,7 @@
 import unittest
 from tests.base import (TestingClass, user_create, wrong_user,
                         helo, wrong_details, wrong_sign_in,
-                        user_create_token,user)
+                        user)
 
 
 class UserTests(TestingClass):
@@ -40,7 +40,7 @@ class UserTests(TestingClass):
     def test_wrong_user_login(self):
         """Method to test sign in with wrong detail"""
         response = wrong_sign_in(self.test_user)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
         self.assertIn('Invalid login', str(response.data))
 
     def test_hello_world(self):

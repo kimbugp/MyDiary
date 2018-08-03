@@ -1,7 +1,7 @@
 """Model for database"""
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from config import DevelopmentConfig,TestingConfig
+from config import DevelopmentConfig
 
 
 class dbase():

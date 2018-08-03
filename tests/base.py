@@ -7,7 +7,7 @@ from api.v1.models import dbase
 from api.v1.dbtasks import dboperations
 from tests import (test_user_data, test_sign_in, test_entry, wrong_test_entry,
                    wrong_test_user_data, wrong_test_sign_in, test_wrong_sign_in)
-app.config["testing"]=True
+app.config["testing"] = True
 database = dboperations()
 db = dbase()
 cursor = db.cursor
@@ -37,6 +37,8 @@ def user_create_token(test_user):
                               content_type='application/json')
     token = response.json
     return token
+
+
 def user(test_user):
     """FUnction to signin"""
     test_user.post(
@@ -46,6 +48,7 @@ def user(test_user):
                               data=json.dumps(test_sign_in),
                               content_type='application/json')
     return response
+
 
 def user_create(test_user):
     """Function to create a user"""

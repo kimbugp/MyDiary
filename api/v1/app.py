@@ -114,19 +114,20 @@ def sign_in_a_user():
     """
     data = process_json(request.json, 'signin')
     if data == "parameter missing":
-        return make_response(jsonify({'message': 'parameter missing'}), 401)
+        return make_response(jsonify({'message': 'parameter missing'}), 400)
     user = database.select_user(data['username'])
     # import pdb; pdb.set_trace()
     if user:
         if check_password_hash(user[0]['password'], data['password']):
-            token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow() +
-                                datetime.timedelta(minutes=20)},
+            token = jwt.encode({'user_id': user[0]['user_id'], 'exp\
+                               ': datetime.datetime.utcnow() +
+                               datetime.timedelta(minutes=20)},
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
         else:
-            return make_response(jsonify({'Message': 'Check your login'}), 403)
+            return make_response(jsonify({'Message': 'Check your login'}), 401)
     else:
-        return make_response(jsonify({'Message': 'Invalid login'}), 403)
+        return make_response(jsonify({'Message': 'Invalid login'}), 401)
 
 
 @app.route('/')
@@ -155,7 +156,7 @@ def make_new_entry(user_id):
     """
     if request.method == "POST":
         data = process_json(request.json, 'entry')
-        if data == "parameter missing":
+        if data == "parameter missing" or not all(data.values()):
             return make_response(jsonify({'message': 'parameter missing'}), 400)
         database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'],
