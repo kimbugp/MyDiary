@@ -120,7 +120,7 @@ def sign_in_a_user():
     if user:
         if check_password_hash(user[0]['password'], data['password']):
             token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow() +
-                               datetime.timedelta(minutes=20)},
+                                datetime.timedelta(minutes=20)},
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
         else:
@@ -204,3 +204,11 @@ def delete_an_entry(user_id, entry_no):
 
     message = database.delete_entry(user_id, entry_no)
     return make_response(jsonify({'Message': message})), 200
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """
+    End Point to catch 404s
+    """
+    return make_response(jsonify({'Message': 'Page not found'})), 404
