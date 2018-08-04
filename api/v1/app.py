@@ -1,6 +1,7 @@
 """Main API"""
 import datetime
 from functools import wraps
+import re
 import jwt
 from pyisemail import is_email
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -96,14 +97,14 @@ def create_a_user():
         return make_response(jsonify({'message': 'parameter missing'}), 400)
     hashed_password = generate_password_hash(data['password'], method='sha256')
     user = database.verify_new_user(data['username'], data['email'])
-    if not user and is_email(data['email']) and all(data.values()):
+    if not user and is_email(data['email']) and all(data.values()) and re.match("^[A-Za-z0-9_-]*$", data['username']):
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
         return make_response(jsonify({'Message': 'User created'})), 201
     elif not is_email(data['email']):
         return make_response(jsonify({'Message': 'invalid email'}), 400)
-    elif not all(data.values()):
-        return make_response(jsonify({'Message': 'Empty parameter'}), 400)
+    elif not all(data.values()) or not re.match("^[A-Za-z0-9_-]*$", data['username']):
+        return make_response(jsonify({'Message': 'invalid input'}), 400)
     return make_response(jsonify({'Message': 'User already exists'}), 400)
 
 
