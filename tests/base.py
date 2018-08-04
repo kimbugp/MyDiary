@@ -193,3 +193,8 @@ def helo(test_user):
     """Function to test hello world"""
     response = test_user.get('/', content_type="application/json")
     return response
+
+def error_page(test_user):
+    """Function to test 404 errors"""
+    response = test_user.get('/3/', content_type="application/json")
+    return response

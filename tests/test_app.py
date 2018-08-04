@@ -4,7 +4,7 @@ from tests.base import (get_an_entry, TestingClass,
                         get_single_entry, no_existing_entry,
                         edit_entry, wrong_data,
                         delete_entry, no_token, edit_no_entry, wrong_token,
-                        unittest)
+                        unittest,error_page)
 
 
 class all_entries_test(TestingClass):
@@ -77,6 +77,11 @@ class all_entries_test(TestingClass):
         response = edit_no_entry(self.test_user)
         self.assertEqual(response.status_code, 404)
         self.assertIn("no such entry", str(response.data))
+    
+    def test_catching_general_404(self):
+        """Method to test genral 404"""
+        response = error_page(self.test_user)
+        self.assertEqual(response.status_code, 404)
 
 
 if __name__ == '__main__':
