@@ -54,6 +54,11 @@ python -m flask run
   ```
 
 * Running the tests
+  * Set the environment variable
+  ```
+  $ set app_env=testing
+  ```
+  * Run the tests
   ```
   $ nosetests -v --with-coverage --cover-package=api
   ```

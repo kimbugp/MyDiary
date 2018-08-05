@@ -7,7 +7,7 @@ from api.v1.models import dbase
 from api.v1.dbtasks import dboperations
 from tests import (test_user_data, test_sign_in, test_entry, wrong_test_entry,
                    wrong_test_user_data, wrong_test_sign_in, test_wrong_sign_in)
-app_env = 'testing'
+app.config["testing"] = True
 database = dboperations()
 db = dbase()
 cursor = db.cursor
@@ -19,6 +19,7 @@ class TestingClass(unittest.TestCase):
 
     def setUp(self):
         self.test_user = app.test_client(self)
+        
 
     def tearDown(self):
         clear_user_table = "DELETE from users CASCADE"
@@ -193,7 +194,6 @@ def helo(test_user):
     """Function to test hello world"""
     response = test_user.get('/', content_type="application/json")
     return response
-
 
 def error_page(test_user):
     """Function to test 404 errors"""
