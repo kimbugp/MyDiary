@@ -1,0 +1,77 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: "My diary API"
+  description: MyDiary is an online journal where users can pen down their thoughts and feelings. 
+host: simondb.herokuapp.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /api/v1/auth/signup:
+    x-summary: User Signup
+    post:
+      summary: Allows a user to create an account
+      responses:
+        201:
+          description: User Created
+          examples:
+            application/json:
+              username: "peter"
+              name: "Simon Peter"
+              email: "kimbugwe@gmail.com"
+              password: "12345678"
+  /api/v1/auth/login:
+    x-summary: User Sign In
+    post:
+      summary: Allows a user to login into their account and provide a token for use
+      responses:
+        200:
+          description: User logged in 
+          examples:
+            application/json:
+              username: "peter"
+              password: "12345678"
+  /api/v1/entries:
+    x-summary: Create/View diary entries
+    post:
+      summary: Allows user to create an entry
+      responses:
+        201:
+          description: Entry created
+          examples:
+            application/json:
+    get:
+      summary: Allows user to view all entries
+      responses:
+        200:
+          description: Shows all entries
+          examples:
+            application/json:
+  /api/v1/entries/<int:entry_id>:
+    x-summary: Operations on a single entry
+    get:
+      summary: Allows user to view a single entry in his diary
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:
+    put:
+      summary: Allows user to edit a diary entry
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:
+    delete:
+      summary: Allows user to delete an entry
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:
