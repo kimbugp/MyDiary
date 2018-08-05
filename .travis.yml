@@ -7,7 +7,8 @@ cache: pip
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
-  - psql -c 'create database diarydb;' -U postgres
+  - psql -c 'create database diarydb_test;' -U postgres
+  - app_env=testing
 install:
   - pip install -r requirements.txt
   - pip install coverage

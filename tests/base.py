@@ -19,6 +19,7 @@ class TestingClass(unittest.TestCase):
 
     def setUp(self):
         self.test_user = app.test_client(self)
+        
 
     def tearDown(self):
         clear_user_table = "DELETE from users CASCADE"
