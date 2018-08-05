@@ -54,6 +54,10 @@ python -m flask run
   ```
 
 * Running the tests
+  * Setup test database
+  ```
+psql -c 'create database diarydb;' -U postgres
+```
   * Set the environment variable
   ```
   $ set app_env=testing
