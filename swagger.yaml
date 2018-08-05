@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: '1.0'
-  title: "My diary API"
+  title: "Diary API"
   description: MyDiary is an online journal where users can pen down their thoughts and feelings. 
 host: simondb.herokuapp.com
 basePath: /
