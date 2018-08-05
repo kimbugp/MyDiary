@@ -52,3 +52,26 @@ paths:
           description: Shows all entries
           examples:
             application/json:
+  /api/v1/entries/<int:entry_id>:
+    x-summary: View an individual entry for a user
+    get:
+      summary: Allows user to view a single entry in his diary
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:
+    put:
+      summary: Allows user to edit a diary entry
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:
+    delete:
+      summary: Allows user to delete an entry
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:
