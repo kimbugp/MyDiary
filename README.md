@@ -54,6 +54,15 @@ python -m flask run
   ```
 
 * Running the tests
+  * Setup test database
+  ```
+  psql -c 'create database diarydb_test;' -U postgres
+  ```
+  * Set the environment variable
+  ```
+  $ set app_env=testing
+  ```
+  * Run the tests
   ```
   $ nosetests -v --with-coverage --cover-package=api
   ```

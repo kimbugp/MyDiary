@@ -1,20 +1,22 @@
 """Model for database"""
+import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from config import DevelopmentConfig
+from config import DevelopmentConfig, TestingConfig
 
 
 class dbase():
     """Class  for database"""
     def __init__(self):
-        try:
+        app_env = os.environ.get('app_env', None)
+        if app_env == 'testing':
+            self.conn = psycopg2.connect(TestingConfig.DATABASE_URL)
+        else:
             self.conn = psycopg2.connect(DevelopmentConfig.DATABASE_URL)
-            self.cursor = self.conn.cursor()
-            self.dict_cursor = self.conn.cursor(
+        self.cursor = self.conn.cursor()
+        self.dict_cursor = self.conn.cursor(
                 cursor_factory=RealDictCursor)
-            self.conn.autocommit = True
-        except psycopg2.DatabaseError as error:
-            print(error)
+        self.conn.autocommit = True
 
     def create_user_table(self):
         """Method to create user table"""
