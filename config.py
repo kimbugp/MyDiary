@@ -14,10 +14,10 @@ class DevelopmentConfig(Config):
     db_name = 'diarydb'
     DATABASE_URL = 'postgresql://' + db_user + ': ' + \
         user_password + '@localhost/' + db_name + \
-        '' or "postgres://zjmricklwnsavr:1842468d\
-        23fa9a32e29cccbec9163b97cd4480ef\
-        949084cc7524fdf9cccc4a20@ec2-54-221-210-97.compute-1.amazonaws.com:\
-        5432/dcqilp2it5cbhp"
+        '' or "postgres://ezymjdsrogukfj:394336d320362\
+        66cd504ec43d602407c04d5a81a83e3f5973dc5f12bae5c55\
+        5c@ec2-54-243-61-173.compute-1.amazonaws.com:5432/\
+        d5uu5bi14khue"
 
 
 class TestingConfig(Config):
