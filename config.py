@@ -12,13 +12,9 @@ class Config:
 class DevelopmentConfig(Config):
     """Class to configure database to developer"""
     db_name = 'diarydb'
-    DATABASE_URL = "postgres://ezymjdsrogukfj:394336d320362\
-        66cd504ec43d602407c04d5a81a83e3f5973dc5f12bae5c55\
-        5c@ec2-54-243-61-173.compute-1.amazonaws.com:5432/\
-        d5uu5bi14khue"
-        # 'postgresql://' + db_user + ': ' + \
-        # user_password + '@localhost/' + db_name + \
-        # '' or 
+    DATABASE_URL = 'postgresql://' + db_user + ': ' + \
+        user_password + '@localhost/' + db_name + \
+        '' or "postgres://ezymjdsrogukfj:394336d32036266cd504ec43d602407c04d5a81a83e3f5973dc5f12bae5c555c@ec2-54-243-61-173.compute-1.amazonaws.com:5432/d5uu5bi14khue"
 
 
 class TestingConfig(Config):
