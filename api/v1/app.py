@@ -219,4 +219,4 @@ def documentation():
     """
     End Point for documentation
     """
-    return redirect('https://kimbug.docs.apiary.io')
+    return redirect('https://kimbug.docs.apiary.io', code=302)
