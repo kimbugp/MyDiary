@@ -92,6 +92,7 @@ This project is licensed under the MIT License
  | GET             |Fetching a specific entry for a user |    api/v1/entries/<<int:entryid>>
  | PUT             |Updating a specific entry     | api/v1/entries/<<int:entryid>>
  | Documentation  | Show documentation  | /docs
+ | GET  | Show user profile   | api/v1/profile
 
 ## Authors
 * Kimbugwe Simon Peter 
