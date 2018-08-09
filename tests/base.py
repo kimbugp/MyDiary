@@ -19,7 +19,6 @@ class TestingClass(unittest.TestCase):
 
     def setUp(self):
         self.test_user = app.test_client(self)
-        
 
     def tearDown(self):
         clear_user_table = "DELETE from users CASCADE"
@@ -195,7 +194,17 @@ def helo(test_user):
     response = test_user.get('/', content_type="application/json")
     return response
 
+
 def error_page(test_user):
     """Function to test 404 errors"""
     response = test_user.get('/3/', content_type="application/json")
+    return response
+
+
+def profile(test_user):
+    """Function to test retruning profile"""
+    create_an_entry(test_user)
+    response = test_user.get('/api/v1/profile',
+                             headers=user_create_token(test_user),
+                             content_type='application/json')
     return response

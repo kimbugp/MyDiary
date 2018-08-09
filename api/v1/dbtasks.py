@@ -114,3 +114,14 @@ class dboperations():
         dict_cursor.execute(signin)
         user = dict_cursor.fetchall()
         return user
+
+    def get_profile(self, user_id):
+        """Method to get user profile"""
+        self.user_id = user_id
+        profile = ("select username,email,name,count(entries.user_id)\
+                   from users left join entries on entries.user_id=users.user_id\
+                   where users.user_id={} group by users.user_id"
+                  .format(self.user_id))
+        dict_cursor.execute(profile)
+        user = dict_cursor.fetchall()
+        return user

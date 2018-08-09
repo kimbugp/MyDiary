@@ -5,7 +5,7 @@ import re
 import jwt
 from pyisemail import is_email
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, jsonify, make_response, request,redirect
+from flask import Flask, jsonify, make_response, request, redirect
 from api.v1.models import dbase
 from api.v1.dbtasks import dboperations
 
@@ -214,9 +214,20 @@ def page_not_found(e):
     """
     return make_response(jsonify({'Message': 'Page not found'})), 404
 
+
 @app.route('/docs')
 def documentation():
     """
     End Point for documentation
     """
     return redirect('https://kimbug.docs.apiary.io', code=302)
+
+
+@app.route('/api/v1/profile', methods=['GET'])
+@token_header
+def view_profile(user_id):
+    """
+    End Point to view user profile
+    """
+    response = database.get_profile(user_id)
+    return make_response(jsonify(response), 200)

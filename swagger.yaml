@@ -101,3 +101,13 @@ paths:
           examples:
             application/json:
               /api/v1/entries/1
+  /api/v1/profile:
+    x-summary: View the user profile
+    get:
+      summary: Allows user to view their profile
+      responses:
+        200:
+          description: OK
+          examples:
+            application/json:
+              /api/v1/profile
