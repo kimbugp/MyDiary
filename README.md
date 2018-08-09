@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/kimbugp/MyDiary.svg?branch=develop)](https://travis-ci.org/kimbugp/MyDiary)
-[![Coverage Status](https://coveralls.io/repos/github/kimbugp/MyDiary/badge.svg?branch=master)](https://coveralls.io/github/kimbugp/MyDiary?branch=master)
+[![Build Status](https://travis-ci.org/kimbugp/MyDiary.svg?branch=challenge-3)](https://travis-ci.org/kimbugp/MyDiary)
+[![Coverage Status](https://coveralls.io/repos/github/kimbugp/MyDiary/badge.svg?branch=challenge-3)](https://coveralls.io/github/kimbugp/MyDiary?branch=challenge-3)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4b137dbde922e2570098/maintainability)](https://codeclimate.com/github/kimbugp/MyDiary/maintainability)
 # My Diary 
 MyDiary is an online journal where users can pen down their thoughts and feelings.
@@ -14,20 +14,38 @@ You need to install the following:
 These are the series of commands you need to get it up and running on your machine 
 #### Clone the repo into your local machine
 
-```git clone https://github.com/kimbugp/Mydiary```
+```
+git clone https://github.com/kimbugp/Mydiary
+```
 #### Install virtual environment 
-``` C:\Users\User>virtualenv venv```
+``` 
+C:\Users\User>virtualenv venv
+```
 #### Activate virtual environment
-``` C:\Users\User>venv\Scripts\activate``` 
+``` 
+C:\Users\User>venv\Scripts\activate
+``` 
 
-```(venv) C:\Users\User> ```
-#### Install flask in the virtual environment 
-```(venv) C:\Users\User>pip install flask```
+```
+(venv) C:\Users\User>
+ ```
 
-### Move to the directory with the app 
-```cd /MyDiary/app/v1```
+### Move to the directory of the cloned repository folder
+  ```
+   (venv)cd /MyDiary
+  ```
+#### Install modules required for the app 
+```
+(venv) $ pip install>requirements.txt
+```
+#### Create database by running the following command
+```
+psql -c 'create database diarydb;' -U postgres
+```
 ### Run the server with the command
-```python -m flask run ```
+```
+python -m flask run 
+```
 
 ### Running Tests
 * Install nosetests and coverage
@@ -36,12 +54,17 @@ These are the series of commands you need to get it up and running on your machi
   ```
 
 * Running the tests
+  * Setup test database
+  ```
+  psql -c 'create database diarydb_test;' -U postgres
+  ```
+  * Set the environment variable
+  ```
+  $ set app_env=testing
+  ```
+  * Run the tests
   ```
   $ nosetests -v --with-coverage --cover-package=api
-  ```
-* Run pytest in root directory
-  ```
-  pytest
   ```
 ## Features
 * Users can create an account and log in.
@@ -56,20 +79,21 @@ This project is licensed under the MIT License
 ## Access at:
 ### https://kimbugp.github.io/MyDiary/UI/
 ### https://simondiary.herokuapp.com
+### https://simondb.herokuapp.com (with database)
 
  ## MY DIARY'S ENDPOINTS
 	
    | METHOD     |        ACTIVITY   |                  ENDPOINT|
    | :---         |     :---:      |          ---: |
-  | GET            | fetching all entries    |      api/v1/entries
-  | POST            |Creating an entry        |      api/v1/entries
- | GET             |Fething a specific entry   |    api/v1/entries/<<int:entryid>>
+   | POST         |  register a user | /api/v1/auth/signup 
+   | POST         |  login a user | /api/v1/auth/login
+  | GET            | fetching all entries for a user   |      api/v1/entries
+  | POST            |Creating an entry for a user      |      api/v1/entries
+ | GET             |Fetching a specific entry for a user |    api/v1/entries/<<int:entryid>>
  | PUT             |Updating a specific entry     | api/v1/entries/<<int:entryid>>
+ | Documentation  | Show documentation  | /docs
 
 ## Authors
 * Kimbugwe Simon Peter 
-## Contributors
-* Patrick Walukagga
-* Arnold Arinda
-* Andela
-* Mendoza Bridget
+## Documentation
+### https://kimbug.docs.apiary.io

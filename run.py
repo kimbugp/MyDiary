@@ -1,3 +1,4 @@
+"""File to start the flask app"""
 from api import app
 
 
