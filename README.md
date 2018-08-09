@@ -91,11 +91,9 @@ This project is licensed under the MIT License
   | POST            |Creating an entry for a user      |      api/v1/entries
  | GET             |Fetching a specific entry for a user |    api/v1/entries/<<int:entryid>>
  | PUT             |Updating a specific entry     | api/v1/entries/<<int:entryid>>
+ | Documentation  | Show documentation  | /docs
 
 ## Authors
 * Kimbugwe Simon Peter 
-## Contributors
-* Patrick Walukagga
-* Arnold Arinda
-* Andela
-* Mendoza Bridget
+## Documentation
+### https://kimbug.docs.apiary.io
