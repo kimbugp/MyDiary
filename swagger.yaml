@@ -92,6 +92,7 @@ paths:
           description: OK
           examples:
             application/json:
+              /api/v1/entries/1
     delete:
       summary: Allows user to delete an entry
       responses:
@@ -99,3 +100,4 @@ paths:
           description: OK
           examples:
             application/json:
+              /api/v1/entries/1
