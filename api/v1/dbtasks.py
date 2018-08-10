@@ -11,28 +11,20 @@ class dboperations():
 
     def create_a_user(self, username, name, email, password):
         """Method to create a user"""
-        self.username = username
-        self.name = name
-        self.email = email
-        self.password = password
         new_user = (
             "INSERT INTO users(username,name,email,password)\
                                  VALUES(%s,%s,%s,%s)")
-        cursor.execute(new_user, (self.username, self.name,
-                                  self.email, self.password))
+        cursor.execute(new_user, (username, name,
+                                  email, password))
 
     def make_an_entry(self, user_id, entry_date, entry_name, entry_content):
         """Method to create an entry"""
-        self.entry_name = entry_name
-        self.user_id = user_id
-        self.entry_date = entry_date
-        self.entry_content = entry_content
         new_entry = (
             "INSERT INTO entries(entry_date,entry_name,entry_content,user_id)\
                                  VALUES(%s,%s,%s,%s)")
-        cursor.execute(new_entry, (self.entry_date,
-                                   self.entry_name, self.entry_content,
-                                   self.user_id))
+        cursor.execute(new_entry, (entry_date,
+                                   entry_name, entry_content,
+                                   user_id))
 
     def get_all_entries(self, user_id):
         """Method to get all entries"""
@@ -121,7 +113,7 @@ class dboperations():
         profile = ("select username,email,name,count(entries.user_id)\
                    from users left join entries on entries.user_id=users.user_id\
                    where users.user_id={} group by users.user_id"
-                  .format(self.user_id))
+                   .format(self.user_id))
         dict_cursor.execute(profile)
         user = dict_cursor.fetchall()
         return user
