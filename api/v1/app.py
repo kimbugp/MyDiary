@@ -20,19 +20,7 @@ database = dboperations()
 
 def process_json(var, process_id):
     ''' Function to process json recieved from browser'''
-    if process_id == 'user':
-        try:
-            user = {
-                'username': var['username'],
-                'name': var['name'],
-                'email': var['email'],
-                'password': var['password']
-            }
-            return user
-        except:
-            error = "parameter missing"
-            return error
-    elif process_id == 'entry':
+    if process_id == 'entry':
         try:
             now = datetime.datetime.now()
             entry = {
@@ -55,6 +43,21 @@ def process_json(var, process_id):
             error = "parameter missing"
             return error
 
+
+def user_json(var, process_id):
+    ''' Function to process user login info from browser'''
+    if process_id == 'user':
+        try:
+            user = {
+                'username': var['username'],
+                'name': var['name'],
+                'email': var['email'],
+                'password': var['password']
+            }
+            return user
+        except:
+            error = "parameter missing"
+            return error
     elif process_id == 'signin':
         try:
             user = {
@@ -92,7 +95,7 @@ def create_a_user():
     """
     End Point to create an account for a user
     """
-    data = process_json(request.json, 'user')
+    data = user_json(request.json, 'user')
     if data == "parameter missing":
         return make_response(jsonify({'message': 'parameter missing'}), 400)
     hashed_password = generate_password_hash(data['password'], method='sha256')
@@ -113,11 +116,10 @@ def sign_in_a_user():
     """
     End Point to log a user into their account
     """
-    data = process_json(request.json, 'signin')
+    data = user_json(request.json, 'signin')
     if data == "parameter missing":
         return make_response(jsonify({'message': 'parameter missing'}), 400)
     user = database.select_user(data['username'])
-    # import pdb; pdb.set_trace()
     if user:
         if check_password_hash(user[0]['password'], data['password']):
             token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow() +
