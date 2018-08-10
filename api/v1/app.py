@@ -104,9 +104,9 @@ def create_a_user():
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
         return make_response(jsonify({'Message': 'User created'})), 201
-    elif not is_email(data['email']):
+    if not is_email(data['email']):
         return make_response(jsonify({'Message': 'invalid email'}), 400)
-    elif not all(data.values()) or not re.match("^[A-Za-z0-9_-]*$", data['username']):
+    if not all(data.values()) or not re.match("^[A-Za-z0-9_-]*$", data['username']):
         return make_response(jsonify({'Message': 'invalid input'}), 400)
     return make_response(jsonify({'Message': 'User already exists'}), 400)
 
