@@ -128,7 +128,6 @@ def sign_in_a_user():
                                 datetime.timedelta(minutes=20)},
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
-        return make_response(jsonify({'Message': 'Check your login'}), 401)
     return make_response(jsonify({'Message': 'Invalid login'}), 401)
 
 
