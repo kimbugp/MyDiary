@@ -59,9 +59,9 @@ def user_create(test_user):
 
 
 def wrong_details(test_user):
-    """Function test wrong login details"""
+    """Function test login with missing login info"""
     response = test_user.post(
-        "/api/v1/auth/signup", data=json.dumps(wrong_test_sign_in),
+        "/api/v1/auth/login", data=json.dumps(wrong_test_sign_in),
         content_type="application/json")
     return response
 

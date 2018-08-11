@@ -32,8 +32,8 @@ class UserTests(TestingClass):
         response = user(self.test_user)
         self.assertEqual(response.status_code, 200)
 
-    def test_user_cant_login_with_wrong_details(self):
-        """Method to test sign in with wrong detail"""
+    def test_user_login_with_no_info(self):
+        """Method to test sign in with missing parameter"""
         response = wrong_details(self.test_user)
         self.assertIn('parameter missing', str(response.data))
 
