@@ -32,8 +32,12 @@ function login(){
     var myheaders={'Content-Type': 'application/json','Accept': 'application/json'};
     var init={method:'POST',headers:myheaders,body:mybody};
     fetch(myURL,init)
-    .then(res=>res.json())
-    .then(res=>console.log(res))
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(json){
+        console.log(json);
+    })
     .catch(error => console.error(`Fetch Error =\n`, error));
     return false;
 }
