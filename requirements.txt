@@ -14,6 +14,7 @@ Django==2.0.6
 dnspython==1.15.0
 flake8==3.5.0
 Flask==1.0.2
+Flask-Cors==3.0.6
 flask-heroku==0.1.9
 gunicorn==19.9.0
 idna==2.7
