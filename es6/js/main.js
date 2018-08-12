@@ -53,7 +53,7 @@ function login(){
     })
     .then(function(json){
         if(json.Token){
-            window.location.href='home.html';
+            window.location.href='home.html?token='+json.Token;
         }
         console.log(json.Token);
     })
