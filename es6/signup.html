@@ -17,17 +17,15 @@
     </nav>
     <div class="signup">
         <h2>Sign Up</h2>
-        <input type="text" placeholder="Username" required>
-
-        <input type="text" placeholder="Enter Email"  required>
-    
-        <input type="password" placeholder="Enter Password"  required>
-    
-        <input type="password" placeholder="Repeat Password"  required>
-    
-        <input type="submit" value="Sign-up" onclick="window.location.href='home.html';">
+        <form onsubmit="return create_user()">
+        <input type="text" id='name' placeholder="Full Name"  required />
+        <input type="text" id='username' placeholder="Username" required />
+        <input type="text" id='email' placeholder="Enter Email"  required />
+        <input type="password" id='password' placeholder="Enter Password"  required />
+        <input type="submit" value="Sign-up" />
         <p class='forgot'>Already have an account<button class="button3" type="button" onclick="window.location.href='index.html';">Signin</button></p>
     </form> 
+    </div>
     <footer>
             <p>Simon, Copyright &copy; 2018</p>
     </footer>

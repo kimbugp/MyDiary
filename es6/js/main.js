@@ -12,17 +12,24 @@ function hello_world(){
 // function to post signup info
 function create_user(){
     var mybody=JSON.stringify({
-        "username": "petersimn",
-        "name": "Simon Peter",
-        "email": "kimbuge@gmail.com",
-        "password": "12345678"
-    });
+                "username": document.getElementById('username').value,
+                "name": document.getElementById('name').value,
+                "email": document.getElementById('email').value,
+                "password": document.getElementById('password').value
+            });
     var myURL='http://127.0.0.1:5000/api/v1/auth/signup';
     var myheaders={'Content-Type': 'application/json'};
     var init={method:'POST',headers:myheaders,body:mybody};
     fetch(myURL,init)
-    .then(res=>res.json()).then(res=>console.log(res));
-}
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(json){
+        console.log(json);
+    })
+    .catch(error => console.error(`Fetch Error =\n`, error));
+    return false;    
+}  
 function login(){
     let mybody=JSON.stringify({
         "username": document.getElementById('username').value,
