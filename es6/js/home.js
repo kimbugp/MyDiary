@@ -6,6 +6,20 @@ function getQueryVariable(variable)
                var pair = vars[i].split("=");
                if(pair[0] == variable){return pair[1];}
        }
-       return(false);
+       return pair[1]
 }
 
+function get_entries(){
+    var myURL='http://127.0.0.1:5000/api/v1/entries';
+    var myheaders={'Content-Type': 'application/json','Accept': 'application/json','Token':getQueryVariable('Token')};
+    var init={method:'GET',headers:myheaders};
+    fetch(myURL,init)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(json){
+        console.log(json);
+    })
+    .catch(error => console.error(`Fetch Error =\n`, error));
+    return false;
+}
