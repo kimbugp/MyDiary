@@ -36,7 +36,10 @@ function login(){
         return response.json();
     })
     .then(function(json){
-        console.log(json);
+        if(json.Token){
+            window.location.href='home.html';
+        }
+        console.log(json.Token);
     })
     .catch(error => console.error(`Fetch Error =\n`, error));
     return false;
