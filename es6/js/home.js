@@ -18,7 +18,11 @@ function get_entries(){
         return response.json();
     })
     .then(function(json){
-        console.log(json);
+        var object=json;
+        for(var[key,value] of Object.entries(object)){
+            console.log(key,value);
+         }
+        return json
     })
     .catch(error => console.error(`Fetch Error =\n`, error));
     return false;
