@@ -19,8 +19,8 @@ function get_entries(){
     })
     .then(function(json){
         var object=json;
-        for(var[key,value] of Object.entries(object)){
-            console.log(key,value);
+        for(var[value] of Object.entries(object)){
+            console.log(value);
          }
         return json
     })
