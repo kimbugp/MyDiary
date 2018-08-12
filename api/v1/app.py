@@ -8,9 +8,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, jsonify, make_response, request, redirect
 from api.v1.models import dbase
 from api.v1.dbtasks import dboperations
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 db = dbase()
 db.create_user_table()
 db.create_entries_table()
