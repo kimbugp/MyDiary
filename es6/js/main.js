@@ -25,7 +25,16 @@ function create_user(){
         return response.json();
     })
     .then(function(json){
-        console.log(json);
+        if(json.Message=='User created'){
+            login()
+            console.log(json);
+        }
+        else if (json.Message=='User already exists') {
+            document.getElementById("message").innerHTML =json.Message;
+        } 
+        else if (json.Message=='invalid input') {
+            document.getElementById("message").innerHTML =json.Message;
+        } 
     })
     .catch(error => console.error(`Fetch Error =\n`, error));
     return false;    
