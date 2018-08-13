@@ -1,7 +1,6 @@
 var baseurl = 'https://simondb.herokuapp.com';
 var Token = sessionStorage.getItem('Token');
 var modal = document.getElementById('myModal');
-
 function get_entries() {
 	var myURL = baseurl + '/api/v1/entries';
 	var myheaders = {
