@@ -19,34 +19,33 @@ function get_entries(){
     })
     .then(function(json){
         var object=json;
-        document.body.onload=create_div;
-        // document.getElementById("data").innerHTML =object.entries[0].entry_content;
+        var objectlength=object.entries.length;
+        for (var i = 0; i < objectlength; i++) {
+            show_data(object.entries[i].entry_name);
+            // for (const [key, value] of Object.entries(object.entries[i])) {
+            //     // console.log(key,value);
+            //     show_data(value);
+            //   }
+        }
     })
     .catch(error => console.error(`Fetch Error =\n`, error));
     return false;
 }
-function create_div(){
-    var record = document.createElement("div");
-    record.classList.add('column');
-
-    var name = document.createElement("h3");
-    var date = document.createElement("div");
-    var content = document.createElement("p");
-
-    var textnode = document.createTextNode("fghhgfdfgh");
-    var test = document.createTextNode("cvbnmvcxcvbnvcx");
-    var tests = document.createTextNode("cvbnmvcxcvbnvcx");
-
-    name.appendChild(textnode);
-    date.appendChild(test);
-    content.appendChild(tests);
-
-    record.appendChild(name);
-    record.appendChild(date);
-    record.appendChild(content);
-
-    document.getElementById('row').appendChild(record);
-
-    return false;
+function show_data(value){
+    var record = document.createElement('li');
+    record.appendChild(document.createTextNode(value));
+    document.getElementById('myUL').appendChild(record);
 }
-create_div();
+
+get_entries();
+var arrayVariable = ["one", "two", "three"];
+var arrayLength = arrayVariable.length;
+var temp;
+
+// for (i = 0; i < arrayLength; i++) {
+//   temp = document.createElement('div');
+//   temp.className = 'results';
+//   temp.innerHTML = arrayVariable[i];
+//   document.getElementsByTagName('body')[0].appendChild(temp);
+// }
+

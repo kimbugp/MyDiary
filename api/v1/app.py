@@ -127,7 +127,7 @@ def sign_in_a_user():
     if user:
         if check_password_hash(user[0]['password'], data['password']):
             token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow() +
-                                datetime.timedelta(minutes=20)},
+                                datetime.timedelta(minutes=60)},
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
     return make_response(jsonify({'Message': 'Invalid login'}), 401)
