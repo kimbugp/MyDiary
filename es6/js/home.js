@@ -51,4 +51,13 @@ function show_data(title,d,content){
         }
     }
 }
+var links = document.getElementsByClassName("navbar");
+for(var i=0; i<links.length; i++) {
+    var text = links[i].textContent;
+    links[i].textContent = "";
+    var a = document.createElement("a");
+    a.href =text+".html?token=" + getQueryVariable('Token');
+    a.textContent = text;
+    links[i].appendChild(a);
+}
 get_entries();
