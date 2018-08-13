@@ -5,19 +5,20 @@
     font-family: Gabriola;
     font-size: 20px;
     word-spacing: 3px;
-    background: #333;
+    background:black;
     color: white;
     text-align: left;
     
 }
 .entrylist li {
-  all:inherit;
+  float: none;
   background:#605052;
   padding: 0px 20px;
 }
 .entrylist li:nth-child(odd) { 
   background: #333; 
 }
+
 
 
 

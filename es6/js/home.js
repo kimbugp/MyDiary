@@ -36,16 +36,4 @@ function show_data(value){
     record.appendChild(document.createTextNode(value));
     document.getElementById('myUL').appendChild(record);
 }
-
 get_entries();
-var arrayVariable = ["one", "two", "three"];
-var arrayLength = arrayVariable.length;
-var temp;
-
-// for (i = 0; i < arrayLength; i++) {
-//   temp = document.createElement('div');
-//   temp.className = 'results';
-//   temp.innerHTML = arrayVariable[i];
-//   document.getElementsByTagName('body')[0].appendChild(temp);
-// }
-
