@@ -35,5 +35,23 @@ function show_data(value){
     var record = document.createElement('li');
     record.appendChild(document.createTextNode(value));
     document.getElementById('myUL').appendChild(record);
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    record.onclick=function(){
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 }
 get_entries();
