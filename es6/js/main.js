@@ -26,8 +26,7 @@ function create_user(){
     })
     .then(function(json){
         if(json.Message=='User created'){
-            login()
-            console.log(json);
+            login();
         }
         else if (json.Message=='User already exists') {
             document.getElementById("message").innerHTML =json.Message;
@@ -53,9 +52,10 @@ function login(){
     })
     .then(function(json){
         if(json.Token){
-            window.location.href='home.html?token='+json.Token;
+            sessionStorage.setItem("Token",json.Token);
+            window.location.href='home.html';
         }
-        console.log(json.Token);
+
     })
     .catch(error => console.error(`Fetch Error =\n`, error));
     return false;
