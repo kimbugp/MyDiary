@@ -57,6 +57,7 @@ function show_data(){
             button.onclick =function(){
                 console.log('deleted');
                 delete_entry(id);
+                
             }   
         }
     })
@@ -82,6 +83,7 @@ function delete_entry(entry_id){
     })
     .then(function(){
         modal.style.display = "none";
+        location.reload();
     })
     .catch(error => console.error(`Fetch Error =\n`, error));
     return false;
