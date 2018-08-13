@@ -1,9 +1,8 @@
-
+var baseurl='https://simondb.herokuapp.com';
 function hello_world(){
-    var base='http://127.0.0.1:5000';
     var myheaders={'Content-Type': 'application/json'};
     var init={method:'get',headers:myheaders};
-    fetch(base,init)
+    fetch(baseurl,init)
     .then(res=>res.json())
     .then(res=>console.log(res));
 }
@@ -16,7 +15,7 @@ function create_user(){
                 "email": document.getElementById('email').value,
                 "password": document.getElementById('password').value
             });
-    var myURL='http://127.0.0.1:5000/api/v1/auth/signup';
+    var myURL=baseurl+'/api/v1/auth/signup';
     var myheaders={'Content-Type': 'application/json'};
     var init={method:'POST',headers:myheaders,body:mybody};
     fetch(myURL,init)
@@ -42,7 +41,7 @@ function login(){
         "username": document.getElementById('username').value,
         "password": document.getElementById('password').value
     });
-    var myURL='http://127.0.0.1:5000/api/v1/auth/login';
+    var myURL=baseurl+'/api/v1/auth/login';
     var myheaders={'Content-Type': 'application/json','Accept': 'application/json'};
     var init={method:'POST',headers:myheaders,body:mybody};
     fetch(myURL,init)

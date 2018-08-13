@@ -1,6 +1,7 @@
+var baseurl="https://simondb.herokuapp.com";
 var Token=sessionStorage.getItem("Token");
 function get_entries(){
-    var myURL='http://127.0.0.1:5000/api/v1/entries';
+    var myURL=baseurl+'/api/v1/entries';
     var myheaders={'Content-Type': 'application/json','Accept': 'application/json','Token':Token};
     var init={method:'GET',headers:myheaders};
     fetch(myURL,init)
@@ -58,12 +59,12 @@ for(var i=0; i<links.length; i++) {
     var text = links[i].textContent;
     links[i].textContent = "";
     var a = document.createElement("a");
-    a.href =text+".html";
+    a.href =text.toLowerCase()+".html";
     a.textContent = text;
     links[i].appendChild(a);
 }
 function delete_entry(entry_id){
-    var myURL='http://127.0.0.1:5000/api/v1/entries/'+entry_id;
+    var myURL=baseurl+'/api/v1/entries/'+entry_id;
     var myheaders={'Content-Type': 'application/json','Accept': 'application/json','Token':Token};
     var init={method:'DELETE',headers:myheaders};
     fetch(myURL,init)
