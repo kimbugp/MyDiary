@@ -46,7 +46,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
     background-color: #fefefe;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
     width: 30%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
@@ -81,16 +80,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
     cursor: pointer;
 }
 
-.modal-header {
+.entry_name {
     padding: 2px 16px;
     background-color: #333;
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
-
 .entry_date {
-    padding: 2px 16px;
     background-color: #333;
     color: white;
 }
