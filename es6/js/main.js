@@ -1,5 +1,4 @@
 
-// var fetch = require("node-fetch");
 function hello_world(){
     var base='http://127.0.0.1:5000';
     var myheaders={'Content-Type': 'application/json'};

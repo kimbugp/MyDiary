@@ -35,11 +35,11 @@ function show_data(title,d,content){
         modal.style.display = "none";
     }
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
 }
 var links = document.getElementsByClassName("navbar");
 for(var i=0; i<links.length; i++) {
