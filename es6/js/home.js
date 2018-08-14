@@ -141,8 +141,4 @@ function show_details(id) {
 	}
 }
 
-function add_entry(id){
-	
-
-}
 show_data();

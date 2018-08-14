@@ -23,13 +23,12 @@ function create_user() {
 		.then(function (json) {
 			if (json.Message == 'User created') {
 				login();
-			} else if (json.Message == 'User already exists') {
-				document.getElementById('message').innerHTML = json.Message;
-			} else if (json.Message == 'invalid input') {
-				document.getElementById('message').innerHTML = json.Message;
 			}
+			document.getElementById('message').innerHTML = json.Message;
 		})
-		.catch(error => console.error('Fetch Error =\n', error));
+		.catch(error => {
+			alert(error);
+		});
 	return false;
 }
 
@@ -57,8 +56,11 @@ function login() {
 				sessionStorage.setItem('Token', json.Token);
 				window.location.href = 'home.html';
 			}
+			document.getElementById('message').innerHTML = json.Message;
 
 		})
-		.catch(error => console.error('Fetch Error =\n', error));
+		.catch(error => {
+			alert(error);
+		});
 	return false;
 }

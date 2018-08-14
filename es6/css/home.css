@@ -72,6 +72,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
     font-size: 28px;
     font-weight: bold;
 }
+.add:hover,
+.add:focus,
 .action:focus,
 .action:hover,
 .close:hover,
