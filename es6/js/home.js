@@ -1,5 +1,4 @@
 const baseurl = 'https://simondb.herokuapp.com';
-const Token = sessionStorage.getItem('Token');
 var modal = document.getElementById('myModal');
 
 function get_entries() {
@@ -135,5 +134,6 @@ function show_details(id) {
 		}
 	}
 }
+
 
 show_data();

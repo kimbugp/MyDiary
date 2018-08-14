@@ -1,5 +1,8 @@
 var baseurl = 'https://simondb.herokuapp.com';
 // function to post signup info
+if(sessionStorage.getItem('Token')){
+	window.location.href='home.html';
+}
 function create_user() {
 	var mybody = JSON.stringify({
 		'username': document.getElementById('username').value,

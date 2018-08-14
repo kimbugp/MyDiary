@@ -74,7 +74,7 @@ function edit_entry(entry_id) {
 		})
 		.then(function (response) {
 			modal.style.display = 'none';
-			if (response.Message == 'edited') {
+			if (response.Message == 'entry edited') {
 				location.reload();
 			}
 			else{
@@ -102,7 +102,8 @@ function edit_one(id) {
 	};
 	let saveedit = document.getElementById('edit_entry');
 	saveedit.onclick = function () {
-		alert('edited');
+		edit_entry(id);
+		
 
 	};
 }
@@ -126,3 +127,4 @@ function togglesavebuttons(x) {
 	}
 	
 }
+
