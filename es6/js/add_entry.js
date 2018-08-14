@@ -1,6 +1,6 @@
 // from home import baseurl
-const baseurl = 'https://simondb.herokuapp.com';
-const Token = sessionStorage.getItem('Token');
+// const baseurl = 'https://simondb.herokuapp.com';
+// const Token = sessionStorage.getItem('Token');
 
 function add_entry() {
 	var mybody = JSON.stringify({
@@ -38,15 +38,15 @@ function add_entry() {
 close_newentrymodel();
 
 function close_newentrymodel() {
-	var modal = document.getElementById('newentrymodal');
-	let span = document.getElementsByClassName('close')[1];
+	var entrymodal = document.getElementById('newentrymodal');
+	var span = document.getElementsByClassName('close')[1];
 	span.onclick = function () {
-		modal.style.display = 'none';
+		entrymodal.style.display = 'none';
 	};
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function (event) {
-		if (event.target == modal) {
-			modal.style.display = 'none';
+		if (event.target == entrymodal) {
+			entrymodal.style.display = 'none';
 		}
 	};
 }
