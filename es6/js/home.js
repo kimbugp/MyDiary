@@ -32,7 +32,7 @@ function show_data() {
 
 
 	function click_events() {
-		return 'show_details(this.id);delete_one(this.id)';
+		return 'show_details(this.id);delete_one(this.id);edit_one(this.id)';
 	}
 }
 
@@ -111,11 +111,6 @@ function show_details(id) {
 			let span = document.getElementsByClassName('close')[0];
 			span.onclick = function () {
 				modal.style.display = 'none';
-			};
-			// edit  functionality
-			let button = document.getElementsByClassName('action')[0];
-			button.onclick = function () {
-				// console.log('edited');
 			};
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function (event) {

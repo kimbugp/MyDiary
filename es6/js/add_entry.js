@@ -50,3 +50,45 @@ function close_newentrymodel() {
 		}
 	};
 }
+
+function edit_entry(entry_id){
+	let myURL = baseurl + '/api/v1/entries/' + entry_id;
+	var mybody = JSON.stringify({
+		'entry_content': document.getElementById('new_entrycontent').value,
+		'entry_name': document.getElementById('new_entryname').value,
+	});
+	let myheaders = {
+		'Content-Type': 'application/json',
+		'Accept': 'application/json',
+		'Token': Token
+	};
+	let init = {
+		method: 'PUT',
+		headers: myheaders,
+		body: mybody
+	};
+	fetch(myURL, init)
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (response) {
+			modal.style.display = 'none';
+			alert(response.Message);
+			location.reload();
+		})
+		.catch(error => {
+			alert(error);
+		});
+	return false;
+}
+function edit_one(id){
+	let editbutton = document.getElementsByClassName('action')[0];
+	editbutton.onclick = function () {
+		// edit_entry(id);
+		modal.style.display = 'none';
+		document.getElementsByClassName('modal')[1].style.display='block';
+		document.getElementById('new_entrycontent').value=document.getElementById('entry_content').innerHTML;
+		document.getElementById('new_entryname').value=document.getElementById(id).innerHTML;
+
+	};
+}
