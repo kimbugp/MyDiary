@@ -1,9 +1,10 @@
 
 // var baseurl = 'https://simondb.herokuapp.com';
-// var Token = sessionStorage.getItem('Token');
-// if(Token != true){
-// 	window.location.replace('index.html');
-// } 
+const Token = sessionStorage.getItem('Token');
+if(Token == null){
+	window.location.href='index.html';
+} 
+
 // function hello_world() {
 // 	var myheaders = {
 // 		'Content-Type': 'application/json'
@@ -17,7 +18,10 @@
 // 		.then(res => console.log(res));
 // }
 
-
+function signout(){
+	sessionStorage.removeItem('Token');
+	window.location.href='index.html';
+}
 //function to post signin info
 
 // function to post an entry
