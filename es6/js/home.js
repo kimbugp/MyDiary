@@ -18,7 +18,9 @@ function get_entries() {
 		.then((responseData) => {
 			return responseData;
 		})
-		.catch(error => console.error('Fetch Error =\n', error));
+		.catch(error =>{
+			alert(error);
+		});
 }
 // get_entries().then(response => console.log(response));
 function show_data() {
@@ -64,18 +66,20 @@ function delete_entry(entry_id) {
 		.then(function (response) {
 			return response.json();
 		})
-		.then(function () {
+		.then(function (response) {
 			modal.style.display = 'none';
+			alert(response.Message);
 			location.reload();
 		})
-		.catch(error => console.error('Fetch Error =\n', error));
+		.catch(error =>{
+			alert(error);
+		});
 	return false;
 }
 
 function delete_one(id) {
 	var delbutton = document.getElementsByClassName('action')[1];
 	delbutton.onclick = function () {
-		console.log('deleted');
 		delete_entry(id);
 
 	};
