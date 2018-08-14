@@ -1,15 +1,15 @@
-var baseurl = 'https://simondb.herokuapp.com';
-var Token = sessionStorage.getItem('Token');
+const baseurl = 'https://simondb.herokuapp.com';
+const Token = sessionStorage.getItem('Token');
 var modal = document.getElementById('myModal');
 
 function get_entries() {
-	var myURL = baseurl + '/api/v1/entries';
-	var myheaders = {
+	let myURL = baseurl + '/api/v1/entries';
+	let myheaders = {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 		'Token': Token
 	};
-	var init = {
+	let init = {
 		method: 'GET',
 		headers: myheaders
 	};
@@ -18,47 +18,60 @@ function get_entries() {
 		.then((responseData) => {
 			return responseData;
 		})
-		.catch(error =>{
+		.catch(error => {
 			alert(error);
 		});
 }
 // get_entries().then(response => console.log(response));
 function show_data() {
 	get_entries().then(response => {
-		var object = response.entries;
-		var objectlength = object.length;
-		for (var i = 0; i < objectlength; i++) {
-			//make list of entry titles
-			var title = object[i].entry_name;
-			var id = object[i].entry_id;
-			var record = document.createElement('li');
-			record.setAttribute('id', id);
-			record.appendChild(document.createTextNode(title));
-			record.setAttribute('onclick', 'show_details(this.id);delete_one(this.id)');
-			document.getElementById('myUL').appendChild(record);
-		}
+		let object = response.entries;
+		let objectlength = object.length;
+		entry_iterate(objectlength, object, click_events);
 	});
 
+
+	function click_events() {
+		return 'show_details(this.id);delete_one(this.id)';
+	}
 }
-var links = document.getElementsByClassName('navbar');
+
 //set the html links
-for (var i = 0; i < links.length; i++) {
-	var text = links[i].textContent;
-	links[i].textContent = '';
-	var a = document.createElement('a');
-	a.href = text.toLowerCase() + '.html';
-	a.textContent = text;
-	links[i].appendChild(a);
+html_links();
+
+function html_links() {
+	var links = document.getElementsByClassName('navbar');
+	for (let i = 0; i < links.length; i++) {
+		let text = links[i].textContent;
+		links[i].textContent = '';
+		let a = document.createElement('a');
+		a.href = text.toLowerCase() + '.html';
+		a.textContent = text;
+		links[i].appendChild(a);
+	}
+}
+
+function entry_iterate(objectlength, object, click_events) {
+	for (let i = 0; i < objectlength; i++) {
+		//make list of entry titles
+		let title = object[i].entry_name;
+		let id = object[i].entry_id;
+		let record = document.createElement('li');
+		record.setAttribute('id', id);
+		record.appendChild(document.createTextNode(title));
+		record.setAttribute('onclick', click_events());
+		document.getElementById('myUL').appendChild(record);
+	}
 }
 
 function delete_entry(entry_id) {
-	var myURL = baseurl + '/api/v1/entries/' + entry_id;
-	var myheaders = {
+	let myURL = baseurl + '/api/v1/entries/' + entry_id;
+	let myheaders = {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 		'Token': Token
 	};
-	var init = {
+	let init = {
 		method: 'DELETE',
 		headers: myheaders
 	};
@@ -71,14 +84,14 @@ function delete_entry(entry_id) {
 			alert(response.Message);
 			location.reload();
 		})
-		.catch(error =>{
+		.catch(error => {
 			alert(error);
 		});
 	return false;
 }
 
 function delete_one(id) {
-	var delbutton = document.getElementsByClassName('action')[1];
+	let delbutton = document.getElementsByClassName('action')[1];
 	delbutton.onclick = function () {
 		delete_entry(id);
 
@@ -91,16 +104,16 @@ function show_details(id) {
 
 	function get_entry() {
 		get_entries().then(response => {
-			var object = response.entries;
+			let object = response.entries;
 			display(object);
 			// Get the modal
 			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName('close')[0];
+			let span = document.getElementsByClassName('close')[0];
 			span.onclick = function () {
 				modal.style.display = 'none';
 			};
 			// edit  functionality
-			var button = document.getElementsByClassName('action')[0];
+			let button = document.getElementsByClassName('action')[0];
 			button.onclick = function () {
 				// console.log('edited');
 			};
@@ -114,11 +127,11 @@ function show_details(id) {
 	}
 
 	function display(object) {
-		for (var i = 0; i < object.length; i++) {
+		for (let i = 0; i < object.length; i++) {
 			if (object[i].entry_id == id) {
-				var d = object[i].entry_date;
-				var title = object[i].entry_name;
-				var content = object[i].entry_content;
+				let d = object[i].entry_date;
+				let title = object[i].entry_name;
+				let content = object[i].entry_content;
 				modal.style.display = 'block';
 				document.getElementById('entry_title').innerHTML = title;
 				document.getElementById('entry_content').innerHTML = content;
@@ -126,5 +139,10 @@ function show_details(id) {
 			}
 		}
 	}
+}
+
+function add_entry(id){
+	
+
 }
 show_data();
