@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,28 +10,33 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/home.css" />
     <script src="js/main.js"></script>
 </head>
+
 <body>
     <nav>
         <ul>
             <li class="navbar">Home</li>
             <li class="navbar">Profile</li>
             <li class="navbar">About</li>
-            <li><img  alt="Notifications" src="media/bell.png" style="width:.5cm;height:.5cm;"></li>
-            <li  onclick="signout()" style="float:right"><a href='#'>Sign out</a></li>
+            <!-- <li>
+                <img alt="Notifications" src="media/bell.png" style="width:.5cm;height:.5cm;">
+            </li> -->
+            <li onclick="signout()" style="float:right">
+                <a href='#'>Sign out</a>
+            </li>
         </ul>
     </nav>
     <section>
-            <div class="container">
-                <h1>Welcome to My Diary!</h1>
-                <img src="media/diary.jpeg" alt="Diary" style="width:2cm; height:2cm;">
-            </div>
+        <div class="container">
+            <h1>Welcome to My Diary!</h1>
+            <img src="media/diary.jpeg" alt="Diary" style="width:2cm; height:2cm;">
+        </div>
     </section>
     <section id="Entries">
         <div class="container">
             <h2>My Diary Entries</h2>
         </div>
     </section>
-    <h3 class="add" id='add' onclick="document.getElementsByClassName('modal')[1].style.display='block';togglesavebuttons('new');">Add entry &#x270E;</h3>
+    <h3 class="add" id='add' onclick="document.getElementsByClassName('modal')[1].style.display='block';clear();togglesavebuttons('new');">Add entry &#x270E;</h3>
     <div class="entrylist" id="entrylist">
         <ol id="myUL"></ol>
     </div>
@@ -39,60 +45,63 @@
     <div id="myModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
-          <div class="entry_name">
-            <span class="close">&times;</span>
-            <h2 id='entry_title'>title</h2>
+            <div class="entry_name">
+                <span class="close">&times;</span>
+                <h2 id='entry_title'>title</h2>
             </div>
-          <div class="modal-body">
-            <p id='entry_content'>Some text in the Modal Body</p>
-          </div>
-          <div class="entry_date">
-            <span class="action">&#x270E;</span>
-            <span class="action">&#x1F5D1;</span>
-            <h3 id='date'>entry_date</h3>
-          </div>
+            <div class="modal-body">
+                <p id='entry_content'>Some text in the Modal Body</p>
+            </div>
+            <div class="entry_date">
+                <span class="action">&#x270E;</span>
+                <span class="action">&#x1F5D1;</span>
+                <h3 id='date'>entry_date</h3>
+            </div>
         </div>
-      
+
     </div>
     <div id="newentrymodal" class="modal">
-            <style>
-                    input[type=text],
-                    input[type=date],
-                    select,
-                    textarea {
-                        width: 40%;
-                        padding: 12px;
-                        border: 1px solid #ccc;
-                        border-radius: 4px;
-                        box-sizing: border-box;
-                        margin-top: 6px;
-                        margin-bottom: 16px;
-                        resize: vertical;
-                    }
-            </style>
-            <!-- Modal content 2-->
-            <div class="modal-content">
-              <div class="entry_name">
+        <style>
+            input[type=text],
+            input[type=date],
+            select,
+            textarea {
+                width: 40%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+            }
+        </style>
+        <!-- Modal content 2-->
+        <div class="modal-content">
+            <div class="entry_name">
                 <span class="close">&times;</span>
                 <h2 id='entry_titleheader'>New Entry</h2>
                 <h2 id='edit_title' style='display:none'>Edit Entry</h2>
-                </div>
-              <div class="modal-body">
-                <p id='entry_content'><input type="date" id="new_entrydate">
+            </div>
+            <div class="modal-body">
+                <p id='entry_content'>
+                    <input type="date" id="new_entrydate">
                     <input type="text" id="new_entryname" placeholder="title..">
-                    <textarea id="new_entrycontent" placeholder="Write something.." style="height:100px"></textarea></p>
-              </div>
-              <div class="entry_date">
+                    <textarea id="new_entrycontent" placeholder="Write something.." style="height:100px"></textarea>
+                </p>
+            </div>
+            <div class="entry_date">
                 <h3 id='save_new_entry' class='save_new_entry' onclick="add_entry()">SAVE &#128190;</h3>
                 <h3 id='edit_entry' class='save_new_entry' style='display:none'>SAVE &#128190;</h3>
-              </div>
             </div>
-          
+        </div>
+
     </div>
     <script src="js/home.js"></script>
     <script src="js/add_entry.js"></script>
     <footer>
-            <p>Simon, Copyright &copy; 2018</p>
+        <p>Simon, Copyright &copy; 2018</p>
     </footer>
 </body>
+
 </html>

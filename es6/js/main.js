@@ -22,6 +22,11 @@ function signout(){
 	sessionStorage.removeItem('Token');
 	window.location.href='index.html';
 }
+function clear(){
+	document.getElementById('new_entrycontent').value='';
+	document.getElementById('new_entryname').value='';
+}
+
 //function to post signin info
 
 // function to post an entry
