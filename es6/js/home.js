@@ -27,45 +27,16 @@ function show_data() {
 		for (var i = 0; i < objectlength; i++) {
 			//make list of entry titles
 			var title = object[i].entry_name;
-			var content = object[i].entry_content;
-			var d = object[i].entry_date;
 			var id = object[i].entry_id;
 			var record = document.createElement('li');
-			record.setAttribute('id', 'id' + i);
+			record.setAttribute('id',id);
 			record.appendChild(document.createTextNode(title));
+			record.setAttribute('onclick','show_details(this.id)');
 			document.getElementById('myUL').appendChild(record);
+			// console.log(record);
+			
 
-			record.onclick = function () {
-				modal.style.display = 'block';
-				document.getElementById('entry_title').innerHTML = title;
-				document.getElementById('entry_content').innerHTML = content;
-				document.getElementById('date').innerHTML = d;
-			};
-			// Get the modal
-			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName('close')[0];
-			span.onclick = function () {
-				modal.style.display = 'none';
-			};
-			// edit  functionality
-			var button = document.getElementsByClassName('action')[0];
-			button.onclick = function () {
-				// console.log('edited');
-			};
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function (event) {
-				if (event.target == modal) {
-					modal.style.display = 'none';
-				}
-			};
-			// var item = document.getElementById('id' + i);
-			// item.removeChild(item.parentNode);
-			var delbutton = document.getElementsByClassName('action')[1];
-		    delbutton.onclick = function () {
-				console.log('deleted');
-				delete_entry(id);
-
-			};
+			
 		}
 	});
 
@@ -103,5 +74,58 @@ function delete_entry(entry_id) {
 		.catch(error => console.error('Fetch Error =\n', error));
 	return false;
 }
+function test(record){
+	
+	// var item = document.getElementById('id' + i);
+	// item.removeChild(item.parentNode);
+	var delbutton = document.getElementsByClassName('action')[1];
+	delbutton.onclick = function () {
+		console.log('deleted');
+		delete_entry(id);
 
+	};
+}
+
+
+function show_details(id){
+	get_entry();
+
+	function get_entry() {
+		get_entries().then(response => {
+			var object = response.entries;
+			display(object);
+			// Get the modal
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName('close')[0];
+			span.onclick = function () {
+				modal.style.display = 'none';
+			};
+			// edit  functionality
+			var button = document.getElementsByClassName('action')[0];
+			button.onclick = function () {
+				// console.log('edited');
+			};
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = 'none';
+				}
+			};
+		});
+	}
+
+	function display(object) {
+		for (var i = 0; i < object.length; i++) {
+			if (object[i].entry_id == id) {
+				var d = object[i].entry_date;
+				var title = object[i].entry_name;
+				var content = object[i].entry_content;
+				modal.style.display = 'block';
+				document.getElementById('entry_title').innerHTML = title;
+				document.getElementById('entry_content').innerHTML = content;
+				document.getElementById('date').innerHTML = d;
+			}
+		}
+	}
+}
 show_data();
