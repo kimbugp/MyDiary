@@ -1,6 +1,7 @@
 var baseurl = 'https://simondb.herokuapp.com';
 var Token = sessionStorage.getItem('Token');
 var modal = document.getElementById('myModal');
+
 function get_entries() {
 	var myURL = baseurl + '/api/v1/entries';
 	var myheaders = {
@@ -29,14 +30,10 @@ function show_data() {
 			var title = object[i].entry_name;
 			var id = object[i].entry_id;
 			var record = document.createElement('li');
-			record.setAttribute('id',id);
+			record.setAttribute('id', id);
 			record.appendChild(document.createTextNode(title));
-			record.setAttribute('onclick','show_details(this.id)');
+			record.setAttribute('onclick', 'show_details(this.id);delete_one(this.id)');
 			document.getElementById('myUL').appendChild(record);
-			// console.log(record);
-			
-
-			
 		}
 	});
 
@@ -74,10 +71,8 @@ function delete_entry(entry_id) {
 		.catch(error => console.error('Fetch Error =\n', error));
 	return false;
 }
-function test(record){
-	
-	// var item = document.getElementById('id' + i);
-	// item.removeChild(item.parentNode);
+
+function delete_one(id) {
 	var delbutton = document.getElementsByClassName('action')[1];
 	delbutton.onclick = function () {
 		console.log('deleted');
@@ -87,7 +82,7 @@ function test(record){
 }
 
 
-function show_details(id){
+function show_details(id) {
 	get_entry();
 
 	function get_entry() {
