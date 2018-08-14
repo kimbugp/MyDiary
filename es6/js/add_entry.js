@@ -7,7 +7,7 @@ function add_entry() {
 		'entry_content': document.getElementById('new_entrycontent').value,
 		'entry_name': document.getElementById('new_entryname').value,
 	});
-	let myURL = baseurl + '/api/v1/entries/';
+	let myURL = baseurl + '/api/v1/entries';
 	let myheaders = {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
