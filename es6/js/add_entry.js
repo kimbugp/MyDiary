@@ -24,10 +24,11 @@ function add_entry() {
 		})
 		.then(function (response) {
 			if (response.Message == 'entry created') {
-				alert(response.Message);
 				location.reload();
 			}
-			alert(response.Message);
+			else{
+				alert(response.Message);
+			}
 		})
 		.catch(error => {
 			alert(error);
@@ -73,8 +74,12 @@ function edit_entry(entry_id) {
 		})
 		.then(function (response) {
 			modal.style.display = 'none';
-			alert(response.Message);
-			location.reload();
+			if (response.Message == 'edited') {
+				location.reload();
+			}
+			else{
+				alert(response.Message);
+			}
 		})
 		.catch(error => {
 			alert(error);
