@@ -85,21 +85,39 @@ function edit_entry(entry_id) {
 function edit_one(id) {
 	let editbutton = document.getElementsByClassName('action')[0];
 	editbutton.onclick = function () {
-		// edit_entry(id);
 		modal.style.display = 'none';
 		//set the entry form to show previous data
 		document.getElementsByClassName('modal')[1].style.display = 'block';
 		document.getElementById('new_entrycontent').value = document.getElementById('entry_content').innerHTML;
 		document.getElementById('new_entryname').value = document.getElementById(id).innerHTML;
 
+		
+		togglesavebuttons('edit');
+
+	};
+	let saveedit = document.getElementById('edit_entry');
+	saveedit.onclick = function () {
+		alert('edited');
+
+	};
+}
+
+function togglesavebuttons(x) {
+	if(x=='edit'){
 		//change save button 
 		document.getElementById('save_new_entry').style.display = 'none';
 		document.getElementById('edit_entry').style.display = 'block';
-
 		//change title of modal
 		document.getElementById('entry_titleheader').style.display = 'none';
 		document.getElementById('edit_title').style.display = 'block';
-
-
-	};
+	}
+	else if(x=='new'){
+		//change save button 
+		document.getElementById('save_new_entry').style.display = 'block';
+		document.getElementById('edit_entry').style.display = 'none';
+		//change title of modal
+		document.getElementById('entry_titleheader').style.display = 'block';
+		document.getElementById('edit_title').style.display = 'none';
+	}
+	
 }
