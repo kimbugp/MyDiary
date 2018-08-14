@@ -96,6 +96,10 @@ function edit_one(id) {
 		document.getElementById('save_new_entry').style.display = 'none';
 		document.getElementById('edit_entry').style.display = 'block';
 
+		//change title of modal
+		document.getElementById('entry_titleheader').style.display = 'none';
+		document.getElementById('edit_title').style.display = 'block';
+
 
 	};
 }
