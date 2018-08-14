@@ -24,7 +24,9 @@ function create_user() {
 			if (json.Message == 'User created') {
 				login();
 			}
-			document.getElementById('message').innerHTML = json.Message;
+			else{
+				document.getElementById('message').innerHTML = json.Message;
+			}
 		})
 		.catch(error => {
 			alert(error);
@@ -56,8 +58,9 @@ function login() {
 				sessionStorage.setItem('Token', json.Token);
 				window.location.href = 'home.html';
 			}
-			document.getElementById('message').innerHTML = json.Message;
-
+			else{
+				document.getElementById('message').innerHTML = json.Message;
+			}
 		})
 		.catch(error => {
 			alert(error);
