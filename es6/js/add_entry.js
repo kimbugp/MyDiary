@@ -51,7 +51,7 @@ function close_newentrymodel() {
 	};
 }
 
-function edit_entry(entry_id){
+function edit_entry(entry_id) {
 	let myURL = baseurl + '/api/v1/entries/' + entry_id;
 	var mybody = JSON.stringify({
 		'entry_content': document.getElementById('new_entrycontent').value,
@@ -81,14 +81,21 @@ function edit_entry(entry_id){
 		});
 	return false;
 }
-function edit_one(id){
+
+function edit_one(id) {
 	let editbutton = document.getElementsByClassName('action')[0];
 	editbutton.onclick = function () {
 		// edit_entry(id);
 		modal.style.display = 'none';
-		document.getElementsByClassName('modal')[1].style.display='block';
-		document.getElementById('new_entrycontent').value=document.getElementById('entry_content').innerHTML;
-		document.getElementById('new_entryname').value=document.getElementById(id).innerHTML;
+		//set the entry form to show previous data
+		document.getElementsByClassName('modal')[1].style.display = 'block';
+		document.getElementById('new_entrycontent').value = document.getElementById('entry_content').innerHTML;
+		document.getElementById('new_entryname').value = document.getElementById(id).innerHTML;
+
+		//change save button 
+		document.getElementById('save_new_entry').style.display = 'none';
+		document.getElementById('edit_entry').style.display = 'block';
+
 
 	};
 }
