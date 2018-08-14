@@ -1,8 +1,8 @@
 // var baseurl = 'https://simondb.herokuapp.com';
-var Token = sessionStorage.getItem('Token');
-if(Token != true){
-	window.location.replace('index.html');
-} 
+// var Token = sessionStorage.getItem('Token');
+// if(Token != true){
+// 	window.location.replace('index.html');
+// } 
 // function hello_world() {
 // 	var myheaders = {
 // 		'Content-Type': 'application/json'
