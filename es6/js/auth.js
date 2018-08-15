@@ -4,6 +4,7 @@ if(sessionStorage.getItem('Token')){
 	window.location.href='home.html';
 }
 function create_user() {
+	document.getElementById('message').innerHTML ='loading';
 	var mybody = JSON.stringify({
 		'username': document.getElementById('username').value,
 		'name': document.getElementById('name').value,
@@ -57,6 +58,7 @@ function login() {
 			return response.json();
 		})
 		.then(function (json) {
+			loader(false);
 			if (json.Token) {
 				sessionStorage.setItem('Token', json.Token);
 				window.location.href = 'home.html';
