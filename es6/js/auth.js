@@ -24,6 +24,7 @@ function create_user() {
 			return response.json();
 		})
 		.then(function (json) {
+			loader(false);
 			if (json.Message == 'User created') {
 				login();
 			}
@@ -57,6 +58,7 @@ function login() {
 			return response.json();
 		})
 		.then(function (json) {
+			loader(false);
 			if (json.Token) {
 				sessionStorage.setItem('Token', json.Token);
 				window.location.href = 'home.html';
