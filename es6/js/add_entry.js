@@ -18,11 +18,13 @@ function add_entry() {
 		headers: myheaders,
 		body: mybody
 	};
+	loader(true);
 	fetch(myURL, init)
 		.then(function (response) {
 			return response.json();
 		})
 		.then(function (response) {
+			loader(true);
 			if (response.Message == 'entry created') {
 				location.reload();
 			}
@@ -68,11 +70,13 @@ function edit_entry(entry_id) {
 		headers: myheaders,
 		body: mybody
 	};
+	loader(true);
 	fetch(myURL, init)
 		.then(function (response) {
 			return response.json();
 		})
 		.then(function (response) {
+			loader(false);
 			modal.style.display = 'none';
 			if (response.Message == 'entry edited') {
 				location.reload();

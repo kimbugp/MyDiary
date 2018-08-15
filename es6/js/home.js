@@ -8,6 +8,7 @@ function get_entries() {
 		'Accept': 'application/json',
 		'Token': Token
 	};
+	loader(true);
 	let init = {
 		method: 'GET',
 		headers: myheaders
@@ -21,9 +22,10 @@ function get_entries() {
 			alert(error);
 		});
 }
-// get_entries().then(response => console.log(response));
 function show_data() {
+	loader(true);
 	get_entries().then(response => {
+		loader(false);
 		let object = response.entries;
 		let objectlength = object.length;
 		entry_iterate(objectlength, object, click_events);
@@ -74,11 +76,13 @@ function delete_entry(entry_id) {
 		method: 'DELETE',
 		headers: myheaders
 	};
+	loader(true);
 	fetch(myURL, init)
 		.then(function (response) {
 			return response.json();
 		})
 		.then(function (response) {
+			loader(false);
 			modal.style.display = 'none';
 			alert(response.Message);
 			location.reload();
@@ -103,6 +107,7 @@ function show_details(id) {
 
 	function get_entry() {
 		get_entries().then(response => {
+			loader(false);
 			let object = response.entries;
 			display(object);
 			// Get the modal
