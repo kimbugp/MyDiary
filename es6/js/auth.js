@@ -1,4 +1,4 @@
-var baseurl = 'http://127.0.0.1:5000';
+// var baseurl = 'http://127.0.0.1:5000';
 // function to post signup info
 if (sessionStorage.getItem('Token')) {
 	window.location.href = 'home.html';
