@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css" />
     <script src="js/auth.js"></script>
+    <script src="js/loader.js"></script>
     <title>Sign Up</title>
 </head>
 <body> 
@@ -16,12 +18,13 @@
         </ul>
     </nav>
     <div class="signup">
-        <form onsubmit="return create_user()">
+        <form onsubmit="loader(true);return create_user()">
         <p id='message'></p>
         <input type="text" id='name' placeholder="Full Name"  required />
         <input type="text" id='username' placeholder="Username" required />
         <input type="text" id='email' placeholder="Enter Email"  required />
         <input type="password" id='password' placeholder="Enter Password"  required />
+        <div id='loader'></div>
         <input type="submit" value="Sign-up" />
         <p class='forgot'>Already have an account<button class="button3" type="button" onclick="window.location.href='index.html';">Signin</button></p>
     </form> 

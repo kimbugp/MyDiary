@@ -1,14 +1,15 @@
-var baseurl = 'https://simondb.herokuapp.com';
-var Token = sessionStorage.getItem('Token');
+const baseurl = 'https://simondb.herokuapp.com';
 var modal = document.getElementById('myModal');
+
 function get_entries() {
-	var myURL = baseurl + '/api/v1/entries';
-	var myheaders = {
+	let myURL = baseurl + '/api/v1/entries';
+	let myheaders = {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
 		'Token': Token
 	};
-	var init = {
+	loader(true);
+	let init = {
 		method: 'GET',
 		headers: myheaders
 	};
@@ -17,40 +18,103 @@ function get_entries() {
 		.then((responseData) => {
 			return responseData;
 		})
-		.catch(error => console.error('Fetch Error =\n', error));
+		.catch(error => {
+			alert(error);
+		});
 }
-// get_entries().then(response => console.log(response));
 function show_data() {
+	loader(true);
 	get_entries().then(response => {
-		var object = response.entries;
-		var objectlength = object.length;
-		for (var i = 0; i < objectlength; i++) {
-			//make list of entry titles
-			var title = object[i].entry_name;
-			var content = object[i].entry_content;
-			var d = object[i].entry_date;
-			var id = object[i].entry_id;
-			var record = document.createElement('li');
-			record.setAttribute('id', 'id' + i);
-			record.appendChild(document.createTextNode(title));
-			document.getElementById('myUL').appendChild(record);
+		loader(false);
+		let object = response.entries;
+		let objectlength = object.length;
+		entry_iterate(objectlength, object, click_events);
+	});
 
-			record.onclick = function () {
-				modal.style.display = 'block';
-				document.getElementById('entry_title').innerHTML = title;
-				document.getElementById('entry_content').innerHTML = content;
-				document.getElementById('date').innerHTML = d;
-			};
+
+	function click_events() {
+		return 'show_details(this.id);delete_one(this.id);edit_one(this.id)';
+	}
+}
+
+//set the html links
+html_links();
+
+function html_links() {
+	var links = document.getElementsByClassName('navbar');
+	for (let i = 0; i < links.length; i++) {
+		let text = links[i].textContent;
+		links[i].textContent = '';
+		let a = document.createElement('a');
+		a.href = text.toLowerCase() + '.html';
+		a.textContent = text;
+		links[i].appendChild(a);
+	}
+}
+
+function entry_iterate(objectlength, object, click_events) {
+	for (let i = 0; i < objectlength; i++) {
+		//make list of entry titles
+		let title = object[i].entry_name;
+		let id = object[i].entry_id;
+		let record = document.createElement('li');
+		record.setAttribute('id', id);
+		record.appendChild(document.createTextNode(title));
+		record.setAttribute('onclick', click_events());
+		document.getElementById('myUL').appendChild(record);
+	}
+}
+
+function delete_entry(entry_id) {
+	let myURL = baseurl + '/api/v1/entries/' + entry_id;
+	let myheaders = {
+		'Content-Type': 'application/json',
+		'Accept': 'application/json',
+		'Token': Token
+	};
+	let init = {
+		method: 'DELETE',
+		headers: myheaders
+	};
+	loader(true);
+	fetch(myURL, init)
+		.then(function (response) {
+			return response.json();
+		})
+		.then(function (response) {
+			loader(false);
+			modal.style.display = 'none';
+			alert(response.Message);
+			location.reload();
+		})
+		.catch(error => {
+			alert(error);
+		});
+	return false;
+}
+
+function delete_one(id) {
+	let delbutton = document.getElementsByClassName('action')[1];
+	delbutton.onclick = function () {
+		delete_entry(id);
+
+	};
+}
+
+
+function show_details(id) {
+	get_entry();
+
+	function get_entry() {
+		get_entries().then(response => {
+			loader(false);
+			let object = response.entries;
+			display(object);
 			// Get the modal
 			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName('close')[0];
+			let span = document.getElementsByClassName('close')[0];
 			span.onclick = function () {
 				modal.style.display = 'none';
-			};
-			// edit  functionality
-			var button = document.getElementsByClassName('action')[0];
-			button.onclick = function () {
-				// console.log('edited');
 			};
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function (event) {
@@ -58,50 +122,23 @@ function show_data() {
 					modal.style.display = 'none';
 				}
 			};
-			// var item = document.getElementById('id' + i);
-			// item.removeChild(item.parentNode);
-			var delbutton = document.getElementsByClassName('action')[1];
-		    delbutton.onclick = function () {
-				console.log('deleted');
-				delete_entry(id);
+		});
+	}
 
-			};
+	function display(object) {
+		for (let i = 0; i < object.length; i++) {
+			if (object[i].entry_id == id) {
+				let d = object[i].entry_date;
+				let title = object[i].entry_name;
+				let content = object[i].entry_content;
+				modal.style.display = 'block';
+				document.getElementById('entry_title').innerHTML = title;
+				document.getElementById('entry_content').innerHTML = content;
+				document.getElementById('date').innerHTML = d;
+			}
 		}
-	});
-
-}
-var links = document.getElementsByClassName('navbar');
-//set the html links
-for (var i = 0; i < links.length; i++) {
-	var text = links[i].textContent;
-	links[i].textContent = '';
-	var a = document.createElement('a');
-	a.href = text.toLowerCase() + '.html';
-	a.textContent = text;
-	links[i].appendChild(a);
+	}
 }
 
-function delete_entry(entry_id) {
-	var myURL = baseurl + '/api/v1/entries/' + entry_id;
-	var myheaders = {
-		'Content-Type': 'application/json',
-		'Accept': 'application/json',
-		'Token': Token
-	};
-	var init = {
-		method: 'DELETE',
-		headers: myheaders
-	};
-	fetch(myURL, init)
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function () {
-			modal.style.display = 'none';
-			location.reload();
-		})
-		.catch(error => console.error('Fetch Error =\n', error));
-	return false;
-}
 
 show_data();
