@@ -9,27 +9,38 @@ function loader(state) {
 	}
 }
 
-
-// function errorbox(){
+function errormsg(x){
+	let errordiv=document.getElementById('errormsg');
+	errordiv.style.display='block';
+	errordiv.innerHTML=x;
+}
+// // function errorbox(){
 // 	let errorbox=document.getElementById('errormsg');
-// 	var errorheader=document.createElement('div')
-// 	errorheader.className('entry_name')
-// 	<div id="myModal" class="entry_name">
-//         <!-- Modal content -->
-//         <div class="modal-content">
-//             <div class="entry_name">
-//                 <span class="close">&times;</span>
-//                 <h2 id='entry_title'>title</h2>
-//             </div>
-//             <div class="modal-body">
-//                 <p id='entry_content'>Some text in the Modal Body</p>
-//             </div>
-//             <div class="entry_date">
-//                 <span class="action">&#x270E;</span>
-//                 <span class="action">&#x1F5D1;</span>
-//                 <h3 id='date'>entry_date</h3>
-//             </div>
-//         </div>
 
-//     </div>
+// 	//error header
+// 	let title=document.createElement('h2');
+// 	title.setAttribute('id','entry_title');
+// 	title.innerHTML='Error message';
+// 	let errorheader=document.createElement('div');
+// 	errorheader.setAttribute('id','errorheader');
+// 	errorheader.appendChild(title);
+
+// 	//create error body
+// 	let body=document.createElement('div');
+// 	var errordata=document.createElement('p');
+// 	errordata.setAttribute('id','errordata');
+// 	body.setAttribute('id','errorbody');
+// 	body.appendChild(errordata);
+
+// 	//create error footer
+// 	let footer=document.createElement('div');
+// 	var footerdata=document.createElement('p');
+// 	footerdata.setAttribute('id','footerdata');
+// 	footer.setAttribute('id','errorfooter');
+// 	footer.appendChild(footerdata);
+
+// 	//append title body and footer to box
+// 	errorbox.appendChild(errorheader);
+// 	errorbox.appendChild(body);
+// 	errorbox.appendChild(footer);
 // }

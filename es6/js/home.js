@@ -1,4 +1,4 @@
-const baseurl = 'https://simondb.herokuapp.com';
+const baseurl = 'http://127.0.0.1:5000';
 var modal = document.getElementById('myModal');
 
 function get_entries() {
@@ -19,6 +19,7 @@ function get_entries() {
 			return responseData;
 		})
 		.catch(error => {
+			loader(false);
 			alert(error);
 		});
 }
@@ -88,6 +89,7 @@ function delete_entry(entry_id) {
 			location.reload();
 		})
 		.catch(error => {
+			loader(false);
 			alert(error);
 		});
 	return false;
