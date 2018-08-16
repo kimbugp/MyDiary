@@ -29,7 +29,7 @@ function create_user() {
 			if (json.Message == 'User created') {
 				login();
 			} else {
-				document.getElementById('message').innerHTML = json.Message;
+				errormsg(json.Message);
 			}
 		})
 		.catch(error => {
@@ -64,11 +64,7 @@ function login() {
 				sessionStorage.setItem('Token', json.Token);
 				window.location.href = 'home.html';
 			} else {
-				// let errordiv = document.getElementById('errormsg');
-				// errordiv.style.display = 'block';
-				// errordiv.innerHTML = json.Message;
 				errormsg(json.Message);
-				// document.getElementById('errormsg').innerHTML = json.Message;
 			}
 		})
 		.catch(error => {
