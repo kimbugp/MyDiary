@@ -7,9 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="css/profile.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css" />
     <script src="js/main.js"></script>
+    <script src="js/loader.js"></script>
+    
+    
 </head>
-<body>
+<body onload="get_profile();">
     <nav>
         <ul>
             <li class="navbar">Home</li>
@@ -19,30 +23,19 @@
             <li onclick="signout()" style="float:right"><a href="#" >Sign out</a></li>
         </ul>
     </nav>
-</div>
 <div class="container">
-<!-- <div class="alert" id="alert" onclick="toggleshow()">Notification</div> -->
+        <div id='loader'></div>
 <div class="card">
         <img src="media/profilepic.jpg" alt="Simon" style="width:5cm; height:5cm;">
-        <h1>Kimbugwe Simon Peter<div class='edit'><button style="background-color:#eceeee;" onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></button></div></h1>
+        <h1 id='fullname'><div class='edit'><button style="background-color:#eceeee;" onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></button></div></h1>
         <p class="title">Prospecting Andela Fellow</p>
-        <p><button>No of Entries:4</button></p>
-        <p><button>Contact:+256752332136<div class='edit' onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></div></button></p>
-        <p><button>Email:kimbsimon2@gmail.com<div class='edit' onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></div></button></p>
-        <script>
-            function toggleshow(){
-                var x=document.getElementById("alert");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                }
-                else {
-                    x.style.display = "none";
-            
-                 }
-            }
-        document.getElementById("alert").hidden
-        </script>
+        <p><button id='noentries'></button></p>
+        <p><button id='uname'><div class='edit'><img src="media/edit.jpg" ></div></button></p>
+        <p><button id='useremail'><div class='edit'><img src="media/edit.jpg" ></div></button></p>
 </div>
+</div>
+<script src="js/home.js"></script>
+<script src="js/profile.js"></script>
     <footer>
             <p>Simon, Copyright &copy; 2018</p>
     </footer>

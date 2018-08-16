@@ -29,10 +29,12 @@ function add_entry() {
 				location.reload();
 			}
 			else{
+				loader(false);
 				alert(response.Message);
 			}
 		})
 		.catch(error => {
+			loader(false);
 			alert(error);
 		});
 	return false;

@@ -1,8 +1,7 @@
-const baseurl = 'https://simondb.herokuapp.com';
 var modal = document.getElementById('myModal');
 
-function get_entries() {
-	let myURL = baseurl + '/api/v1/entries';
+function get_request(url) {
+	let myURL = baseurl + url;
 	let myheaders = {
 		'Content-Type': 'application/json',
 		'Accept': 'application/json',
@@ -19,12 +18,14 @@ function get_entries() {
 			return responseData;
 		})
 		.catch(error => {
+			loader(false);
 			alert(error);
 		});
 }
 function show_data() {
+	let url='/api/v1/entries';
 	loader(true);
-	get_entries().then(response => {
+	get_request(url).then(response => {
 		loader(false);
 		let object = response.entries;
 		let objectlength = object.length;
@@ -88,6 +89,7 @@ function delete_entry(entry_id) {
 			location.reload();
 		})
 		.catch(error => {
+			loader(false);
 			alert(error);
 		});
 	return false;
@@ -106,7 +108,8 @@ function show_details(id) {
 	get_entry();
 
 	function get_entry() {
-		get_entries().then(response => {
+		let url='/api/v1/entries';
+		get_request(url).then(response => {
 			loader(false);
 			let object = response.entries;
 			display(object);
@@ -139,6 +142,3 @@ function show_details(id) {
 		}
 	}
 }
-
-
-show_data();
