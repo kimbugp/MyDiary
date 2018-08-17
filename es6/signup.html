@@ -26,14 +26,16 @@
         <form onsubmit="loader(true);return create_user()">
             <input type="text" id='name' placeholder="Full Name" autocomplete='off' 
             aria-describedby="name-format" pattern="[A-Za-z-0-9]+\s[A-Za-z-'0-9]+" 
-            aria-required=”true” title="firstname lastname" required />
+            aria-required=”true” title="firstname lastname"  minlength="8" required />
             <span id="name-format" class="help">Format: firstname lastname</span>
             <input type="text" id='username' placeholder="Username" autocomplete='off'
-            pattern="^[A-Za-z0-9_-]*$" required />
+            pattern="^[A-Za-z0-9_-]*$" minlength="5" required />
             <input type="text" id='email' placeholder="Enter Email" autocomplete='off' 
-            pattern="[A-Za-z-0-9]+@+[A-Za-z-0-9]+[.]+[A-Za-z-0-9]+" required />
-            <input type="password" id='password' placeholder="Enter Password" required />
-            <input type="password" id='passwordconfirm' placeholder="Re-enter Password" required />
+            pattern="[A-Za-z-0-9]+@[A-Za-z-0-9]+\.[a-z]{2,3}$" required />
+            <input type="password" id='password' placeholder="Enter Password" required 
+            pattern="(?=.*\d)(?=.*[A-Z]).{8,}"/>
+            <input type="password" id='passwordconfirm' placeholder="Re-enter Password" 
+            onchange="confirmpsd(this);" required />
             <div id='loader'></div>
             <input type="submit" value="Sign-up" />
             <p class='forgot'>Already have an account
