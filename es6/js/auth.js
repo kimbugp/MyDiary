@@ -73,3 +73,13 @@ function login() {
 		});
 	return false;
 }
+function confirmpsd(psw2){
+	let psw=document.getElementById('password').value;
+	if(psw!=psw2.value){
+		// alert('match');
+		psw2.setCustomValidity('not matching');
+	}
+	else{
+		psw2.setCustomValidity('');
+	}
+}
