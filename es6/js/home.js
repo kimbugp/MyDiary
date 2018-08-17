@@ -31,16 +31,10 @@ function show_data() {
 		let objectlength = object.length;
 		entry_iterate(objectlength, object, click_events);
 	});
-
-
-	function click_events() {
-		return 'show_details(this.id);delete_one(this.id);edit_one(this.id)';
-	}
 }
-
-//set the html links
-html_links();
-
+function click_events() {
+	return 'show_details(this.id);delete_one(this.id);edit_one(this.id)';
+}
 function html_links() {
 	var links = document.getElementsByClassName('navbar');
 	for (let i = 0; i < links.length; i++) {
@@ -105,40 +99,55 @@ function delete_one(id) {
 
 
 function show_details(id) {
-	get_entry();
-
-	function get_entry() {
-		let url='/api/v1/entries';
-		get_request(url).then(response => {
-			loader(false);
-			let object = response.entries;
-			display(object);
-			// Get the modal
-			// Get the <span> element that closes the modal
-			let span = document.getElementsByClassName('close')[0];
-			span.onclick = function () {
+	fetchoneentry(id).then(response =>{
+		loader(false);
+		let object = response.entries[0];
+		let d = object.entry_date;
+		let title = object.entry_name;
+		let content = object.entry_content;
+		modal.style.display = 'block';
+		document.getElementById('entry_title').innerHTML = title;
+		document.getElementById('entry_content').innerHTML = content;
+		document.getElementById('date').innerHTML = d;
+		// Get the modal
+		// Get the <span> element that closes the modal
+		let span = document.getElementsByClassName('close')[0];
+		span.onclick = function () {
+			modal.style.display = 'none';
+		};
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function (event) {
+			if (event.target == modal) {
 				modal.style.display = 'none';
-			};
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function (event) {
-				if (event.target == modal) {
-					modal.style.display = 'none';
-				}
-			};
-		});
-	}
-
-	function display(object) {
-		for (let i = 0; i < object.length; i++) {
-			if (object[i].entry_id == id) {
-				let d = object[i].entry_date;
-				let title = object[i].entry_name;
-				let content = object[i].entry_content;
-				modal.style.display = 'block';
-				document.getElementById('entry_title').innerHTML = title;
-				document.getElementById('entry_content').innerHTML = content;
-				document.getElementById('date').innerHTML = d;
 			}
-		}
-	}
+		};
+	});
+	
+}
+
+//set the html links
+html_links();
+
+function fetchoneentry(id) {
+	let url='/api/v1/entries';
+	let myURL = baseurl + url + '/' + id;
+	let myheaders = {
+		'Content-Type': 'application/json',
+		'Accept': 'application/json',
+		'Token': Token
+	};
+	loader(true);
+	let init = {
+		method: 'GET',
+		headers: myheaders
+	};
+	return fetch(myURL, init)
+		.then((response) => response.json())
+		.then((responseData) => {
+			return responseData;
+		})
+		.catch(error => {
+			loader(false);
+			alert(error);
+		});
 }

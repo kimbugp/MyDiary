@@ -1,6 +1,3 @@
-// from home import baseurl
-// const baseurl = 'https://simondb.herokuapp.com';
-// const Token = sessionStorage.getItem('Token');
 
 function add_entry() {
 	var mybody = JSON.stringify({
@@ -39,10 +36,10 @@ function add_entry() {
 		});
 	return false;
 }
-//close modal when clicked
 close_newentrymodel();
 
 function close_newentrymodel() {
+	//close modal when clicked
 	var entrymodal = document.getElementById('newentrymodal');
 	var span = document.getElementsByClassName('close')[1];
 	span.onclick = function () {
@@ -101,8 +98,6 @@ function edit_one(id) {
 		document.getElementsByClassName('modal')[1].style.display = 'block';
 		document.getElementById('new_entrycontent').value = document.getElementById('entry_content').innerHTML;
 		document.getElementById('new_entryname').value = document.getElementById(id).innerHTML;
-
-		
 		togglesavebuttons('edit');
 
 	};

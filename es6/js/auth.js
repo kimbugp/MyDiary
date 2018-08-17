@@ -77,7 +77,7 @@ function confirmpsd(psw2){
 	let psw=document.getElementById('password').value;
 	if(psw!=psw2.value){
 		// alert('match');
-		psw2.setCustomValidity('not matching');
+		psw2.setCustomValidity('password not matching');
 	}
 	else{
 		psw2.setCustomValidity('');
