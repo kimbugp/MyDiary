@@ -229,3 +229,8 @@ a {
   text-decoration: none;
   font-size: 25px
 }
+
+input:invalid{
+    border-color:hsl(0, 50%, 50%);
+    background:hsl(0, 50%, 90%);
+}

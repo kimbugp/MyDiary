@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,28 +12,39 @@
     <script src="js/loader.js"></script>
     <title>Sign Up</title>
 </head>
-<body> 
+
+<body>
     <nav>
         <ul>
-            <li><img  alt="Simon's Diary" src="media/diary.jpeg" style="width:1cm;height:1cm;"></li>
+            <li>
+                <img alt="Simon's Diary" src="media/diary.jpeg" style="width:1cm;height:1cm;">
+            </li>
             <div class=sign-heading>Sign-up</div>
         </ul>
     </nav>
     <div class="signup">
         <form onsubmit="loader(true);return create_user()">
-        <input type="text" id='name' placeholder="Full Name"  autocomplete='off' required />
-        <input type="text" id='username' placeholder="Username" autocomplete='off' required />
-        <input type="text" id='email' placeholder="Enter Email"  autocomplete='off' required />
-        <input type="password" id='password' placeholder="Enter Password"  required />
-        <input type="password" id='passwordconfirm' placeholder="Re-enter Password"  required />
-        <div id='loader'></div>
-        <input type="submit" value="Sign-up" />
-        <p class='forgot'>Already have an account<button class="button3" type="button" onclick="window.location.href='index.html';">Signin</button></p>
-    </form>
+            <input type="text" id='name' placeholder="Full Name" autocomplete='off' 
+            aria-describedby="name-format" pattern="[A-Za-z-0-9]+\s[A-Za-z-'0-9]+" 
+            aria-required=”true” title="firstname lastname" required />
+            <span id="name-format" class="help">Format: firstname lastname</span>
+            <input type="text" id='username' placeholder="Username" autocomplete='off'
+            pattern="^[A-Za-z0-9_-]*$" required />
+            <input type="text" id='email' placeholder="Enter Email" autocomplete='off' 
+            pattern="[A-Za-z-0-9]+@+[A-Za-z-0-9]+[.]+[A-Za-z-0-9]+" required />
+            <input type="password" id='password' placeholder="Enter Password" required />
+            <input type="password" id='passwordconfirm' placeholder="Re-enter Password" required />
+            <div id='loader'></div>
+            <input type="submit" value="Sign-up" />
+            <p class='forgot'>Already have an account
+                <button class="button3" type="button" onclick="window.location.href='index.html';">Signin</button>
+            </p>
+        </form>
     </div>
-    <div class='errormsg' id="errormsg"></div> 
+    <div class='errormsg' id="errormsg"></div>
     <footer>
-            <p>Simon, Copyright &copy; 2018</p>
+        <p>Simon, Copyright &copy; 2018</p>
     </footer>
 </body>
+
 </html>
