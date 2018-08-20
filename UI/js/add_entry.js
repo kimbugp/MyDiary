@@ -110,22 +110,27 @@ function edit_one(id) {
 }
 
 function togglesavebuttons(x) {
+	let savebtn=document.getElementById('save_new_entry');
+	let editbtn=document.getElementById('edit_entry');
+	let savetitle=document.getElementById('entry_titleheader');
+	let edittitle=document.getElementById('edit_title');
+	let none='none';
+	let block='block';
 	if(x=='edit'){
-		//change save button 
-		document.getElementById('save_new_entry').style.display = 'none';
-		document.getElementById('edit_entry').style.display = 'block';
-		//change title of modal
-		document.getElementById('entry_titleheader').style.display = 'none';
-		document.getElementById('edit_title').style.display = 'block';
+		toggle(block,none);
 	}
 	else if(x=='new'){
-		//change save button 
-		document.getElementById('save_new_entry').style.display = 'block';
-		document.getElementById('edit_entry').style.display = 'none';
-		//change title of modal
-		document.getElementById('entry_titleheader').style.display = 'block';
-		document.getElementById('edit_title').style.display = 'none';
+		toggle(none,block);
 	}
 	
+
+	function toggle(x,y) {
+		//change save button
+		savebtn.style.display = y;
+		editbtn.style.display = x;
+		//change title of modal
+		savetitle.style.display = y;
+		edittitle.style.display = x;
+	}
 }
 

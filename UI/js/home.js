@@ -12,15 +12,7 @@ function get_request(url) {
 		method: 'GET',
 		headers: myheaders
 	};
-	return fetch(myURL, init)
-		.then((response) => response.json())
-		.then((responseData) => {
-			return responseData;
-		})
-		.catch(error => {
-			loader(false);
-			alert(error);
-		});
+	return fetchdata(myURL, init);
 }
 function show_data() {
 	let url='/api/v1/entries';
@@ -141,6 +133,10 @@ function fetchoneentry(id) {
 		method: 'GET',
 		headers: myheaders
 	};
+	return fetchdata(myURL, init);
+}
+
+function fetchdata(myURL, init) {
 	return fetch(myURL, init)
 		.then((response) => response.json())
 		.then((responseData) => {
