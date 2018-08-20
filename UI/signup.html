@@ -1,35 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-    <script src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css" />
+    <script src="js/signup.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/loader.js"></script>
     <title>Sign Up</title>
 </head>
-<body> 
+
+<body>
     <nav>
         <ul>
-            <li><img  alt="Simon's Diary" src="media/diary.jpeg" style="width:1cm;height:1cm;"></li>
-            <div class=sign-heading>My Diary</div>
+            <li>
+                <img alt="Simon's Diary" src="media/diary.jpeg" style="width:1cm;height:1cm;">
+            </li>
+            <div class=sign-heading>Sign-up</div>
         </ul>
     </nav>
     <div class="signup">
-        <h2>Sign Up</h2>
-        <input type="text" placeholder="Username" required>
-
-        <input type="text" placeholder="Enter Email"  required>
-    
-        <input type="password" placeholder="Enter Password"  required>
-    
-        <input type="password" placeholder="Repeat Password"  required>
-    
-        <input type="submit" value="Sign-up" onclick="window.location.href='home.html';">
-        <p class='forgot'>Already have an account<button class="button3" type="button" onclick="window.location.href='index.html';">Signin</button></p>
-    </form> 
+        <form onsubmit="loader(true);return create_user()">
+            <input type="text" id='name' placeholder="Full Name" autocomplete='off' 
+            aria-describedby="name-format" pattern="[A-Za-z-0-9]+\s[A-Za-z-'0-9]+" 
+            aria-required=”true” title="Format: firstname lastname"  minlength="8" required />
+            <span id="name-format" class="help">Format: firstname lastname</span>
+            <input type="text" id='username' placeholder="Username" autocomplete='off'
+            pattern="^[A-Za-z0-9_-]*$" minlength="5" required />
+            <input type="text" id='email' placeholder="Enter Email" autocomplete='off' 
+            pattern="[A-Za-z-0-9]+@[A-Za-z-0-9]+\.[a-z]{2,3}$" required title='format someone@somewhere.com/net etc'/>
+            <input type="password" id='password' placeholder="Enter Password" required 
+            pattern="(?=.*\d)(?=.*[A-Z]).{8,}" title="Must be minimum 8 characters including uppercase,lower case and special character"/>
+            <input type="password" id='passwordconfirm' placeholder="Re-enter Password" 
+            onchange="confirmpsd(this);" required />
+            <div id='loader'></div>
+            <input type="submit" value="Sign-up" />
+            <p class='forgot'>Already have an account
+                <button class="button3" type="button" onclick="window.location.href='index.html';">Signin</button>
+            </p>
+        </form>
+    </div>
+    <div class='errormsg' id="errormsg"></div>
     <footer>
-            <p>Simon, Copyright &copy; 2018</p>
+        <p>Simon, Copyright &copy; 2018</p>
     </footer>
 </body>
+
 </html>
