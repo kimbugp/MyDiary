@@ -27,7 +27,7 @@ function add_entry() {
 			}
 			else{
 				loader(false);
-				alert(response.Message);
+				var notification = new Notification(response.Message);
 			}
 		})
 		.catch(error => {
@@ -81,7 +81,7 @@ function edit_entry(entry_id) {
 				location.reload();
 			}
 			else{
-				alert(response.Message);
+				var notification = new Notification(response.Message);
 			}
 		})
 		.catch(error => {

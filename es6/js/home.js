@@ -79,7 +79,7 @@ function delete_entry(entry_id) {
 		.then(function (response) {
 			loader(false);
 			modal.style.display = 'none';
-			alert(response.Message);
+			var notification = new Notification(response.Message);
 			location.reload();
 		})
 		.catch(error => {
