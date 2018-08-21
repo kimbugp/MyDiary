@@ -198,3 +198,34 @@ class Entries{
 		});
 	}
 }
+class Profile {
+	constructor(url){
+		this.url=url;
+		this.headers=new Entries(null);
+	}
+	getprofile(){
+		let myheaders =this.headers.myheaders();
+		let myURL=baseurl+this.url;
+		loader(true);
+		let init = {
+			method: 'GET',
+			headers: myheaders
+		};
+		return fetch(myURL, init)
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(response){
+				loader(false);
+				let no=response[0].count;
+				let mail=response[0].email;
+				let uname=response[0].username;
+				let name=response[0].name;
+				displayprofile(no,mail,uname,name);
+			})
+			.catch(error => {
+				loader(false);
+				alert(error);
+			});
+	}
+}

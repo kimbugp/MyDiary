@@ -1,14 +1,8 @@
 
 function get_profile() {
 	let url = '/api/v1/profile';
-	get_request(url).then(response =>{
-		loader(false);
-		let no=response[0].count;
-		let mail=response[0].email;
-		let uname=response[0].username;
-		let name=response[0].name;
-		displayprofile(no,mail,uname,name);
-	});
+	let profile=new Profile(url);
+	profile.getprofile();
 }
 function displayprofile(no,mail,username,name){
 	let entries=document.getElementById('noentries');
