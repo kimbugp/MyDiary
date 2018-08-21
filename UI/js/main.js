@@ -1,6 +1,6 @@
 
-// const baseurl = 'https://simondb.herokuapp.com';
-const baseurl = 'http://127.0.0.1:5000';
+const baseurl = 'https://simondb.herokuapp.com';
+// const baseurl = 'http://127.0.0.1:5000';
 const Token = sessionStorage.getItem('Token');
 if(Token == null){
 	window.location.href='index.html';
@@ -154,5 +154,37 @@ class Entries{
 				alert(error);
 			});
 
+	}
+	addentry(){
+		var mybody = JSON.stringify({
+			'entry_content': document.getElementById('new_entrycontent').value,
+			'entry_name': document.getElementById('new_entryname').value,
+		});
+		let myURL = baseurl + '/api/v1/entries';
+		var init = {
+			method: 'POST',
+			headers: myheaders,
+			body: mybody
+		};
+		loader(true);
+		fetch(myURL, init)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (response) {
+				loader(true);
+				if (response.Message == 'entry created') {
+					location.reload();
+				}
+				else{
+					loader(false);
+					var notification = new Notification(response.Message);
+				}
+			})
+			.catch(error => {
+				loader(false);
+				alert(error);
+			});
+		return false;
 	}
 }
