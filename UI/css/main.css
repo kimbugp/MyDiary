@@ -4,7 +4,6 @@ body{
   background-size:cover;
   background-image: url(whitepaper.jpg);
   text-align: center;
-  background-repeat: no-repeat, repeat;
   
 }
 .container {
@@ -229,4 +228,9 @@ a {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 25px
+}
+
+input:invalid{
+    border-color:hsl(0, 50%, 50%);
+    background:hsl(0, 50%, 90%);
 }
