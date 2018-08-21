@@ -27,18 +27,6 @@ function show_data() {
 function click_events() {
 	return 'show_details(this.id);delete_one(this.id);edit_one(this.id)';
 }
-function html_links() {
-	var links = document.getElementsByClassName('navbar');
-	for (let i = 0; i < links.length; i++) {
-		let text = links[i].textContent;
-		links[i].textContent = '';
-		let a = document.createElement('a');
-		a.href = text.toLowerCase() + '.html';
-		a.textContent = text;
-		links[i].appendChild(a);
-	}
-}
-
 function entry_iterate(objectlength, object, click_events) {
 	for (let i = 0; i < objectlength; i++) {
 		//make list of entry titles
@@ -51,44 +39,13 @@ function entry_iterate(objectlength, object, click_events) {
 		document.getElementById('myUL').appendChild(record);
 	}
 }
-
-function delete_entry(entry_id) {
-	let myURL = baseurl + '/api/v1/entries/' + entry_id;
-	let myheaders = {
-		'Content-Type': 'application/json',
-		'Accept': 'application/json',
-		'Token': Token
-	};
-	let init = {
-		method: 'DELETE',
-		headers: myheaders
-	};
-	loader(true);
-	fetch(myURL, init)
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (response) {
-			loader(false);
-			modal.style.display = 'none';
-			var notification = new Notification(response.Message);
-			location.reload();
-		})
-		.catch(error => {
-			loader(false);
-			alert(error);
-		});
-	return false;
-}
-
 function delete_one(id) {
 	let delbutton = document.getElementsByClassName('action')[1];
 	delbutton.onclick = function () {
-		delete_entry(id);
-
+		let entry=new Entries(id);
+		entry.delete();
 	};
 }
-
 
 function show_details(id) {
 	fetchoneentry(id).then(response =>{
@@ -117,9 +74,6 @@ function show_details(id) {
 	
 }
 
-//set the html links
-html_links();
-
 function fetchoneentry(id) {
 	let url='/api/v1/entries';
 	let myURL = baseurl + url + '/' + id;
@@ -147,3 +101,5 @@ function fetchdata(myURL, init) {
 			alert(error);
 		});
 }
+
+html_links();
