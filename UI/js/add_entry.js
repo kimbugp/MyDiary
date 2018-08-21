@@ -1,40 +1,7 @@
 
 function add_entry() {
-	var mybody = JSON.stringify({
-		'entry_content': document.getElementById('new_entrycontent').value,
-		'entry_name': document.getElementById('new_entryname').value,
-	});
-	let myURL = baseurl + '/api/v1/entries';
-	let myheaders = {
-		'Content-Type': 'application/json',
-		'Accept': 'application/json',
-		'Token': Token
-	};
-	var init = {
-		method: 'POST',
-		headers: myheaders,
-		body: mybody
-	};
-	loader(true);
-	fetch(myURL, init)
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (response) {
-			loader(true);
-			if (response.Message == 'entry created') {
-				location.reload();
-			}
-			else{
-				loader(false);
-				var notification = new Notification(response.Message);
-			}
-		})
-		.catch(error => {
-			loader(false);
-			alert(error);
-		});
-	return false;
+	let entry=new Entries;
+	entry.addentry();
 }
 close_newentrymodel();
 
@@ -52,44 +19,6 @@ function close_newentrymodel() {
 		}
 	};
 }
-
-function edit_entry(entry_id) {
-	let myURL = baseurl + '/api/v1/entries/' + entry_id;
-	var mybody = JSON.stringify({
-		'entry_content': document.getElementById('new_entrycontent').value,
-		'entry_name': document.getElementById('new_entryname').value,
-	});
-	let myheaders = {
-		'Content-Type': 'application/json',
-		'Accept': 'application/json',
-		'Token': Token
-	};
-	let init = {
-		method: 'PUT',
-		headers: myheaders,
-		body: mybody
-	};
-	loader(true);
-	fetch(myURL, init)
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (response) {
-			loader(false);
-			modal.style.display = 'none';
-			if (response.Message == 'entry edited') {
-				location.reload();
-			}
-			else{
-				var notification = new Notification(response.Message);
-			}
-		})
-		.catch(error => {
-			alert(error);
-		});
-	return false;
-}
-
 function edit_one(id) {
 	let editbutton = document.getElementsByClassName('action')[0];
 	editbutton.onclick = function () {
@@ -103,9 +32,8 @@ function edit_one(id) {
 	};
 	let saveedit = document.getElementById('edit_entry');
 	saveedit.onclick = function () {
-		edit_entry(id);
-		
-
+		let entry=new Entries(id);
+		entry.edit();
 	};
 }
 
