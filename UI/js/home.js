@@ -74,9 +74,6 @@ function show_details(id) {
 	
 }
 
-//set the html links
-html_links();
-
 function fetchoneentry(id) {
 	let url='/api/v1/entries';
 	let myURL = baseurl + url + '/' + id;
@@ -104,3 +101,5 @@ function fetchdata(myURL, init) {
 			alert(error);
 		});
 }
+
+html_links();

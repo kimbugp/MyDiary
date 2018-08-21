@@ -25,18 +25,17 @@ function html_links() {
 		links[i].appendChild(a);
 	}
 }
-html_links();
+let myheaders = {
+	'Content-Type': 'application/json',
+	'Accept': 'application/json',
+	'Token': Token
+};
 class Entries{
 	constructor(id){
 		this.id=id;
 	}
 	delete(){
 		let myURL = baseurl + '/api/v1/entries/' + this.id;
-		let myheaders = {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Token': Token
-		};
 		let init = {
 			method: 'DELETE',
 			headers: myheaders
@@ -64,11 +63,6 @@ class Entries{
 			'entry_content': document.getElementById('new_entrycontent').value,
 			'entry_name': document.getElementById('new_entryname').value,
 		});
-		let myheaders = {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Token': Token
-		};
 		let init = {
 			method: 'PUT',
 			headers: myheaders,
@@ -98,11 +92,6 @@ class Entries{
 	getone(){
 		let url='/api/v1/entries';
 		let myURL = baseurl + url + '/' + id;
-		let myheaders = {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-			'Token': Token
-		};
 		loader(true);
 		let init = {
 			method: 'GET',
