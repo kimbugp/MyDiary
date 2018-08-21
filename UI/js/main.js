@@ -25,16 +25,13 @@ function html_links() {
 		links[i].appendChild(a);
 	}
 }
-let myheaders = {
-	'Content-Type': 'application/json',
-	'Accept': 'application/json',
-	'Token': Token
-};
+
 class Entries{
 	constructor(id){
 		this.id=id;
 	}
 	delete(){
+		let myheaders = this.myheaders();
 		let myURL = baseurl + '/api/v1/entries/' + this.id;
 		let init = {
 			method: 'DELETE',
@@ -57,12 +54,18 @@ class Entries{
 			});
 		return false;
 	}
+	myheaders() {
+		return {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+			'Token': Token
+		};
+	}
+
 	edit(){
+		let myheaders = this.myheaders();
 		let myURL = baseurl + '/api/v1/entries/' + this.id;
-		var mybody = JSON.stringify({
-			'entry_content': document.getElementById('new_entrycontent').value,
-			'entry_name': document.getElementById('new_entryname').value,
-		});
+		var mybody = this.mybody();
 		let init = {
 			method: 'PUT',
 			headers: myheaders,
@@ -90,6 +93,7 @@ class Entries{
 	
 	}
 	getone(){
+		let myheaders = this.myheaders();
 		let url='/api/v1/entries';
 		let myURL = baseurl + url + '/' + this.id;
 		loader(true);
@@ -131,6 +135,7 @@ class Entries{
 		// return response;
 	}
 	getall(url){
+		let myheaders = this.myheaders();
 		this.url=url;
 		let myURL=baseurl+this.url;
 		loader(true);
@@ -156,10 +161,8 @@ class Entries{
 
 	}
 	addentry(){
-		var mybody = JSON.stringify({
-			'entry_content': document.getElementById('new_entrycontent').value,
-			'entry_name': document.getElementById('new_entryname').value,
-		});
+		let myheaders = this.myheaders();
+		var mybody = this.mybody();
 		let myURL = baseurl + '/api/v1/entries';
 		var init = {
 			method: 'POST',
@@ -186,5 +189,12 @@ class Entries{
 				alert(error);
 			});
 		return false;
+	}
+
+	mybody() {
+		return JSON.stringify({
+			'entry_content': document.getElementById('new_entrycontent').value,
+			'entry_name': document.getElementById('new_entryname').value,
+		});
 	}
 }
