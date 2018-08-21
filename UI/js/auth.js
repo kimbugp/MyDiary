@@ -14,7 +14,7 @@ function create_user() {
 	var myURL = baseurl + '/api/v1/auth/signup';
 	var myheaders = {
 		'Content-Type': 'application/json'
-	};
+	};	
 	var init = {
 		method: 'POST',
 		headers: myheaders,

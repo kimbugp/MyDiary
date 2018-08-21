@@ -63,14 +63,7 @@ class Entries{
 	}
 
 	edit(){
-		let myheaders = this.myheaders();
-		let myURL = baseurl + '/api/v1/entries/' + this.id;
-		var mybody = this.mybody();
-		let init = {
-			method: 'PUT',
-			headers: myheaders,
-			body: mybody
-		};
+		let { myURL, init } = this.editheader();
 		loader(true);
 		fetch(myURL, init)
 			.then(function (response) {
@@ -92,15 +85,20 @@ class Entries{
 		return false;
 	
 	}
-	getone(){
+	editheader() {
 		let myheaders = this.myheaders();
-		let url='/api/v1/entries';
-		let myURL = baseurl + url + '/' + this.id;
-		loader(true);
+		let myURL = baseurl + '/api/v1/entries/' + this.id;
+		var mybody = this.mybody();
 		let init = {
-			method: 'GET',
-			headers: myheaders
+			method: 'PUT',
+			headers: myheaders,
+			body: mybody
 		};
+		return { myURL, init };
+	}
+
+	getone(){
+		let { myURL, init } = this.getoneheader();
 		return fetch(myURL,init)
 			.then(function (response){
 				return response.json();
@@ -127,13 +125,23 @@ class Entries{
 						modal.style.display = 'none';
 					}
 				};
-				// return response;
 			})
 			.catch(error => {
 				alert(error);
 			});
-		// return response;
 	}
+	getoneheader() {
+		let myheaders = this.myheaders();
+		let url = '/api/v1/entries';
+		let myURL = baseurl + url + '/' + this.id;
+		loader(true);
+		let init = {
+			method: 'GET',
+			headers: myheaders
+		};
+		return { myURL, init };
+	}
+
 	getall(url){
 		let myheaders = this.myheaders();
 		this.url=url;
@@ -152,23 +160,15 @@ class Entries{
 				let object = response.entries;
 				let objectlength = object.length;
 				entry_iterate(objectlength, object, click_events);
-				// return responseData;
+				
 			})
 			.catch(error => {
 				loader(false);
 				alert(error);
 			});
-
 	}
 	addentry(){
-		let myheaders = this.myheaders();
-		var mybody = this.mybody();
-		let myURL = baseurl + '/api/v1/entries';
-		var init = {
-			method: 'POST',
-			headers: myheaders,
-			body: mybody
-		};
+		var { myURL, init } = this.newentryheader();
 		loader(true);
 		fetch(myURL, init)
 			.then(function (response) {
@@ -189,6 +189,18 @@ class Entries{
 				alert(error);
 			});
 		return false;
+	}
+
+	newentryheader() {
+		let myheaders = this.myheaders();
+		var mybody = this.mybody();
+		let myURL = baseurl + '/api/v1/entries';
+		var init = {
+			method: 'POST',
+			headers: myheaders,
+			body: mybody
+		};
+		return { myURL, init };
 	}
 
 	mybody() {
