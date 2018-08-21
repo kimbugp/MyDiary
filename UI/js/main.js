@@ -91,11 +91,43 @@ class Entries{
 	}
 	getone(){
 		let url='/api/v1/entries';
-		let myURL = baseurl + url + '/' + id;
+		let myURL = baseurl + url + '/' + this.id;
 		loader(true);
 		let init = {
 			method: 'GET',
 			headers: myheaders
 		};
+		return fetch(myURL,init)
+			.then(function (response){
+				return response.json();
+			})
+			.then(function(response){
+				loader(false);
+				let object = response.entries[0];
+				let d = object.entry_date;
+				let title = object.entry_name;
+				let content = object.entry_content;
+				modal.style.display = 'block';
+				document.getElementById('entry_title').innerHTML = title;
+				document.getElementById('entry_content').innerHTML = content;
+				document.getElementById('date').innerHTML = d;
+				// Get the modal
+				// Get the <span> element that closes the modal
+				let span = document.getElementsByClassName('close')[0];
+				span.onclick = function () {
+					modal.style.display = 'none';
+				};
+				// When the user clicks anywhere outside of the modal, close it
+				window.onclick = function (event) {
+					if (event.target == modal) {
+						modal.style.display = 'none';
+					}
+				};
+				// return response;
+			})
+			.catch(error => {
+				alert(error);
+			});
+		// return response;
 	}
 }
