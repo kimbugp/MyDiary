@@ -1,40 +1,7 @@
 
 function add_entry() {
-	var mybody = JSON.stringify({
-		'entry_content': document.getElementById('new_entrycontent').value,
-		'entry_name': document.getElementById('new_entryname').value,
-	});
-	let myURL = baseurl + '/api/v1/entries';
-	let myheaders = {
-		'Content-Type': 'application/json',
-		'Accept': 'application/json',
-		'Token': Token
-	};
-	var init = {
-		method: 'POST',
-		headers: myheaders,
-		body: mybody
-	};
-	loader(true);
-	fetch(myURL, init)
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (response) {
-			loader(true);
-			if (response.Message == 'entry created') {
-				location.reload();
-			}
-			else{
-				loader(false);
-				var notification = new Notification(response.Message);
-			}
-		})
-		.catch(error => {
-			loader(false);
-			alert(error);
-		});
-	return false;
+	let entry=new Entries;
+	entry.addentry();
 }
 close_newentrymodel();
 
