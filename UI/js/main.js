@@ -1,6 +1,6 @@
 
-const baseurl = 'https://simondb.herokuapp.com';
-// const baseurl = 'http://127.0.0.1:5000';
+// const baseurl = 'https://simondb.herokuapp.com';
+const baseurl = 'http://127.0.0.1:5000';
 const Token = sessionStorage.getItem('Token');
 if(Token == null){
 	window.location.href='index.html';
@@ -129,5 +129,30 @@ class Entries{
 				alert(error);
 			});
 		// return response;
+	}
+	getall(url){
+		this.url=url;
+		let myURL=baseurl+this.url;
+		loader(true);
+		let init = {
+			method: 'GET',
+			headers: myheaders
+		};
+		return fetch(myURL, init)
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(response){
+				loader(false);
+				let object = response.entries;
+				let objectlength = object.length;
+				entry_iterate(objectlength, object, click_events);
+				// return responseData;
+			})
+			.catch(error => {
+				loader(false);
+				alert(error);
+			});
+
 	}
 }
