@@ -79,7 +79,7 @@ class Entries {
 				if (response.Message == 'entry edited') {
 					location.reload();
 				} else {
-					var notification = new Notification(response.Message);
+					var notification = new Notification(response.message);
 				}
 			})
 			.catch(error => {
@@ -194,7 +194,7 @@ class Entries {
 					location.reload();
 				} else {
 					loader(false);
-					var notification = new Notification(response.Message);
+					var notification = new Notification(response.message);
 				}
 			})
 			.catch(error => {
