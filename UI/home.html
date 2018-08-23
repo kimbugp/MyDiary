@@ -85,9 +85,10 @@
             </div>
             <div class="modal-body">
                 <p id='entry_content'>
-                    <input type="date" id="new_entrydate">
-                    <input type="text" id="new_entryname" placeholder="title..">
-                    <textarea id="new_entrycontent" placeholder="Write something.." style="height:100px"></textarea>
+                    <input type="text" id="new_entryname" style="width:80%;font-family: 'Times New Roman', Times, serif" placeholder="Title.." minlength="10"
+                        autocomplete="off" maxlength="50">
+                    <textarea id="new_entrycontent" style="font-size:150%;font-family: 'Times New Roman', Times, serif" 
+                        style="height:100px;width: 80%" required minlength="10" maxlength="80" autocomplete="off" placeholder="Write Something..."></textarea>
                 </p>
             </div>
             <div class="entry_date">
