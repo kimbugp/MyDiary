@@ -22,6 +22,11 @@ function close_newentrymodel() {
 function edit_one(id) {
 	let editbutton = document.getElementsByClassName('action')[0];
 	editbutton.onclick = function () {
+		if(checkdate()==false){
+			alert('entry cannot be edited...A day has passed');
+			return;
+		}
+		on
 		modal.style.display = 'none';
 		//set the entry form to show previous data
 		document.getElementsByClassName('modal')[1].style.display = 'block';
@@ -61,4 +66,13 @@ function togglesavebuttons(x) {
 		edittitle.style.display = x;
 	}
 }
+//function to check if day has passed
+function checkdate(){
+	let entry_date=document.getElementById('date').innerHTML;
+	let en=Date.parse(new Date())-Date.parse(entry_date);
+	if(en>86400000){
+		return false;
+	}
+	return 'Entry Edited';
 
+}
