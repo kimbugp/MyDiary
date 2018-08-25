@@ -50,7 +50,7 @@ class UserTests(TestingClass):
         self.assertEqual(response.status_code, 200)
     
     def test_edit_password(self):
-        """Method to test editing profile"""
+        """Method to test editing password"""
         response=edit_password(self.test_user)
         self.assertEqual(response.status_code,200)
     
