@@ -7,7 +7,7 @@ from pyisemail import is_email
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, jsonify, make_response, request, redirect
 from api.v1.models import dbase
-from api.v1.dbtasks import dboperations
+from api.v1.dbtasks import dboperations,Profile
 from flask_cors import CORS
 
 
@@ -16,8 +16,10 @@ CORS(app)
 db = dbase()
 db.create_user_table()
 db.create_entries_table()
+db.create_profile_table()
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()
+profile=Profile()
 
 
 def process_entry_json(var):
@@ -234,3 +236,24 @@ def view_profile(user_id):
     """
     response = database.get_profile(user_id)
     return make_response(jsonify(response), 200)
+
+@app.route('/api/v1/profile/pic', methods=['POST'])
+@token_header
+def add_picture(user_id):
+    """
+    End Point to edit user profile
+    """
+    path=request.json['path']
+    ext=request.json['ext']
+    profile.add_pic(user_id,path,ext)
+    return make_response(jsonify({"response":"fjfj"}), 201)
+
+@app.route('/api/v1/profile', methods=['POST'])
+@token_header
+def edit(user_id):
+    """
+    End Point to edit user profile
+    """
+    data=request.json
+    profile.edit_profile(user_id,next(iter(data.values())),next(iter(data.keys())))
+    return make_response(jsonify({"response":data}), 201)

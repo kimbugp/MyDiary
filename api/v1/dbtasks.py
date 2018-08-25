@@ -1,6 +1,6 @@
 """Module to perform database tasks"""
 from api.v1.models import dbase
-
+import psycopg2
 db = dbase()
 cursor = db.cursor
 dict_cursor = db.dict_cursor
@@ -103,3 +103,17 @@ class dboperations():
         dict_cursor.execute(profile)
         user = dict_cursor.fetchall()
         return user
+
+class Profile():
+    def add_pic(self,userid,path,file_ext):
+        """Method to add profile pic"""
+        picture=psycopg2.Binary(open(path,'rb').read())
+        pic=("INSERT INTO profile(user_id,profilepic,picextension)\
+             VALUES(%s,%s,%s) ON CONFLICT(user_id)\
+             DO UPDATE SET profilepic=%s,picextension=%s")
+        cursor.execute(pic,(userid,picture,file_ext,picture,file_ext))    
+
+    def edit_profile(self,user_id,var,col):
+        """Method to profile edit"""
+        pic=(f"UPDATE users SET {col}='{var}' where user_id={user_id}")
+        cursor.execute(pic)
