@@ -255,5 +255,12 @@ def edit(user_id):
     End Point to edit user profile
     """
     data=request.json
-    profile.edit_profile(user_id,next(iter(data.values())),next(iter(data.keys())))
-    return make_response(jsonify({"response":data}), 201)
+    var=next(iter(data.values()))
+    col=next(iter(data.keys()))
+    if not data['password']:
+        profile.edit_profile(user_id,var,col)
+        return make_response(jsonify({"response":data}), 200)
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    profile.edit_profile(user_id,hashed_password,col)
+    return make_response(jsonify({"response":"password edited"}), 200)
+    
