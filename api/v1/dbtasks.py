@@ -115,5 +115,14 @@ class Profile():
 
     def edit_profile(self,user_id,var,col):
         """Method to profile edit"""
+        addcol=(f"ALTER TABLE users ADD COLUMN if not exists {col} VARCHAR;")
+        cursor.execute(addcol)
         pic=(f"UPDATE users SET {col}='{var}' where user_id={user_id}")
         cursor.execute(pic)
+    
+    def readpic(self,user_id,path):
+        """Method to request profile pic"""
+        cursor.execute(f"SELECT profilepic, picextension FROM profile WHERE user_id ={user_id}")
+ 
+        blob = cursor.fetchone()
+        open(path + str(user_id)+"pic" + '.' + blob[1], 'wb').write(blob[0])

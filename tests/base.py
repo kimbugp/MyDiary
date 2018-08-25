@@ -203,7 +203,6 @@ def error_page(test_user):
 
 def profile(test_user):
     """Function to test retruning profile"""
-    create_an_entry(test_user)
     response = test_user.get('/api/v1/profile',
                              headers=user_create_token(test_user),
                              content_type='application/json')
@@ -211,7 +210,6 @@ def profile(test_user):
 
 def edit_password(test_user):
     """Function to test edit password"""
-    create_an_entry(test_user)
     response = test_user.put('/api/v1/profile',
                              headers=user_create_token(test_user),
                              data=json.dumps({'username':'qwer'}),
@@ -220,9 +218,15 @@ def edit_password(test_user):
 
 def edit(test_user):
     """Function to test retruning profile"""
-    create_an_entry(test_user)
     response = test_user.put('/api/v1/profile',
                              headers=user_create_token(test_user),
                              data=json.dumps({'password':'qwer'}),
+                             content_type='application/json')
+    return response
+
+def pic(test_user):
+    """Function to test retruning pic"""
+    response = test_user.get('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
                              content_type='application/json')
     return response

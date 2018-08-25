@@ -24,6 +24,7 @@ class dbase():
                       "(user_id serial  NOT NULL PRIMARY KEY,"
                       "username VARCHAR(50) UNIQUE NOT NULL,"
                       "name VARCHAR(50) NOT NULL,"
+                      "profession VARCHAR(50),"
                       "email VARCHAR(80) UNIQUE NOT NULL,"
                       "password VARCHAR(200) NOT NULL)")
         self.cursor.execute(user_table)
