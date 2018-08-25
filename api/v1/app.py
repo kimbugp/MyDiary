@@ -248,7 +248,7 @@ def add_picture(user_id):
     profile.add_pic(user_id,path,ext)
     return make_response(jsonify({"response":"fjfj"}), 201)
 
-@app.route('/api/v1/profile', methods=['POST'])
+@app.route('/api/v1/profile', methods=['PUT'])
 @token_header
 def edit(user_id):
     """
@@ -257,7 +257,7 @@ def edit(user_id):
     data=request.json
     var=next(iter(data.values()))
     col=next(iter(data.keys()))
-    if not data['password']:
+    if 'password' not in data:
         profile.edit_profile(user_id,var,col)
         return make_response(jsonify({"response":data}), 200)
     hashed_password = generate_password_hash(data['password'], method='sha256')

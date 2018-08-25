@@ -208,3 +208,21 @@ def profile(test_user):
                              headers=user_create_token(test_user),
                              content_type='application/json')
     return response
+
+def edit_password(test_user):
+    """Function to test edit password"""
+    create_an_entry(test_user)
+    response = test_user.put('/api/v1/profile',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({'username':'qwer'}),
+                             content_type='application/json')
+    return response
+
+def edit(test_user):
+    """Function to test retruning profile"""
+    create_an_entry(test_user)
+    response = test_user.put('/api/v1/profile',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({'password':'qwer'}),
+                             content_type='application/json')
+    return response
