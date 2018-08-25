@@ -65,7 +65,7 @@ class UserTests(TestingClass):
         self.assertEqual(response.status_code,200)
     
     def test_add_pic(self):
-        """Method to test editing profilepic"""
+        """Method to test adding profilepic"""
         response=pic_upload(self.test_user)
         self.assertEqual(response.status_code,201)
 
