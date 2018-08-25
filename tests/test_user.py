@@ -59,10 +59,10 @@ class UserTests(TestingClass):
         response=edit(self.test_user)
         self.assertEqual(response.status_code,200)
     
-    def test_edit_pic(self):
-        """Method to test editing profilepic"""
-        response=pic(self.test_user)
-        self.assertEqual(response.status_code,200)
+    # def test_show_pic(self):
+    #     """Method test retruning pic"""
+    #     response=pic(self.test_user)
+    #     self.assertEqual(response.status_code,200)
     
     def test_add_pic(self):
         """Method to test adding profilepic"""

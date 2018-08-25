@@ -274,6 +274,6 @@ def show_picture(user_id):
     """
     End Point to SHOW pic
     """
-    path='F:/repos/MyDiary/UI/media/'
+    path=''
     profile.readpic(user_id,path)
     return make_response(jsonify({"message":"picture returned"}),200)

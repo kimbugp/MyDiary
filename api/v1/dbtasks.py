@@ -117,8 +117,8 @@ class Profile():
 
     def edit_profile(self,user_id,var,col):
         """Method to profile edit"""
-        # addcol=(f"ALTER TABLE users ADD COLUMN IF NOT EXISTS {col} VARCHAR")
-        # cursor.execute(addcol)
+        addcol=(f"ALTER TABLE users ADD COLUMN IF NOT EXISTS {col} VARCHAR")
+        cursor.execute(addcol)
         pic=(f"UPDATE users SET {col}='{var}' where user_id={user_id}")
         cursor.execute(pic)
     
@@ -126,4 +126,5 @@ class Profile():
         """Method to request profile pic"""
         cursor.execute(f"SELECT profilepic, picextension FROM profile WHERE user_id ={user_id}")
         blob = cursor.fetchone()
-        open(path + str(user_id)+"pic" + '.' + blob[1], 'wb').write(blob[0])
+        urlopen(path + str(user_id)+"pic" + '.' + blob[1]).write(blob[0])
+        # open(path + str(user_id)+"pic" + '.' + blob[1], 'wb').write(blob[0])
