@@ -1,5 +1,6 @@
 """Module to perform database tasks"""
 from api.v1.models import dbase
+from urllib.request import urlopen
 import psycopg2
 db = dbase()
 cursor = db.cursor
@@ -107,7 +108,8 @@ class dboperations():
 class Profile():
     def add_pic(self,userid,path,file_ext):
         """Method to add profile pic"""
-        picture=psycopg2.Binary(open(path,'rb').read())
+        p=urlopen(path).read()
+        picture=psycopg2.Binary(p)
         pic=("INSERT INTO profile(user_id,profilepic,picextension)\
              VALUES(%s,%s,%s) ON CONFLICT(user_id)\
              DO UPDATE SET profilepic=%s,picextension=%s")
@@ -123,6 +125,5 @@ class Profile():
     def readpic(self,user_id,path):
         """Method to request profile pic"""
         cursor.execute(f"SELECT profilepic, picextension FROM profile WHERE user_id ={user_id}")
- 
         blob = cursor.fetchone()
         open(path + str(user_id)+"pic" + '.' + blob[1], 'wb').write(blob[0])

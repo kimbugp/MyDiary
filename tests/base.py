@@ -226,7 +226,19 @@ def edit(test_user):
 
 def pic(test_user):
     """Function to test retruning pic"""
+    test_user.post('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({"path":"https://kimbugp.github.io/MyDiary/UI/media/add.png","ext":"png"}),
+                             content_type='application/json')
     response = test_user.get('/api/v1/profile/pic',
                              headers=user_create_token(test_user),
+                             content_type='application/json')
+    return response
+
+def pic_upload(test_user):
+    """Function to test add pic"""
+    response = test_user.post('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({"path":"https://kimbugp.github.io/MyDiary/UI/media/add.png","ext":"png"}),
                              content_type='application/json')
     return response

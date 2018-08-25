@@ -1,0 +1,10 @@
+<input type="file" id="fileUpload" onchange="c(this.files);">
+<script type="text/javascript">  
+    function c(files){
+        
+    window.URL = window.URL || window.webkitURL;
+    
+    let path=window.URL.createObjectURL(files);
+    console.log('path', path);
+    }
+</script>
