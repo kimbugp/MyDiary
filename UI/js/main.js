@@ -1,5 +1,5 @@
-// const baseurl = 'https://simondb.herokuapp.com';
-const baseurl = 'http://127.0.0.1:5000';
+const baseurl = 'https://simondb.herokuapp.com';
+// const baseurl = 'http://127.0.0.1:5000';
 const Token = sessionStorage.getItem('Token');
 if (Token == null) {
 	window.location.href = 'index.html';
@@ -81,7 +81,7 @@ class Entries {
 			.then(function (response) {
 				loader(false);
 				modal.style.display = 'none';
-				if (response.Message == 'entry edited') {
+				if (response.message == 'entry edited') {
 					location.reload();
 				} else if (response.message === 'Invalid token') {
 					var notification = new Notification(response.message);
@@ -208,7 +208,7 @@ class Entries {
 			})
 			.then(function (response) {
 				loader(true);
-				if (response.Message == 'entry created') {
+				if (response.message == 'entry created') {
 					location.reload();
 				} else if (response.message === 'Invalid token') {
 					var notification = new Notification(response.message);
@@ -292,7 +292,7 @@ class Profile {
 			method: 'PUT',
 			headers: myheaders,
 			body: JSON.stringify({
-				keyvalue: key
+				'keyvalue': key
 			})
 		};
 		fetch(myURL, init)
