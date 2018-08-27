@@ -1,5 +1,5 @@
-const baseurl = 'https://simondb.herokuapp.com';
-// const baseurl = 'http://127.0.0.1:5000';
+// const baseurl = 'https://simondb.herokuapp.com';
+const baseurl = 'http://127.0.0.1:5000';
 const Token = sessionStorage.getItem('Token');
 if (Token == null) {
 	window.location.href = 'index.html';
@@ -232,7 +232,7 @@ class Profile {
 		this.url = url;
 		this.headers = new Entries(null);
 	}
-	getprofile() {
+	get() {
 		let myheaders = this.headers.myheaders();
 		let myURL = baseurl + this.url;
 		loader(true);
@@ -251,6 +251,25 @@ class Profile {
 				let uname = response[0].username;
 				let name = response[0].name;
 				displayprofile(no, mail, uname, name);
+			})
+			.catch(error => {
+				loader(false);
+				alert(error);
+			});
+	}
+	edit(keyvalue,key){
+		let myheaders = this.headers.myheaders();
+		let myURL = baseurl + this.url;
+		loader(true);
+		let init = {
+			method: 'PUT',
+			headers: myheaders,
+			body:JSON.stringify({keyvalue : key})	
+		};
+		fetch(myURL,init)
+			.then(function(){
+				loader(false);
+				console.log('sadfgh');
 			})
 			.catch(error => {
 				loader(false);
