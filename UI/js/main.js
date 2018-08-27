@@ -1,5 +1,5 @@
-const baseurl = 'https://simondb.herokuapp.com';
-// const baseurl = 'http://127.0.0.1:5000';
+// const baseurl = 'https://simondb.herokuapp.com';
+const baseurl = 'http://127.0.0.1:5000';
 const Token = sessionStorage.getItem('Token');
 if (Token == null) {
 	window.location.href = 'index.html';
@@ -246,6 +246,7 @@ class Profile {
 			})
 			.then(function (response) {
 				loader(false);
+				console.log(response);
 				let no = response[0].count;
 				let mail = response[0].email;
 				let uname = response[0].username;

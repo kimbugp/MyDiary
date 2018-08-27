@@ -16,7 +16,6 @@ CORS(app)
 db = dbase()
 db.create_user_table()
 db.create_entries_table()
-db.create_profile_table()
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()
 profile=Profile()
@@ -234,7 +233,7 @@ def view_profile(user_id):
     """
     End Point to view user profile
     """
-    response = database.get_profile(user_id)
+    response = profile.get_profile(user_id)
     return make_response(jsonify(response), 200)
 
 
@@ -272,9 +271,8 @@ def add_picture(user_id):
     End Point to edit pic
     """
     data=request.json
-    if 'path' in data and 'ext' in data:
+    if 'path' in data and all(data.values()):
         path=request.json['path']
-        ext=request.json['ext']
-        profile.add_pic(user_id,path,ext)
-        return make_response(jsonify({"response":"fjfj"}), 201)
+        profile.add_pic(user_id,path)
+        return make_response(jsonify({"response":path}), 201)
     return make_response(jsonify({"message":"parameter  missing"}),400)

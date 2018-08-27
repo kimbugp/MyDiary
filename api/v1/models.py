@@ -25,6 +25,7 @@ class dbase():
                       "username VARCHAR(50) UNIQUE NOT NULL,"
                       "name VARCHAR(50) NOT NULL,"
                       "profession VARCHAR(50),"
+                      "profilepic VARCHAR(300),"
                       "email VARCHAR(80) UNIQUE NOT NULL,"
                       "password VARCHAR(200) NOT NULL)")
         self.cursor.execute(user_table)
@@ -40,12 +41,3 @@ class dbase():
                           REFERENCES users(user_id) ON DELETE CASCADE)")
 
         self.cursor.execute(entries_table)
-
-    def create_profile_table(self):
-        """Method to create profile"""
-        user = ("CREATE TABLE IF NOT EXISTS profile"
-                "(profilepic BYTEA,"
-                "picextension VARCHAR(8),"
-                "user_id INTEGER UNIQUE ,FOREIGN KEY (user_id)\
-                REFERENCES users(user_id) ON DELETE CASCADE)") 
-        self.cursor.execute(user)

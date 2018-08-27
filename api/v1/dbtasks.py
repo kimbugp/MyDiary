@@ -95,34 +95,25 @@ class dboperations():
         user = dict_cursor.fetchall()
         return user
 
-    def get_profile(self, user_id):
-        """Method to get user profile"""
-        profile = ("select username,email,name,count(entries.user_id)\
-                   from users left join entries on entries.user_id=users.user_id\
-                   where users.user_id={} group by users.user_id"
-                   .format(user_id))
-        dict_cursor.execute(profile)
-        user = dict_cursor.fetchall()
-        return user
+    
 
 class Profile():
-    def add_pic(self,userid,path,file_ext):
+    def add_pic(self,user_id,path):
         """Method to add profile pic"""
-        p=urlopen(path).read()
-        picture=psycopg2.Binary(p)
-        pic=("INSERT INTO profile(user_id,profilepic,picextension)\
-             VALUES(%s,%s,%s) ON CONFLICT(user_id)\
-             DO UPDATE SET profilepic=%s,picextension=%s")
-        cursor.execute(pic,(userid,picture,file_ext,picture,file_ext))    
+        pic=(f"UPDATE users SET profilepic='{path}' where user_id={user_id}")
+        cursor.execute(pic)
 
     def edit_profile(self,user_id,var,col):
         """Method to profile edit"""
         pic=(f"UPDATE users SET {col}='{var}' where user_id={user_id}")
         cursor.execute(pic)
     
-    def readpic(self,user_id,path):
-        """Method to request profile pic"""
-        cursor.execute(f"SELECT profilepic, picextension FROM profile WHERE user_id ={user_id}")
-        blob = cursor.fetchone()
-        urlopen(path + str(user_id)+"pic" + '.' + blob[1]).write(blob[0])
-        # open(path + str(user_id)+"pic" + '.' + blob[1], 'wb').write(blob[0])
+    def get_profile(self, user_id):
+        """Method to get user profile"""
+        profile = (f"select username,email,name,count(entries.user_id)\
+                   ,profession,profilepic from users left join entries\
+                   on entries.user_id=users.user_id where users.user_id={user_id}\
+                   group by users.user_id")
+        dict_cursor.execute(profile)
+        user = dict_cursor.fetchall()
+        return user
