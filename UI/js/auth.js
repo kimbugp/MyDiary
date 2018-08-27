@@ -30,7 +30,8 @@ function create_user() {
 				login();
 			} else {
 				errormsg(json.Message);
-				var notification = new Notification(json.Message);	
+				var notification = new Notification();	
+				notification(json.Message);
 
 			}
 		})
@@ -67,7 +68,8 @@ function login() {
 				window.location.href = 'home.html';
 			} else {
 				errormsg(json.Message);
-				var notification = new Notification(json.Message);
+				var notification = new Notification();
+				notification(json.Message);
 			}
 		})
 		.catch(error => {
