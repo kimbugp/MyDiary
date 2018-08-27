@@ -246,7 +246,7 @@ def edit(user_id):
     data=request.json
     var=next(iter(data.values()))
     col=next(iter(data.keys()))
-    if 'password' or 'username' not in data:
+    if 'password' not in data or 'username' not in data:
         profile.edit_profile(user_id,var,col)
         return make_response(jsonify({"message":'edited'}), 200)
     hashed_password = generate_password_hash(data['password'], method='sha256')
