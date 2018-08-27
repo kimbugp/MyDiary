@@ -203,8 +203,39 @@ def error_page(test_user):
 
 def profile(test_user):
     """Function to test retruning profile"""
-    create_an_entry(test_user)
     response = test_user.get('/api/v1/profile',
                              headers=user_create_token(test_user),
+                             content_type='application/json')
+    return response
+
+def edit_password(test_user):
+    """Function to test edit profile"""
+    response = test_user.put('/api/v1/profile',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({'username':'qwer'}),
+                             content_type='application/json')
+    return response
+
+def edit(test_user):
+    """Function to test edit password profile"""
+    response = test_user.put('/api/v1/profile',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({'password':'qwertyuiop'}),
+                             content_type='application/json')
+    return response
+
+def pic_upload(test_user):
+    """Function to test add pic"""
+    response = test_user.post('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({"path":"https://kimbugp.github.io/MyDiary/UI/media/add.png"}),
+                             content_type='application/json')
+    return response
+
+def pic_no_upload(test_user):
+    """Function to test not add pic"""
+    response = test_user.post('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
+                             data=json.dumps({"path":""}),
                              content_type='application/json')
     return response

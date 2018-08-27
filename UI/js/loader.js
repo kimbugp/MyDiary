@@ -8,9 +8,3 @@ function loader(state) {
 		document.getElementById('loader').style.display = 'none';
 	}
 }
-
-function errormsg(x){
-	let errordiv=document.getElementById('errormsg');
-	errordiv.style.display='block';
-	errordiv.innerHTML=x;
-}
