@@ -44,6 +44,11 @@ class Entries {
 				return response.json();
 			})
 			.then(function (response) {
+				if (response.message === 'Invalid token') {
+					var notification = new Notification(response.message);
+					signout();
+
+				}
 				loader(false);
 				modal.style.display = 'none';
 				var notification = new Notification(response.message);
@@ -78,6 +83,10 @@ class Entries {
 				modal.style.display = 'none';
 				if (response.Message == 'entry edited') {
 					location.reload();
+				} else if (response.message === 'Invalid token') {
+					var notification = new Notification(response.message);
+					signout();
+
 				} else {
 					var notification = new Notification(response.message);
 				}
@@ -113,6 +122,10 @@ class Entries {
 				return response.json();
 			})
 			.then(function (response) {
+				if (response.message === 'Invalid token') {
+					var notification = new Notification(response.message);
+					signout();
+				}
 				loader(false);
 				let object = response.entries[0];
 				let d = object.entry_date;
@@ -167,6 +180,11 @@ class Entries {
 				return response.json();
 			})
 			.then(function (response) {
+				if (response.message === 'Invalid token') {
+					var notification = new Notification(response.message);
+					signout();
+
+				}
 				loader(false);
 				let object = response.entries;
 				let objectlength = object.length;
@@ -192,6 +210,10 @@ class Entries {
 				loader(true);
 				if (response.Message == 'entry created') {
 					location.reload();
+				} else if (response.message === 'Invalid token') {
+					var notification = new Notification(response.message);
+					signout();
+
 				} else {
 					loader(false);
 					var notification = new Notification(response.message);
@@ -245,8 +267,12 @@ class Profile {
 				return response.json();
 			})
 			.then(function (response) {
+				if (response.message === 'Invalid token') {
+					var notification = new Notification(response.message);
+					signout();
+
+				}
 				loader(false);
-				console.log(response);
 				let no = response[0].count;
 				let mail = response[0].email;
 				let uname = response[0].username;
@@ -258,17 +284,19 @@ class Profile {
 				alert(error);
 			});
 	}
-	edit(keyvalue,key){
+	edit(keyvalue, key) {
 		let myheaders = this.headers.myheaders();
 		let myURL = baseurl + this.url;
 		loader(true);
 		let init = {
 			method: 'PUT',
 			headers: myheaders,
-			body:JSON.stringify({keyvalue : key})	
+			body: JSON.stringify({
+				keyvalue: key
+			})
 		};
-		fetch(myURL,init)
-			.then(function(){
+		fetch(myURL, init)
+			.then(function () {
 				loader(false);
 				console.log('sadfgh');
 			})
