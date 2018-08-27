@@ -18,3 +18,4 @@ function displayprofile(no,mail,username,name){
 	uname.innerText='Username:'+username;
 
 }
+get_profile();
