@@ -110,10 +110,10 @@ def create_a_user():
     if not user and is_email(data['email']) and all(data.values()) and re.match("^[A-Za-z0-9_-]*$", data['username']):
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
-        return make_response(jsonify({'Message': 'User created'})), 201
+        return make_response(jsonify({'message': 'User created'})), 201
     if not all(data.values()) or not re.match("^[A-Za-z0-9_-]*$", data['username']) or not is_email(data['email']):
-        return make_response(jsonify({'Message': 'invalid input'}), 400)
-    return make_response(jsonify({'Message': 'User already exists'}), 400)
+        return make_response(jsonify({'message': 'invalid input'}), 400)
+    return make_response(jsonify({'message': 'User already exists'}), 400)
 
 
 @app.route('/api/v1/auth/login', methods=['POST'])
@@ -131,7 +131,7 @@ def sign_in_a_user():
                                 datetime.timedelta(minutes=60)},
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
-    return make_response(jsonify({'Message': 'Invalid login'}), 401)
+    return make_response(jsonify({'message': 'Invalid login'}), 401)
 
 
 @app.route('/')
@@ -165,7 +165,7 @@ def make_new_entry(user_id):
         database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'],
             data['entry_content'])
-    return make_response(jsonify({'Message': 'entry created'})), 201
+    return make_response(jsonify({'message': 'entry created'})), 201
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
@@ -179,7 +179,7 @@ def single_entry(user_id, entry_no):
     if resultlist:
         return make_response(jsonify({'entries': resultlist})), 200
     else:
-        return make_response(jsonify({'Message': 'no entry'})), 404
+        return make_response(jsonify({'message': 'no entry'})), 404
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
@@ -195,9 +195,9 @@ def edit_an_entry_(user_id, entry_no):
     if resultlist and all(data.values()):
         database.edit_one_entry(
             user_id, data['entry_name'], data['entry_content'], entry_no)
-        return make_response(jsonify({'Message': 'entry edited'})), 200
+        return make_response(jsonify({'message': 'entry edited'})), 200
     else:
-        return make_response(jsonify({'Message': 'no such entry'})), 404
+        return make_response(jsonify({'message': 'no such entry'})), 404
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
@@ -208,7 +208,7 @@ def delete_an_entry(user_id, entry_no):
     """
 
     message = database.delete_entry(user_id, entry_no)
-    return make_response(jsonify({'Message': message})), 200
+    return make_response(jsonify({'message': message})), 200
 
 
 @app.errorhandler(404)
@@ -216,7 +216,7 @@ def page_not_found(e):
     """
     End Point to catch 404s
     """
-    return make_response(jsonify({'Message': 'Page not found'})), 404
+    return make_response(jsonify({'message': 'Page not found'})), 404
 
 
 @app.route('/docs')
