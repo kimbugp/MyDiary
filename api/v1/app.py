@@ -190,10 +190,10 @@ def edit_an_entry_(user_id, entry_no):
     End Point to edit an existing entry
     """
     data = process_edit_json(request.json)
-    if data == "parameter missing":
+    if data == "parameter missing" or not all(data.values()):
         return make_response(jsonify({'message': 'parameter missing'}), 400)
     resultlist = database.get_one_entry(user_id, entry_no)
-    if resultlist:
+    if resultlist and all(data.values()):
         database.edit_one_entry(
             user_id, data['entry_name'], data['entry_content'], entry_no)
         return make_response(jsonify({'Message': 'entry edited'})), 200
@@ -247,7 +247,8 @@ def edit(user_id):
     data=request.json
     var=next(iter(data.values()))
     col=next(iter(data.keys()))
-    if 'password' not in data:
+    user = database.verify_new_user(data['username'], data['email'])
+    if 'password' not in data and not user:
         profile.edit_profile(user_id,var,col)
         return make_response(jsonify({"message":'edited'}), 200)
     hashed_password = generate_password_hash(data['password'], method='sha256')
