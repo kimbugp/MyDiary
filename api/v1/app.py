@@ -253,17 +253,6 @@ def edit(user_id):
     profile.edit_profile(user_id,hashed_password,col)
     return make_response(jsonify({"message":"password edited"}), 200)
     
-
-@app.route('/api/v1/profile/pic', methods=['GET'])
-@token_header
-def show_picture(user_id):
-    """
-    End Point to SHOW pic
-    """
-    path=''
-    profile.readpic(user_id,path)
-    return make_response(jsonify({"message":"picture returned"}),200)
-
 @app.route('/api/v1/profile/pic', methods=['POST'])
 @token_header
 def add_picture(user_id):

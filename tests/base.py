@@ -209,7 +209,7 @@ def profile(test_user):
     return response
 
 def edit_password(test_user):
-    """Function to test edit password"""
+    """Function to test edit profile"""
     response = test_user.put('/api/v1/profile',
                              headers=user_create_token(test_user),
                              data=json.dumps({'username':'qwer'}),
@@ -217,21 +217,10 @@ def edit_password(test_user):
     return response
 
 def edit(test_user):
-    """Function to test retruning profile"""
+    """Function to test edit password profile"""
     response = test_user.put('/api/v1/profile',
                              headers=user_create_token(test_user),
                              data=json.dumps({'password':'qwer'}),
-                             content_type='application/json')
-    return response
-
-def pic(test_user):
-    """Function to test retruning pic"""
-    test_user.post('/api/v1/profile/pic',
-                             headers=user_create_token(test_user),
-                             data=json.dumps({"path":"https://kimbugp.github.io/MyDiary/UI/media/add.png"}),
-                             content_type='application/json')
-    response = test_user.get('/api/v1/profile/pic',
-                             headers=user_create_token(test_user),
                              content_type='application/json')
     return response
 
