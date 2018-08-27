@@ -272,7 +272,6 @@ class Profile {
 					signout();
 
 				}
-				console.log(response);
 				loader(false);
 				let no = response[0].count;
 				let mail = response[0].email;
@@ -303,7 +302,7 @@ class Profile {
 					signout();
 				}
 				loader(false);
-				console.log('sadfgh');
+				var notification = new Notification(keyvalue+ ' edited');
 			})
 			.catch(error => {
 				loader(false);
