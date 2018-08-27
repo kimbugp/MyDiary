@@ -26,7 +26,7 @@ function edit_one(id) {
 			alert('entry cannot be edited...A day has passed');
 			return;
 		}
-		on
+		
 		modal.style.display = 'none';
 		//set the entry form to show previous data
 		document.getElementsByClassName('modal')[1].style.display = 'block';

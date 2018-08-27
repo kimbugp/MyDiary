@@ -46,8 +46,7 @@ class Entries {
 			.then(function (response) {
 				loader(false);
 				modal.style.display = 'none';
-				var notification = new Notification();
-				notification(response.message);
+				var notification = new Notification(response.message);
 				location.reload();
 			})
 			.catch(error => {
@@ -195,8 +194,8 @@ class Entries {
 					location.reload();
 				} else {
 					loader(false);
-					var notification = new Notification();
-					notification(response.message);
+					var notification = new Notification(response.message);
+
 				}
 			})
 			.catch(error => {
