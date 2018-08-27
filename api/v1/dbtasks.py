@@ -117,8 +117,6 @@ class Profile():
 
     def edit_profile(self,user_id,var,col):
         """Method to profile edit"""
-        # addcol=(f"ALTER TABLE users ADD COLUMN IF NOT EXISTS {col} VARCHAR")
-        # cursor.execute(addcol)
         pic=(f"UPDATE users SET {col}='{var}' where user_id={user_id}")
         cursor.execute(pic)
     
