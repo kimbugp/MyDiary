@@ -85,3 +85,8 @@ function confirmpsd(psw2){
 		psw2.setCustomValidity('');
 	}
 }
+function errormsg(x){
+	let errordiv=document.getElementById('errormsg');
+	errordiv.style.display='block';
+	errordiv.innerHTML=x;
+}
