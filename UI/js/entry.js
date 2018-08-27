@@ -1,6 +1,5 @@
-
 function add_entry() {
-	let entry=new Entries;
+	let entry = new Entries;
 	entry.addentry();
 }
 close_newentrymodel();
@@ -19,14 +18,15 @@ function close_newentrymodel() {
 		}
 	};
 }
+
 function edit_one(id) {
 	let editbutton = document.getElementsByClassName('action')[0];
 	editbutton.onclick = function () {
-		if(checkdate()==false){
+		if (checkdate() == false) {
 			alert('entry cannot be edited...A day has passed');
 			return;
 		}
-		on
+
 		modal.style.display = 'none';
 		//set the entry form to show previous data
 		document.getElementsByClassName('modal')[1].style.display = 'block';
@@ -37,27 +37,26 @@ function edit_one(id) {
 	};
 	let saveedit = document.getElementById('edit_entry');
 	saveedit.onclick = function () {
-		let entry=new Entries(id);
+		let entry = new Entries(id);
 		entry.edit();
 	};
 }
 
 function togglesavebuttons(x) {
-	let savebtn=document.getElementById('save_new_entry');
-	let editbtn=document.getElementById('edit_entry');
-	let savetitle=document.getElementById('entry_titleheader');
-	let edittitle=document.getElementById('edit_title');
-	let none='none';
-	let block='block';
-	if(x=='edit'){
-		toggle(block,none);
+	let savebtn = document.getElementById('save_new_entry');
+	let editbtn = document.getElementById('edit_entry');
+	let savetitle = document.getElementById('entry_titleheader');
+	let edittitle = document.getElementById('edit_title');
+	let none = 'none';
+	let block = 'block';
+	if (x == 'edit') {
+		toggle(block, none);
+	} else if (x == 'new') {
+		toggle(none, block);
 	}
-	else if(x=='new'){
-		toggle(none,block);
-	}
-	
 
-	function toggle(x,y) {
+
+	function toggle(x, y) {
 		//change save button
 		savebtn.style.display = y;
 		editbtn.style.display = x;
@@ -67,10 +66,10 @@ function togglesavebuttons(x) {
 	}
 }
 //function to check if day has passed
-function checkdate(){
-	let entry_date=document.getElementById('date').innerHTML;
-	let en=Date.parse(new Date())-Date.parse(entry_date);
-	if(en>86400000){
+function checkdate() {
+	let entry_date = document.getElementById('date').innerHTML;
+	let en = Date.parse(new Date()) - Date.parse(entry_date);
+	if (en > 86400000) {
 		return false;
 	}
 	return 'Entry Edited';

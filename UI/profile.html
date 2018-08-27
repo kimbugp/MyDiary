@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,33 +11,52 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css" />
     <script src="js/main.js"></script>
     <script src="js/loader.js"></script>
-    
-    
+
+
 </head>
-<body onload="get_profile();">
+
+<body>
     <nav>
         <ul>
             <li class="navbar">Home</li>
             <li class="navbar">Profile</li>
             <li class="navbar">About</li>
-            <li onclick="signout()" style="float:right"><a href="#" >Logout</a></li>
+            <li onclick="signout()" style="float:right">
+                <a href="#">Logout</a>
+            </li>
         </ul>
     </nav>
-<div class="container">
+    <div class="container">
         <div id='loader'></div>
-<div class="card">
-        <img src="media/profilepic.jpg" alt="Simon" style="width:5cm; height:5cm;">
-        <h1 id='fullname'><div class='edit'><button style="background-color:#eceeee;" onclick="location.href='/newentry.html'"><img src="media/edit.jpg" ></button></div></h1>
-        <p class="title">Prospecting Andela Fellow</p>
-        <p><button id='noentries'></button></p>
-        <p><button id='uname'><div class='edit'></div></button></p>
-        <p><button id='useremail'><div class='edit'></div></button></p>
-</div>
-</div>
-<script src="js/home.js"></script>
-<script src="js/profile.js"></script>
+        <div class="card">
+            <img src="media/profilepic.jpg" alt="Simon" style="width:5cm; height:5cm;">
+            <h1>
+                <span id='fullname'></span>
+                <div class='edit'id='name'>&#x270E;</div>
+            </h1>
+            <p class="title">Prospecting Andela Fellow</p>
+            <p>
+                <div id='noentries'class='profiledata'></div>
+            </p>
+            <p>
+                <div class='profiledata'>
+                    <span id='uname'></span>
+                </div>
+            </p>
+            <p>
+                <div class='profiledata'>
+                    <span id='useremail'></span>
+                    <span class='edit'id='email'>&#x270E;</span>
+                </div>
+            </p>
+        </div>
+    </div>
+    <div class="clear" style="clear: both; height: 60px;"></div>
+    <script src="js/home.js"></script>
+    <script src="js/profile.js"></script>
     <footer>
-            <p>Simon, Copyright &copy; 2018</p>
+        <p>Simon, Copyright &copy; 2018</p>
     </footer>
 </body>
+
 </html>

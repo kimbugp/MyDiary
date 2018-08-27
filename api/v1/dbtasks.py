@@ -1,6 +1,7 @@
 """Module to perform database tasks"""
 from api.v1.models import dbase
-
+from urllib.request import urlopen
+import psycopg2
 db = dbase()
 cursor = db.cursor
 dict_cursor = db.dict_cursor
@@ -94,12 +95,25 @@ class dboperations():
         user = dict_cursor.fetchall()
         return user
 
+    
+
+class Profile():
+    def add_pic(self,user_id,path):
+        """Method to add profile pic"""
+        pic=(f"UPDATE users SET profilepic='{path}' where user_id={user_id}")
+        cursor.execute(pic)
+
+    def edit_profile(self,user_id,var,col):
+        """Method to profile edit"""
+        pic=(f"UPDATE users SET {col}='{var}' where user_id={user_id}")
+        cursor.execute(pic)
+    
     def get_profile(self, user_id):
         """Method to get user profile"""
-        profile = ("select username,email,name,count(entries.user_id)\
-                   from users left join entries on entries.user_id=users.user_id\
-                   where users.user_id={} group by users.user_id"
-                   .format(user_id))
+        profile = (f"select username,email,name,count(entries.user_id)\
+                   ,profession,profilepic from users left join entries\
+                   on entries.user_id=users.user_id where users.user_id={user_id}\
+                   group by users.user_id")
         dict_cursor.execute(profile)
         user = dict_cursor.fetchall()
         return user
