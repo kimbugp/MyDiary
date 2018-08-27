@@ -272,6 +272,7 @@ class Profile {
 					signout();
 
 				}
+				console.log(response);
 				loader(false);
 				let no = response[0].count;
 				let mail = response[0].email;
@@ -285,18 +286,22 @@ class Profile {
 			});
 	}
 	edit(keyvalue, key) {
+		let data={};
+		data[keyvalue]=key;
 		let myheaders = this.headers.myheaders();
 		let myURL = baseurl + this.url;
 		loader(true);
 		let init = {
 			method: 'PUT',
 			headers: myheaders,
-			body: JSON.stringify({
-				'keyvalue': key
-			})
+			body: JSON.stringify(data)
 		};
 		fetch(myURL, init)
-			.then(function () {
+			.then(function (response) {
+				if (response.message === 'Invalid token') {
+					var notification = new Notification(response.message);
+					signout();
+				}
 				loader(false);
 				console.log('sadfgh');
 			})
