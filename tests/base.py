@@ -220,7 +220,7 @@ def edit(test_user):
     """Function to test edit password profile"""
     response = test_user.put('/api/v1/profile',
                              headers=user_create_token(test_user),
-                             data=json.dumps({'password':'qwer'}),
+                             data=json.dumps({'password':'qwertyuiop'}),
                              content_type='application/json')
     return response
 
@@ -229,5 +229,12 @@ def pic_upload(test_user):
     response = test_user.post('/api/v1/profile/pic',
                              headers=user_create_token(test_user),
                              data=json.dumps({"path":"https://kimbugp.github.io/MyDiary/UI/media/add.png"}),
+                             content_type='application/json')
+    return response
+
+def pic_no_upload(test_user):
+    """Function to test not add pic"""
+    response = test_user.post('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
                              content_type='application/json')
     return response
