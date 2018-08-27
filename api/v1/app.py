@@ -237,6 +237,34 @@ def view_profile(user_id):
     response = database.get_profile(user_id)
     return make_response(jsonify(response), 200)
 
+
+@app.route('/api/v1/profile', methods=['PUT'])
+@token_header
+def edit(user_id):
+    """
+    End Point to edit user profile
+    """
+    data=request.json
+    var=next(iter(data.values()))
+    col=next(iter(data.keys()))
+    if 'password' not in data:
+        profile.edit_profile(user_id,var,col)
+        return make_response(jsonify({"message":'edited'}), 200)
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    profile.edit_profile(user_id,hashed_password,col)
+    return make_response(jsonify({"message":"password edited"}), 200)
+    
+
+@app.route('/api/v1/profile/pic', methods=['GET'])
+@token_header
+def show_picture(user_id):
+    """
+    End Point to SHOW pic
+    """
+    path=''
+    profile.readpic(user_id,path)
+    return make_response(jsonify({"message":"picture returned"}),200)
+
 @app.route('/api/v1/profile/pic', methods=['POST'])
 @token_header
 def add_picture(user_id):
@@ -250,30 +278,3 @@ def add_picture(user_id):
         profile.add_pic(user_id,path,ext)
         return make_response(jsonify({"response":"fjfj"}), 201)
     return make_response(jsonify({"message":"parameter  missing"}),400)
-
-@app.route('/api/v1/profile', methods=['PUT'])
-@token_header
-def edit(user_id):
-    """
-    End Point to edit user profile
-    """
-    data=request.json
-    var=next(iter(data.values()))
-    col=next(iter(data.keys()))
-    if 'password' not in data:
-        profile.edit_profile(user_id,var,col)
-        return make_response(jsonify({"response":data}), 200)
-    hashed_password = generate_password_hash(data['password'], method='sha256')
-    profile.edit_profile(user_id,hashed_password,col)
-    return make_response(jsonify({"response":"password edited"}), 200)
-    
-
-@app.route('/api/v1/profile/pic', methods=['GET'])
-@token_header
-def show_picture(user_id):
-    """
-    End Point to SHOW pic
-    """
-    path=''
-    profile.readpic(user_id,path)
-    return make_response(jsonify({"message":"picture returned"}),200)
