@@ -1,4 +1,4 @@
-// var baseurl = 'http://127.0.0.1:5000';
+
 // function to post signup info
 if (sessionStorage.getItem('Token')) {
 	window.location.href = 'home.html';
@@ -26,11 +26,11 @@ function create_user() {
 		})
 		.then(function (json) {
 			loader(false);
-			if (json.Message == 'User created') {
+			if (json.message == 'User created') {
 				login();
 			} else {
-				errormsg(json.Message);
-				var notification = new Notification(json.Message);
+				errormsg(json.message);
+				var notification = new Notification(json.message);
 			}
 		})
 		.catch(error => {
@@ -65,8 +65,8 @@ function login() {
 				sessionStorage.setItem('Token', json.Token);
 				window.location.href = 'home.html';
 			} else {
-				errormsg(json.Message);
-				var notification = new Notification(json.Message);
+				errormsg(json.message);
+				var notification = new Notification(json.message);
 			}
 		})
 		.catch(error => {
