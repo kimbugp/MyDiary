@@ -23,23 +23,28 @@ function displayprofile(no, mail, username, name,profession) {
 
 }
 document.getElementById('edit_profile').addEventListener('submit',editprofile);
-function editprofile(e) {
-	e.preventDefault();
+function editprofile(event) {
+	event.preventDefault();
 	let value=document.getElementsByName('profession')[0].value;
-	console.log(value);
 	let url = '/api/v1/profile';
 	let profile = new Profile(url);
 	profile.edit(value);
-	document.getElementById('editprofilemodal').style.display = 'none';
+	editprofilemodal.style.display = 'none';
 	get_profile();
 }
-document.getElementById('professionedit').addEventListener('submit',show_edit_modal);
+document.getElementById('professionedit').addEventListener('click',show_edit_modal);
+const editprofilemodal = document.getElementById('editprofilemodal');
 function show_edit_modal() {
-	document.getElementById('editprofilemodal').style.display = 'block';
+	editprofilemodal.style.display = 'block';
 	document.getElementsByClassName('edit_profile')[0].setAttribute('onsubmit','editprofile();');
 	let span = document.getElementsByClassName('close')[0];
 	span.onclick = function () {
-		document.getElementById('editprofilemodal').style.display = 'none';
+		editprofilemodal.style.display = 'none';
+	};
+	window.onclick = function (event) {
+		if (event.target == editprofilemodal) {
+			editprofilemodal.style.display = 'none';
+		}
 	};
 
 }
