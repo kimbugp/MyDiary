@@ -2,7 +2,7 @@
 import unittest
 from tests.base import (TestingClass, user_create, wrong_user,
                         helo, wrong_details, wrong_sign_in,
-                        user,edit,edit_password,pic_upload,pic_no_upload)
+                        user,edit,edit_profession,pic_upload,pic_no_upload)
 
 
 class UserTests(TestingClass):
@@ -49,15 +49,15 @@ class UserTests(TestingClass):
         self.assertIn('hello', str(response.data))
         self.assertEqual(response.status_code, 200)
     
-    def test_edit_password(self):
-        """Method to test editing password"""
-        response=edit_password(self.test_user)
+    def test_edit_profession(self):
+        """Method to test editing profession"""
+        response=edit_profession(self.test_user)
         self.assertEqual(response.status_code,200)
     
     def test_edit_profile(self):
         """Method to test editing profile"""
         response=edit(self.test_user)
-        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.status_code,400)
     
     def test_add_pic(self):
         """Method to test adding profilepic"""

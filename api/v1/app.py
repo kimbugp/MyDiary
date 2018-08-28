@@ -245,15 +245,11 @@ def edit(user_id):
     End Point to edit user profile
     """
     data=request.json
-    var=next(iter(data.values()))
-    col=next(iter(data.keys()))
-
-    if 'password' not in data:
-        profile.edit_profile(user_id,var,col)
+    if 'profession' in data and all(data.values()):
+        profile.edit_profile(user_id,data['profession'])
         return make_response(jsonify({"message":"edited"}), 200)
-    hashed_password = generate_password_hash(data['password'], method='sha256')
-    profile.edit_profile(user_id,hashed_password,col)
-    return make_response(jsonify({"message":"password edited"}), 200)
+    return make_response(jsonify({"message":"parameter  missing"}),400) 
+    
     
 @app.route('/api/v1/profile/pic', methods=['POST'])
 @token_header

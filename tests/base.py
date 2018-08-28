@@ -207,19 +207,18 @@ def profile(test_user):
                              content_type='application/json')
     return response
 
-def edit_password(test_user):
-    """Function to test edit profile"""
+def edit_profession(test_user):
+    """Function to test edit profile profession"""
     response = test_user.put('/api/v1/profile',
                              headers=user_create_token(test_user),
-                             data=json.dumps({'username':'qwer'}),
+                             data=json.dumps({'profession':'Simon'}),
                              content_type='application/json')
     return response
 
 def edit(test_user):
-    """Function to test edit password profile"""
+    """Function to test no parameter sent to edit profile"""
     response = test_user.put('/api/v1/profile',
                              headers=user_create_token(test_user),
-                             data=json.dumps({'password':'qwertyuiop'}),
                              content_type='application/json')
     return response
 
