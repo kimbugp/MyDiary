@@ -1,4 +1,5 @@
 """Base module with test helper functions"""
+import os
 import unittest
 import json
 
@@ -7,7 +8,6 @@ from api.v1.models import dbase
 from api.v1.dbtasks import dboperations
 from tests import (test_user_data, test_sign_in, test_entry, wrong_test_entry,
                    wrong_test_user_data, wrong_test_sign_in, test_wrong_sign_in)
-app.config["testing"] = True
 database = dboperations()
 db = dbase()
 cursor = db.cursor
@@ -19,12 +19,11 @@ class TestingClass(unittest.TestCase):
 
     def setUp(self):
         self.test_user = app.test_client(self)
+        os.environ['app_env'] = 'testing'
 
     def tearDown(self):
         clear_user_table = "DELETE from users CASCADE"
         cursor.execute(clear_user_table)
-        # clear_user_table = "DELETE from entries"
-        # cursor.execute(clear_user_table)
 
 
 def user_create_token(test_user):
