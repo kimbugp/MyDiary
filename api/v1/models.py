@@ -2,15 +2,18 @@
 import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from config import DevelopmentConfig, TestingConfig
+from config import DevelopmentConfig, TestingConfig,HerokuConfig
 
 
 class dbase():
     """Class  for database"""
     def __init__(self):
-        app_env = os.environ.get('app_env', None)
+        app_env = os.getenv('app_env',default=None)
+        
         if app_env == 'testing':
             self.conn = psycopg2.connect(TestingConfig.DATABASE_URL)
+        elif app_env=='heroku':
+            self.conn = psycopg2.connect(HerokuConfig.DATABASE_URL)
         else:
             self.conn = psycopg2.connect(DevelopmentConfig.DATABASE_URL)
         self.cursor = self.conn.cursor()
