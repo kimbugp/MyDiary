@@ -1,16 +1,17 @@
 """Main API"""
-import os
 import datetime
-from functools import wraps
+import os
 import re
-import jwt
-from pyisemail import is_email
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, jsonify, make_response, request, redirect
-from api.v1.models import dbase
-from api.v1.dbtasks import dboperations,Profile
-from flask_cors import CORS
+from functools import wraps
 
+import jwt
+from flask import Flask, jsonify, make_response, redirect, request
+from flask_cors import CORS
+from pyisemail import is_email
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from api.v1.dbtasks import Profile, dboperations
+from api.v1.models import dbase
 
 app = Flask(__name__)
 CORS(app)
