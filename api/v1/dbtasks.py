@@ -103,9 +103,9 @@ class Profile():
         pic=(f"UPDATE users SET profilepic='{path}' where user_id={user_id}")
         cursor.execute(pic)
 
-    def edit_profile(self,user_id,var,col):
+    def edit_profile(self,user_id,profession):
         """Method to profile edit"""
-        pic=(f"UPDATE users SET {col}='{var}' where user_id={user_id}")
+        pic=(f"UPDATE users SET profession='{profession}' where user_id={user_id}")
         cursor.execute(pic)
     
     def get_profile(self, user_id):
@@ -117,3 +117,10 @@ class Profile():
         dict_cursor.execute(profile)
         user = dict_cursor.fetchall()
         return user
+    
+    def check_email_and_username(self,col,var):
+        """Method to check if email of password exists"""
+        check=(f"select username,email from users where {col}='{var}'")
+        dict_cursor.execute(check)
+        response=dict_cursor.fetchall()
+        return response

@@ -58,10 +58,6 @@ python -m flask run
   ```
   psql -c 'create database diarydb_test;' -U postgres
   ```
-  * Set the environment variable
-  ```
-  $ set app_env=testing
-  ```
   * Run the tests
   ```
   $ nosetests -v --with-coverage --cover-package=api
@@ -93,6 +89,8 @@ This project is licensed under the MIT License
  | PUT             |Updating a specific entry     | api/v1/entries/<<int:entryid>>
  | Documentation  | Show documentation  | /docs
  | GET  | Show user profile   | api/v1/profile
+ | PUT | Edit profile | api/v1/profile
+ | POST | Add picture | api/v1/profile/pic
 
 ## Authors
 * Kimbugwe Simon Peter 

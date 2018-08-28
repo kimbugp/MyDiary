@@ -2,7 +2,6 @@ var modal = document.getElementById('myModal');
 
 function show_data() {
 	let url='/api/v1/entries';
-	loader(true);
 	let entry=new Entries(null);
 	entry.getall(url);
 }
