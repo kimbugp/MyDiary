@@ -1,14 +1,12 @@
-var modal = document.getElementById('myModal');
-
 function show_data() {
 	let url='/api/v1/entries';
 	let entry=new Entries(null);
 	entry.getall(url);
 }
 function click_events() {
-	return 'show_details(this.id);delete_one(this.id);edit_one(this.id)';
+	return show_details(this.id),delete_one(this.id),edit_one(this.id);
 }
-function entry_iterate(objectlength, object, click_events) {
+function entry_iterate(objectlength, object) {
 	for (let i = 0; i < objectlength; i++) {
 		//make list of entry titles
 		let title = object[i].entry_name;
@@ -16,7 +14,7 @@ function entry_iterate(objectlength, object, click_events) {
 		let record = document.createElement('li');
 		record.setAttribute('id', id);
 		record.appendChild(document.createTextNode(title));
-		record.setAttribute('onclick', click_events());
+		record.onclick=click_events;
 		document.getElementById('myUL').appendChild(record);
 	}
 }
