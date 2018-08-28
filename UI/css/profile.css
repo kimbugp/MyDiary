@@ -65,9 +65,6 @@ a:hover {
 .btn:hover,.edit:hover{
     color:black;
 }
-input[type="text"] {
-    /* width: 30%; */
-  }
 .edit_profile{
     position: relative;
     background-color: #eceeee;
@@ -89,4 +86,7 @@ input[type="text"] {
 #proflabel{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px
+}
+.close{
+    color: #333;
 }

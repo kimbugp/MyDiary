@@ -277,16 +277,17 @@ class Profile {
 				let mail = response[0].email;
 				let uname = response[0].username;
 				let name = response[0].name;
-				displayprofile(no, mail, uname, name);
+				let profession = response[0].profession;
+				displayprofile(no, mail, uname, name, profession);
 			})
 			.catch(error => {
 				loader(false);
 				alert(error);
 			});
 	}
-	edit(keyvalue, key) {
-		let data={};
-		data[keyvalue]=key;
+	edit(value) {
+		let data = {};
+		data['profession'] = value;
 		let myheaders = this.headers.myheaders();
 		let myURL = baseurl + this.url;
 		loader(true);
@@ -297,12 +298,15 @@ class Profile {
 		};
 		fetch(myURL, init)
 			.then(function (response) {
+				return response.json();
+			})
+			.then(function (response) {
 				if (response.message === 'Invalid token') {
 					var notification = new Notification(response.message);
 					signout();
 				}
 				loader(false);
-				var notification = new Notification(keyvalue+ ' edited');
+				var notification = new Notification(response.message);
 			})
 			.catch(error => {
 				loader(false);

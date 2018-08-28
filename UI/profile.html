@@ -38,8 +38,8 @@
             </h1>
             <p class="title">
                 <div class='profiledata'>
-                    <span id='profession'>Profession</span>
-                    <span class='edit' id='email'>&#x270E;</span>
+                    <span id='profession'></span>
+                    <span class='edit' id='professionedit'>&#x270E;</span>
                 </div>
             </p>
             <p>
@@ -57,10 +57,10 @@
             </p>
         </div>
     </div>
-    <div class='modal' id='editprofilemodal' style="display:block">
-    <form class='edit_profile' method="POST">
-        <label for='profession' id='proflabel'>Profession</label>
-        <input type="text" name='profession' placeholder="Enter profession.." autocomplete="off" maxlength="50">
+    <div class='modal' id='editprofilemodal'>
+    <form class='edit_profile' method="POST" id='edit_profile'>
+        <label for='profession' id='proflabel'>Profession</label><span class="close">&times;</span>
+        <input type="text" name='profession' placeholder="Enter profession.." autocomplete="off" maxlength="50" required min="5">
         <button type="submit" class="btn">Save</button>
     </form>
     </div>
