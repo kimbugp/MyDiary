@@ -1,6 +1,7 @@
 const baseurl = 'https://simondb.herokuapp.com';
 // const baseurl = 'http://127.0.0.1:5000';
 const Token = sessionStorage.getItem('Token');
+var modal = document.getElementById('myModal');
 if (Token == null) {
 	window.location.href = 'index.html';
 }
@@ -24,6 +25,16 @@ function html_links() {
 		a.href = text.toLowerCase() + '.html';
 		a.textContent = text;
 		links[i].appendChild(a);
+	}
+}
+function loader(state) {
+	if (state == true) {
+		document.getElementById('loader').style.display = 'inline-block';
+		var styleElem = document.head.appendChild(document.createElement('style'));
+		styleElem.innerHTML = '#loader:after{display:"block"}';
+        
+	} else if (state == false) {
+		document.getElementById('loader').style.display = 'none';
 	}
 }
 
@@ -188,7 +199,7 @@ class Entries {
 				loader(false);
 				let object = response.entries;
 				let objectlength = object.length;
-				entry_iterate(objectlength, object, click_events);
+				entry_iterate(objectlength, object);
 
 			})
 			.catch(error => {

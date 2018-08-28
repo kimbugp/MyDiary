@@ -2,7 +2,7 @@ function get_profile() {
 	let url = '/api/v1/profile';
 	let profile = new Profile(url);
 	profile.get();
-	document.getElementById('professionedit').setAttribute('onclick','show_edit_modal();');
+	document.getElementById('professionedit').onclick=show_edit_modal;
 }
 
 function displayprofile(no, mail, username, name,profession) {
@@ -36,7 +36,7 @@ document.getElementById('professionedit').addEventListener('click',show_edit_mod
 const editprofilemodal = document.getElementById('editprofilemodal');
 function show_edit_modal() {
 	editprofilemodal.style.display = 'block';
-	document.getElementsByClassName('edit_profile')[0].setAttribute('onsubmit','editprofile();');
+	document.getElementsByClassName('edit_profile')[0].onsubmit=editprofile;
 	let span = document.getElementsByClassName('close')[0];
 	span.onclick = function () {
 		editprofilemodal.style.display = 'none';
