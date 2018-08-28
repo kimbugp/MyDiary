@@ -7,8 +7,9 @@
     <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/profile.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/home.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/profile.css" />
     <script src="js/main.js"></script>
     <script src="js/loader.js"></script>
 
@@ -30,7 +31,7 @@
         <div id='loader'></div>
         <div class="card">
             <img src="media/profilepic.jpg" alt="Simon" style="width:5cm; height:5cm;">
-            <div class='edit' id='name' >Edit&#x270E;</div>
+            <div class='edit' id='name'>Edit&#x270E;</div>
             <h1>
                 <span id='fullname'></span>
                 <div class='edit' id='name'>&#x270E;</div>
@@ -55,6 +56,13 @@
                 </div>
             </p>
         </div>
+    </div>
+    <div class='modal' id='editprofilemodal' style="display:block">
+    <form class='edit_profile' method="POST">
+        <label for='profession' id='proflabel'>Profession</label>
+        <input type="text" name='profession' placeholder="Enter profession.." autocomplete="off" maxlength="50">
+        <button type="submit" class="btn">Save</button>
+    </form>
     </div>
     <div class="clear" style="clear: both; height: 60px;"></div>
     <script src="js/home.js"></script>
