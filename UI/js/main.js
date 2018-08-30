@@ -10,10 +10,30 @@ function signout() {
 	sessionStorage.removeItem('Token');
 	window.location.href = 'index.html';
 }
-
-function clear() {
-	document.getElementById('new_entrycontent').value = '';
-	document.getElementById('new_entryname').value = '';
+function notifyMe(message) {
+	// Let's check if the browser supports notifications
+	if (!('Notification' in window)) {
+		alert(message);
+	}
+  
+	// Let's check whether notification permissions have already been granted
+	else if (Notification.permission === 'granted') {
+		// If it's okay let's create a notification
+		var notification = new Notification(message);
+	}
+  
+	// Otherwise, we need to ask the user for permission
+	else if (Notification.permission !== 'denied') {
+		Notification.requestPermission(function (permission) {
+		// If the user accepts, let's create a notification
+			if (permission === 'granted') {
+				var notification = new Notification(message);
+			}
+		});
+	}
+  
+	// At last, if the user has denied notifications, and you 
+	// want to be respectful there is no need to bother them any more.
 }
 
 function html_links() {
@@ -46,13 +66,13 @@ class Entries {
 			})
 			.then(function (response) {
 				if (response.message === 'Invalid token') {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 					signout();
 
 				}
 				loader(false);
 				modal.style.display = 'none';
-				var notification = new Notification(response.message);
+				notifyMe(response.message);
 				location.reload();
 			})
 			.catch(error => {
@@ -85,11 +105,11 @@ class Entries {
 				if (response.message == 'entry edited') {
 					location.reload();
 				} else if (response.message === 'Invalid token') {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 					signout();
 
 				} else {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 				}
 			})
 			.catch(error => {
@@ -124,7 +144,7 @@ class Entries {
 			})
 			.then(function (response) {
 				if (response.message === 'Invalid token') {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 					signout();
 				}
 				loader(false);
@@ -182,7 +202,7 @@ class Entries {
 			})
 			.then(function (response) {
 				if (response.message === 'Invalid token') {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 					signout();
 
 				}
@@ -212,12 +232,12 @@ class Entries {
 				if (response.message == 'entry created') {
 					location.reload();
 				} else if (response.message === 'Invalid token') {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 					signout();
 
 				} else {
 					loader(false);
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 
 				}
 			})
@@ -269,7 +289,7 @@ class Profile {
 			})
 			.then(function (response) {
 				if (response.message === 'Invalid token') {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 					signout();
 
 				}
@@ -303,11 +323,11 @@ class Profile {
 			})
 			.then(function (response) {
 				if (response.message === 'Invalid token') {
-					var notification = new Notification(response.message);
+					notifyMe(response.message);
 					signout();
 				}
 				loader(false);
-				// var notification = new Notification(response.message);
+				// notifyMe(response.message);
 			})
 			.catch(error => {
 				loader(false);

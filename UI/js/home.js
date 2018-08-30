@@ -1,7 +1,18 @@
+function clear() {
+	document.getElementById('new_entrycontent').value = '';
+	document.getElementById('new_entryname').value = '';
+}
+show_data();
 function show_data() {
 	let url='/api/v1/entries';
 	let entry=new Entries(null);
 	entry.getall(url);
+	let addbtn=document.getElementById('add');
+	addbtn.onclick=function(){
+		document.getElementsByClassName('modal')[1].style.display='block';
+		clear();
+		togglesavebuttons('new');
+	};
 }
 function click_events() {
 	return show_details(this.id),delete_one(this.id),edit_one(this.id);
