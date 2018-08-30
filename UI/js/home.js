@@ -2,7 +2,6 @@ function clear() {
 	document.getElementById('new_entrycontent').value = '';
 	document.getElementById('new_entryname').value = '';
 }
-show_data();
 function show_data() {
 	let url='/api/v1/entries';
 	let entry=new Entries(null);

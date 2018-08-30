@@ -30,7 +30,6 @@ function create_user() {
 				login();
 			} else {
 				errormsg(json.message);
-				var notification = new Notification(json.message);
 			}
 		})
 		.catch(error => {
@@ -66,7 +65,6 @@ function login() {
 				window.location.href = 'home.html';
 			} else {
 				errormsg(json.message);
-				var notification = new Notification(json.message);
 			}
 		})
 		.catch(error => {
@@ -80,6 +78,7 @@ function confirmpsd(psw2){
 	if(psw!=psw2.value){
 		// alert('match');
 		psw2.setCustomValidity('password not matching');
+		errormsg('not matched');
 	}
 	else{
 		psw2.setCustomValidity('');
