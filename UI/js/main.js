@@ -29,6 +29,9 @@ function notifyMe(message) {
 			if (permission === 'granted') {
 				var notification = new Notification(message);
 			}
+			else{
+				alert(message);
+			}
 		});
 	}
   
