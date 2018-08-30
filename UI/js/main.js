@@ -35,10 +35,6 @@ function notifyMe(message) {
 	// At last, if the user has denied notifications, and you 
 	// want to be respectful there is no need to bother them any more.
 }
-function clear() {
-	document.getElementById('new_entrycontent').value = '';
-	document.getElementById('new_entryname').value = '';
-}
 
 function html_links() {
 	var links = document.getElementsByClassName('navbar');
