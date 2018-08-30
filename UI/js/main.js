@@ -27,16 +27,6 @@ function html_links() {
 		links[i].appendChild(a);
 	}
 }
-function loader(state) {
-	if (state == true) {
-		document.getElementById('loader').style.display = 'inline-block';
-		var styleElem = document.head.appendChild(document.createElement('style'));
-		styleElem.innerHTML = '#loader:after{display:"block"}';
-        
-	} else if (state == false) {
-		document.getElementById('loader').style.display = 'none';
-	}
-}
 
 class Entries {
 	constructor(id) {
@@ -317,7 +307,7 @@ class Profile {
 					signout();
 				}
 				loader(false);
-				var notification = new Notification(response.message);
+				// var notification = new Notification(response.message);
 			})
 			.catch(error => {
 				loader(false);
