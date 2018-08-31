@@ -209,11 +209,14 @@ class Entries {
 					signout();
 
 				}
+				else if(response.entries.length==0){
+					document.getElementById('add').innerHTML='It\'s Lonely Here,Add entry &#10010;';
+				}
 				loader(false);
 				let object = response.entries;
 				let objectlength = object.length;
 				entry_iterate(objectlength, object);
-
+				
 			})
 			.catch(error => {
 				loader(false);
