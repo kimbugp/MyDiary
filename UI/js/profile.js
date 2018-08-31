@@ -17,9 +17,13 @@ function displayprofile(no, mail, username, name,profession) {
 
 	let uname = document.getElementById('uname');
 	uname.innerText = 'Username:' + username;
-
 	let prof = document.getElementById('profession');
-	prof.innerText ='Profession:' +profession;
+	if(profession!=null){
+		prof.innerText ='Profession:' +profession;
+	}
+	else{
+		prof.innerText ='Profession: Add Profession';
+	}
 
 }
 document.getElementById('edit_profile').addEventListener('submit',editprofile);
