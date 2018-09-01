@@ -18,7 +18,7 @@ from api.v1.models import dbase
 app = Flask(__name__)
 CORS(app)
 app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/static'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','txt'])
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 
