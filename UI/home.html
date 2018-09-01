@@ -83,9 +83,9 @@
             </div>
             <div class="modal-body">
                 <p id='entry_content'>
-                    <input type="text" id="new_entryname" title='Title must have a minimum of 5 character' style="width:80%;font-family: 'Times New Roman', Times, serif"
+                    <input type="text" id="new_entryname" pattern="[A-Za-z].{5,}" title='Title must have a minimum of 5 character' style="width:80%;font-family: 'Times New Roman', Times, serif"
                         placeholder="Title.." minlength="5" autocomplete="off" maxlength="50">
-                    <textarea id="new_entrycontent" style="font-size:150%;font-family: 'Times New Roman', Times, serif"
+                    <textarea id="new_entrycontent" pattern="[A-Za-z].{5,}" style="font-size:150%;font-family: 'Times New Roman', Times, serif"
                         style="height:100px;width: 80%" title='Content must have a minimum of 10 character' required
                         minlength="10" maxlength="80" autocomplete="off" placeholder="Write Something..."></textarea>
                 </p>
