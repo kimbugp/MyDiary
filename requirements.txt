@@ -16,6 +16,7 @@ flake8==3.5.0
 Flask==1.0.2
 Flask-Cors==3.0.6
 flask-heroku==0.1.9
+Flask-Uploads==0.2.1
 gunicorn==19.9.0
 idna==2.7
 isort==4.3.4
@@ -30,7 +31,8 @@ more-itertools==4.2.0
 nose==1.3.7
 numpy==1.15.0
 pdp==0.2.1
-pluggy==0.6.0
+pep8==1.7.1
+pluggy==0.7.1
 psycopg2==2.7.5
 py==1.5.4
 pycodestyle==2.3.1
@@ -44,8 +46,10 @@ pystache==0.5.4
 pytz==2018.4
 PyYAML==3.13
 requests==2.19.1
+rope==0.11.0
 six==1.11.0
 smartypants==2.0.1
+snowballstemmer==1.2.1
 typed-ast==1.1.0
 uritemplate==3.0.0
 urllib3==1.23
