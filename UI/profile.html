@@ -65,9 +65,10 @@
     </form>
     </div>
     <div class='modal' id='editpicmodal'>
-        <form class='addpic' method="POST" id='addpic'>
-            <label for='Picture' id='proflabel'>Upload Pic</label><span class="close" id='clpic'>&times;</span>
-            <input type="file" name="pic" accept="image/*">
+        <form class='addpic' method="POST" id='addpic' enctype=multipart/form-data>
+            <label for='Picture' id='proflabel'>Upload Pic</label>
+            <span class="close" id='clpic'>&times;</span>
+            <input type="file" name="pic" id='picfile' accept="image/*">
             <button type="submit" class="btn">Save</button>
         </form>
         </div>

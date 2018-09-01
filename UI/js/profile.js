@@ -66,7 +66,14 @@ function add_pic_modal() {
 
 	editpicmodal.style.display = 'block';
 	document.getElementById('addpic').onsubmit = function () {
-		alert('pic added');
+		var formData = new FormData();
+		var fileField = document.getElementById('picfile').value;
+		formData.append('title', 'new');
+		formData.append('photo', fileField.files);
+
+		let url = '/api/v1/profile/pic';
+		let profile = new Profile(url);
+		profile.pic(formData);
 	};
 	let span = document.getElementById('clpic');
 	closebtn(span, editpicmodal);

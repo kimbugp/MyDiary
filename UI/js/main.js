@@ -10,31 +10,31 @@ function signout() {
 	sessionStorage.removeItem('Token');
 	window.location.href = 'index.html';
 }
+
 function notifyMe(message) {
 	// Let's check if the browser supports notifications
 	if (!('Notification' in window)) {
 		alert(message);
 	}
-  
+
 	// Let's check whether notification permissions have already been granted
 	else if (Notification.permission === 'granted') {
 		// If it's okay let's create a notification
 		var notification = new Notification(message);
 	}
-  
+
 	// Otherwise, we need to ask the user for permission
 	else if (Notification.permission !== 'denied') {
 		Notification.requestPermission(function (permission) {
-		// If the user accepts, let's create a notification
+			// If the user accepts, let's create a notification
 			if (permission === 'granted') {
 				var notification = new Notification(message);
-			}
-			else{
+			} else {
 				alert(message);
 			}
 		});
 	}
-  
+
 	// At last, if the user has denied notifications, and you 
 	// want to be respectful there is no need to bother them any more.
 }
@@ -208,15 +208,14 @@ class Entries {
 					notifyMe(response.message);
 					signout();
 
-				}
-				else if(response.entries.length==0){
-					document.getElementById('add').innerHTML='It\'s Lonely Here,Add entry &#10010;';
+				} else if (response.entries.length == 0) {
+					document.getElementById('add').innerHTML = 'It\'s Lonely Here,Add entry &#10010;';
 				}
 				loader(false);
 				let object = response.entries;
 				let objectlength = object.length;
 				entry_iterate(objectlength, object);
-				
+
 			})
 			.catch(error => {
 				loader(false);
@@ -305,8 +304,8 @@ class Profile {
 				let uname = response[0].username;
 				let name = response[0].name;
 				let profession = response[0].profession;
-				let path=response[0].path;
-				displayprofile(no, mail, uname, name, profession,path);
+				let path = response[0].path;
+				displayprofile(no, mail, uname, name, profession, path);
 			})
 			.catch(error => {
 				loader(false);
@@ -335,6 +334,34 @@ class Profile {
 				}
 				loader(false);
 				// notifyMe(response.message);
+			})
+			.catch(error => {
+				loader(false);
+				alert(error);
+			});
+	}
+	pic(value) {
+		let myheaders = {
+			'Token': Token
+		};
+		let myURL = baseurl + this.url;
+		loader(true);
+		let init = {
+			method: 'POST',
+			headers: myheaders,
+			body: value
+		};
+		fetch(myURL, init)
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (response) {
+				if (response.message === 'Invalid token') {
+					notifyMe(response.message);
+					signout();
+				}
+				loader(false);
+				notifyMe(response.message);
 			})
 			.catch(error => {
 				loader(false);
