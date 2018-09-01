@@ -12,7 +12,6 @@ from pyisemail import is_email
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
-
 from api.v1.dbtasks import Profile, dboperations
 from api.v1.models import dbase
 
@@ -28,7 +27,7 @@ db.create_user_table()
 db.create_entries_table()
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()
-profile=Profile()
+profile = Profile()
 
 
 def process_entry_json(var):
@@ -253,15 +252,17 @@ def edit(user_id):
     """
     End Point to edit user profile
     """
-    data=request.json
+    data = request.json
     if 'profession' in data and all(data.values()):
-        profile.edit_profile(user_id,data['profession'])
-        return make_response(jsonify({"message":"edited"}), 200)
-    return make_response(jsonify({"message":"parameter  missing"}),400) 
-    
+        profile.edit_profile(user_id, data['profession'])
+        return make_response(jsonify({"message": "edited"}), 200)
+    return make_response(jsonify({"message": "parameter  missing"}), 400)
+
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/api/v1/profile/pic', methods=['POST'])
 @token_header
@@ -270,13 +271,13 @@ def add_picture(user_id):
     End Point to edit pic
     """
     if 'photo' not in request.files:
-        return make_response(jsonify({'message':'no image uploaded'}),400)
+        return make_response(jsonify({'message': 'no image uploaded'}), 400)
     form = request.files['photo']
     if form and allowed_file(form.filename):
-        ext=form.filename.rsplit('.',1)[1].lower()
-        filename=secure_filename(form.filename+str(user_id))
-        photos.save(form,name=filename+'.'+ext)
+        ext = form.filename.rsplit('.', 1)[1].lower()
+        filename = secure_filename(form.filename+str(user_id))
+        photos.save(form, name=filename+'.'+ext)
         file_url = photos.url(filename+'.'+ext)
-        profile.add_pic(user_id,file_url)
-        return make_response(jsonify({'message':file_url}),201)
-    return make_response(jsonify({'message':'no image uploaded'}),400)
+        profile.add_pic(user_id, file_url)
+        return make_response(jsonify({'message': file_url}), 201)
+    return make_response(jsonify({'message': 'no image uploaded'}), 400)
