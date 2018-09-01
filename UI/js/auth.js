@@ -78,7 +78,6 @@ function confirmpsd(psw2){
 	if(psw!=psw2.value){
 		// alert('match');
 		psw2.setCustomValidity('password not matching');
-		errormsg('not matched');
 	}
 	else{
 		psw2.setCustomValidity('');
