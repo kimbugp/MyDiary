@@ -30,8 +30,8 @@
     <div class="container">
         <div id='loader'></div>
         <div class="card">
-            <img src="media/profilepic.jpg" alt="Simon" style="width:5cm; height:5cm;">
-            <div class='edit' id='name'>Edit&#x270E;</div>
+            <img id='profpic' src="media/profilepic.jpg" alt="Simon" style="width:5cm; height:5cm;">
+            <div class='edit' id='picture'>Edit&#x270E;</div>
             <h1>
                 <span id='fullname'></span>
                 <!-- <div class='edit' id='name'>&#x270E;</div> -->
@@ -64,6 +64,13 @@
         <button type="submit" class="btn">Save</button>
     </form>
     </div>
+    <div class='modal' id='editpicmodal'>
+        <form class='addpic' method="POST" id='addpic'>
+            <label for='Picture' id='proflabel'>Upload Pic</label><span class="close" id='clpic'>&times;</span>
+            <input type="file" name="pic" accept="image/*">
+            <button type="submit" class="btn">Save</button>
+        </form>
+        </div>
     <div class="clear" style="clear: both; height: 60px;"></div>
     <script src="js/home.js"></script>
     <script src="js/profile.js"></script>
