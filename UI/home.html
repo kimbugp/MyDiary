@@ -50,7 +50,7 @@
                 <p id='entry_content'>Some text in the Modal Body</p>
             </div>
             <div class="entry_date">
-                <span class="action" >&#x270E;</span>
+                <span class="action">&#x270E;</span>
                 <span class="action" style='float: left;'>&#x1F5D1;</span>
                 <h3 id='date'>entry_date</h3>
             </div>
@@ -83,11 +83,13 @@
             </div>
             <div class="modal-body">
                 <p id='entry_content'>
-                    <input type="text" id="new_entryname" style="width:80%;font-family: 'Times New Roman', Times, serif" placeholder="Title.." minlength="10"
-                        autocomplete="off" maxlength="50">
-                    <textarea id="new_entrycontent" style="font-size:150%;font-family: 'Times New Roman', Times, serif" 
-                        style="height:100px;width: 80%" required minlength="10" maxlength="80" autocomplete="off" placeholder="Write Something..."></textarea>
+                    <input type="text" id="new_entryname" title='Title must have a minimum of 5 character' style="width:80%;font-family: 'Times New Roman', Times, serif"
+                        placeholder="Title.." minlength="5" autocomplete="off" maxlength="50">
+                    <textarea id="new_entrycontent" style="font-size:150%;font-family: 'Times New Roman', Times, serif"
+                        style="height:100px;width: 80%" title='Content must have a minimum of 10 character' required
+                        minlength="10" maxlength="80" autocomplete="off" placeholder="Write Something..."></textarea>
                 </p>
+                <p id='msg'></p>
             </div>
             <div class="entry_date">
                 <h3 id='save_new_entry' class='save_new_entry' onclick="add_entry()">SAVE &#128190;</h3>

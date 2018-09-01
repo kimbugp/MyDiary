@@ -1,8 +1,29 @@
 function add_entry() {
+	let {
+		name,
+		body
+	} = entry_div();
+	let msg = document.getElementById('msg');
+	if (!name.checkValidity()) {
+		msg.innerHTML = name.title;
+		return;
+	} else if (!body.checkValidity()) {
+		msg.innerHTML = body.title;
+		return;
+	}
 	let entry = new Entries;
 	entry.addentry();
 }
 close_newentrymodel();
+
+function entry_div() {
+	let body = document.getElementById('new_entrycontent');
+	let name = document.getElementById('new_entryname');
+	return {
+		name,
+		body
+	};
+}
 
 function close_newentrymodel() {
 	//close modal when clicked
@@ -28,10 +49,14 @@ function edit_one(id) {
 		}
 
 		modal.style.display = 'none';
+		let {
+			name,
+			body
+		} = entry_div();
 		//set the entry form to show previous data
 		document.getElementsByClassName('modal')[1].style.display = 'block';
-		document.getElementById('new_entrycontent').value = document.getElementById('entry_content').innerHTML;
-		document.getElementById('new_entryname').value = document.getElementById(id).innerHTML;
+		body.value = document.getElementById('entry_content').innerHTML;
+		name.value = document.getElementById(id).innerHTML;
 		togglesavebuttons('edit');
 
 	};
