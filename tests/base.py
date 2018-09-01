@@ -240,3 +240,12 @@ def pic_no_upload(test_user):
                              data=json.dumps({"path":""}),
                              content_type='application/json')
     return response
+
+def pic_not_added_upload(test_user):
+    """Function to test add not pic"""
+    data={}
+    response = test_user.post('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
+                             data = data,
+                             content_type='multipart/form-data')
+    return response

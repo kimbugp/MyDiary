@@ -1,8 +1,9 @@
 """Module to test login/signup user activity """
 import unittest
-from tests.base import (TestingClass, user_create, wrong_user,
-                        helo, wrong_details, wrong_sign_in,
-                        user,edit,edit_profession,pic_upload,pic_no_upload)
+
+from tests.base import (TestingClass, edit, edit_profession, helo,
+                        pic_no_upload, pic_not_added_upload, pic_upload, user,
+                        user_create, wrong_details, wrong_sign_in, wrong_user)
 
 
 class UserTests(TestingClass):
@@ -67,6 +68,11 @@ class UserTests(TestingClass):
     def test_not_add_pic(self):
         """Method to test not adding profilepic"""
         response=pic_no_upload(self.test_user)
+        self.assertEqual(response.status_code,400)
+    
+    def test_added_pic_invalid(self):
+        """Method to test not adding profilepic"""
+        response=pic_not_added_upload(self.test_user)
         self.assertEqual(response.status_code,400)
 
 

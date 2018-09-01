@@ -117,10 +117,3 @@ class Profile():
         dict_cursor.execute(profile)
         user = dict_cursor.fetchall()
         return user
-    
-    def check_email_and_username(self,col,var):
-        """Method to check if email of password exists"""
-        check=(f"select username,email from users where {col}='{var}'")
-        dict_cursor.execute(check)
-        response=dict_cursor.fetchall()
-        return response
