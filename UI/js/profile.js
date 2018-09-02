@@ -75,7 +75,7 @@ document.getElementById('addpic').addEventListener('submit', editpic);
 function editpic(event) {
 	event.preventDefault();
 	let data=new FormData();
-	var fileField = document.getElementById('picfile').value;
+	var fileField = document.getElementById('picfile').files[0];
 	data.append('photo',fileField);
 	let url = '/api/v1/profile/pic';
 	let profile = new Profile(url);
