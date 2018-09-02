@@ -26,7 +26,7 @@ function displayprofile(no, mail, username, name, profession, path) {
 	}
 	let pic = document.getElementById('profpic');
 	if (path != null) {
-		pic.setAttribute('src',path);
+		pic.setAttribute('src', path);
 	}
 }
 document.getElementById('edit_profile').addEventListener('submit', editprofile);
@@ -74,11 +74,12 @@ document.getElementById('addpic').addEventListener('submit', editpic);
 
 function editpic(event) {
 	event.preventDefault();
-	let data=new FormData();
-	var fileField = document.getElementById('picfile').files[0];
+	let data = new FormData();
+	var fileField = document.getElementById('picfile');
 	data.append('photo',fileField);
 	let url = '/api/v1/profile/pic';
 	let profile = new Profile(url);
 	profile.pic(data);
+	editpicmodal.style.display='none';
 }
 get_profile();
