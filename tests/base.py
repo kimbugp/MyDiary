@@ -2,6 +2,7 @@
 import os
 import unittest
 import json
+import io
 
 from api import app
 from api.v1.models import dbase
@@ -224,10 +225,12 @@ def edit(test_user):
 
 def pic_upload(test_user):
     """Function to test add pic"""
+    data={}
+    data['photo'] = (io.BytesIO(b'test'), 'test_file.jpg')
     response = test_user.post('/api/v1/profile/pic',
                              headers=user_create_token(test_user),
-                             data=json.dumps({"path":"https://kimbugp.github.io/MyDiary/UI/media/add.png"}),
-                             content_type='application/json')
+                             data = data,
+                             content_type='multipart/form-data')
     return response
 
 def pic_no_upload(test_user):
@@ -236,4 +239,13 @@ def pic_no_upload(test_user):
                              headers=user_create_token(test_user),
                              data=json.dumps({"path":""}),
                              content_type='application/json')
+    return response
+
+def pic_not_added_upload(test_user):
+    """Function to test add not pic"""
+    data={}
+    response = test_user.post('/api/v1/profile/pic',
+                             headers=user_create_token(test_user),
+                             data = data,
+                             content_type='multipart/form-data')
     return response
