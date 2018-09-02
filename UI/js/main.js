@@ -304,7 +304,7 @@ class Profile {
 				let uname = response[0].username;
 				let name = response[0].name;
 				let profession = response[0].profession;
-				let path = response[0].path;
+				let path = response[0].profilepic;
 				displayprofile(no, mail, uname, name, profession, path);
 			})
 			.catch(error => {

@@ -24,9 +24,9 @@ function displayprofile(no, mail, username, name, profession, path) {
 	} else {
 		prof.innerText = 'Profession: Add Profession';
 	}
-	let pic = document.getElementById('procpic');
-	if (pic != null) {
-		pic.setAttribute('src', path);
+	let pic = document.getElementById('profpic');
+	if (path != null) {
+		pic.setAttribute('src',path);
 	}
 }
 document.getElementById('edit_profile').addEventListener('submit', editprofile);
