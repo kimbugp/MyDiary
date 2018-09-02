@@ -55,7 +55,7 @@ function closebtn(span, modal) {
 		modal.style.display = 'none';
 	};
 	window.onclick = function (event) {
-		if (event.target == editprofilemodal) {
+		if (event.target == modal) {
 			modal.style.display = 'none';
 		}
 	};
@@ -65,18 +65,20 @@ const editpicmodal = document.getElementById('editpicmodal');
 function add_pic_modal() {
 
 	editpicmodal.style.display = 'block';
-	document.getElementById('addpic').onsubmit = function () {
-		var formData = new FormData();
-		var fileField = document.getElementById('picfile').value;
-		formData.append('title', 'new');
-		formData.append('photo', fileField.files);
-
-		let url = '/api/v1/profile/pic';
-		let profile = new Profile(url);
-		profile.pic(formData);
-	};
+	document.getElementById('addpic').onsubmit = editpic;
 	let span = document.getElementById('clpic');
 	closebtn(span, editpicmodal);
 
+}
+document.getElementById('addpic').addEventListener('submit', editpic);
+
+function editpic(event) {
+	event.preventDefault();
+	let data=new FormData();
+	var fileField = document.getElementById('picfile').value;
+	data.append('photo',fileField);
+	let url = '/api/v1/profile/pic';
+	let profile = new Profile(url);
+	profile.pic(data);
 }
 get_profile();

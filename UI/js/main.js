@@ -342,14 +342,17 @@ class Profile {
 	}
 	pic(value) {
 		let myheaders = {
-			'Token': Token
+			'content-type': 'multipart/form-data',
+			'Content-Type': 'application/json',
+			'token': Token,
+			'Cache-Control': 'no-cache'
 		};
 		let myURL = baseurl + this.url;
 		loader(true);
 		let init = {
 			method: 'POST',
 			headers: myheaders,
-			body: value
+			data: value
 		};
 		fetch(myURL, init)
 			.then(function (response) {
@@ -365,7 +368,7 @@ class Profile {
 			})
 			.catch(error => {
 				loader(false);
-				alert(error);
+				console.log(error);
 			});
 	}
 }
