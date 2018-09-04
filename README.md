@@ -36,7 +36,7 @@ C:\Users\User>venv\Scripts\activate
   ```
 #### Install modules required for the app 
 ```
-(venv) $ pip install>requirements.txt
+(venv) $ pip install -r requirements.txt
 ```
 #### Create database by running the following command
 ```
