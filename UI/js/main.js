@@ -342,9 +342,7 @@ class Profile {
 	}
 	pic(value) {
 		let myheaders = {
-			'token': Token,
-			'Content-Type':'multipart/form-data',
-			'Accept':'application/json'
+			'token': Token
 		};
 		let myURL = baseurl + this.url;
 		loader(true);
