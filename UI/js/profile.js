@@ -65,21 +65,27 @@ const editpicmodal = document.getElementById('editpicmodal');
 function add_pic_modal() {
 
 	editpicmodal.style.display = 'block';
-	document.getElementById('addpic').onsubmit = editpic;
 	let span = document.getElementById('clpic');
 	closebtn(span, editpicmodal);
 
 }
-document.getElementById('addpic').addEventListener('submit', editpic);
 
+document.getElementById('addpic').addEventListener('submit', editpic);
 function editpic(event) {
 	event.preventDefault();
 	var input = document.querySelector('input[type="file"]')
+	var FileSize = input.files[0].size / 1024 / 1024;
+	if(FileSize>2){
+		alert('file is larger');
+		return;
+	}
 	var data = new FormData()
 	data.append('photo', input.files[0])
 	let url = '/api/v1/profile/pic';
 	let profile = new Profile(url);
 	profile.pic(data);
+	get_profile();
 	editpicmodal.style.display='none';
+	
 }
 get_profile();
