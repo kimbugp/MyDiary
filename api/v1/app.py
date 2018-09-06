@@ -3,6 +3,7 @@ import datetime
 import os
 import re
 from functools import wraps
+import uuid
 
 import jwt
 from flask import Flask, jsonify, make_response, redirect, request
@@ -275,7 +276,7 @@ def add_picture(user_id):
     form = request.files['photo']
     if form and allowed_file(form.filename):
         ext = form.filename.rsplit('.', 1)[1].lower()
-        filename = secure_filename(form.filename+str(user_id))
+        filename = secure_filename(str(uuid.uuid4())+str(user_id))
         photos.save(form, name=filename+'.'+ext)
         file_url = photos.url(filename+'.'+ext)
         profile.add_pic(user_id, file_url)

@@ -342,17 +342,14 @@ class Profile {
 	}
 	pic(value) {
 		let myheaders = {
-			'content-type': 'multipart/form-data',
-			'Content-Type': 'application/json',
-			'token': Token,
-			'Cache-Control': 'no-cache'
+			'token': Token
 		};
 		let myURL = baseurl + this.url;
 		loader(true);
 		let init = {
 			method: 'POST',
 			headers: myheaders,
-			data: value
+			body: value
 		};
 		fetch(myURL, init)
 			.then(function (response) {
