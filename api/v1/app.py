@@ -175,7 +175,7 @@ def make_new_entry(user_id):
         entry=database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'],
             data['entry_content'])
-    return make_response(jsonify({'message': 'entry created',entry:{entry}})), 201
+    return make_response(jsonify({'message': 'entry created',"entry_id":entry["entry_id"]})), 201
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
