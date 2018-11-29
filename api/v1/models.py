@@ -39,7 +39,7 @@ class dbase():
                          "(entry_id serial  NOT NULL PRIMARY KEY,"
                          "entry_date TIMESTAMP NOT NULL,"
                          "entry_name VARCHAR(50) NOT NULL,"
-                         "entry_content VARCHAR(80) NOT NULL,"
+                         "entry_content VARCHAR() NOT NULL,"
                          "user_id INTEGER,FOREIGN KEY (user_id)\
                           REFERENCES users(user_id) ON DELETE CASCADE)")
 
