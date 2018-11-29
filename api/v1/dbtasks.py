@@ -26,7 +26,9 @@ class dboperations():
         cursor.execute(new_entry, (entry_date,
                                    entry_name, entry_content,
                                    user_id))
-
+        entry = cursor.fetchone()[0]
+        return entry
+    
     def get_all_entries(self, user_id):
         """Method to get all entries"""
         all_entries = (
