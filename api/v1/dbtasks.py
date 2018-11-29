@@ -22,11 +22,11 @@ class dboperations():
         """Method to create an entry"""
         new_entry = (
             "INSERT INTO entries(entry_date,entry_name,entry_content,user_id)\
-                                 VALUES(%s,%s,%s,%s)")
-        cursor.execute(new_entry, (entry_date,
+                                 VALUES(%s,%s,%s,%s) RETURNING entry_id")
+        dict_cursor.execute(new_entry, (entry_date,
                                    entry_name, entry_content,
                                    user_id))
-        entry = cursor.fetchone()[0]
+        entry = dict_cursor.fetchone()
         return entry
     
     def get_all_entries(self, user_id):
