@@ -172,10 +172,10 @@ def make_new_entry(user_id):
         data = process_entry_json(request.json)
         if data == "parameter missing" or not all(data.values()):
             return make_response(jsonify({'message': 'parameter missing'}), 400)
-        database.make_an_entry(
+        entry=database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'],
             data['entry_content'])
-    return make_response(jsonify({'message': 'entry created'})), 201
+    return make_response(jsonify({'message': 'entry created',entry:{entry}})), 201
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
