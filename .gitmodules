@@ -1,0 +1,3 @@
+[submodule "MyDiary.wiki"]
+	path = MyDiary.wiki
+	url = git://github.com/kimbugp/MyDiary.wiki
