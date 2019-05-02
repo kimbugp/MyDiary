@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/kimbugp/MyDiary.svg?branch=challenge-3)](https://travis-ci.org/kimbugp/MyDiary)
 [![Coverage Status](https://coveralls.io/repos/github/kimbugp/MyDiary/badge.svg?branch=challenge-3)](https://coveralls.io/github/kimbugp/MyDiary?branch=challenge-3)
-[![Maintainability](https://api.codeclimate.com/v1/badges/4b137dbde922e2570098/maintainability)](https://codeclimate.com/github/kimbugp/MyDiary/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b8de9b2c53eddbbb7171/maintainability)](https://codeclimate.com/github/kimbugp/MyDiary/maintainability)
 # My Diary 
 MyDiary is an online journal where users can pen down their thoughts and feelings.
 ## Getting Started
