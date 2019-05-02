@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,72 +8,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="css/home.css" />
-    <script src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/loader.css" />
 </head>
-<body>
+
+<body onload="show_data();">
     <nav>
         <ul>
-            <li><a href="home.html">HOME</a></li>
-            <li><a href="newentry.html">Add Entry</a></li>
-            <li><a href="entry.html">My Entries</a></li>
-            <li><a href="profile.html">My Profile</a></li>
-            <li><img  alt="Notifications" src="media/bell.png" style="width:.5cm;height:.5cm;"></li>
-            <li onclick="window.location.href='index.html';" style="float:right"><a href="#" >Sign In</a></li>
+            <li class="navbar">Home</li>
+            <li class="navbar">Profile</li>
+            <li class="navbar">About</li>
+            <li onclick="signout()" style="float:right">
+                <a href='#'>Logout</a>
+            </li>
         </ul>
     </nav>
     <section>
-            <div class="container">
-                <h1>Welcome to My Diary!</h1>
-                <img src="media/diary.jpeg" alt="Diary" style="width:2cm; height:2cm;">
-            </div>
+        <div class="container">
+            <h1>Welcome to My Diary!</h1>
+            <img src="media/diary.jpeg" alt="Diary" style="width:2cm; height:2cm;">
+        </div>
     </section>
     <section id="Entries">
         <div class="container">
             <h2>My Diary Entries</h2>
         </div>
-
-        <div class="row">
-            <div class="column">
-                <a href="entryno.html"><h3>The World Cup 2018</h3></a>
-                <div>12/10/2018</div>
-                <p>Russia World cup 2018 was one world cup that broke the record with Country teams expected to go all the way to teh final being eliminated as early s the group stages.</p>
-                <div class="row">
-                    <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
-                </div>
-            </div>
-            <div class="column">
-                <a href="entryno.html"><h3>Adventures In Uganda</h3></a>
-                
-                <div>12/10/2018</div>
-                <p>It's intresting to find that most Ugandans dont know or havent travelled their country.They are stuck to the regions in which they stay in and never want to change.
-                    One time i was shocked to find a foreginer knew more intresting places in Uganda compared to me.
-                From this moment i decided to tour Uganda.</p>
-                <div class="row">
-                    <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
-                </div>
-            </div>
-            <div class="column">
-                <a href="entryno.html"><h3>Social Media Tax</h3></a>
-                <div>12/10/2018</div>
-                <p>AKA OTT has caused a lot of in Uganda.Before you would find like 100 people on you account sending statuses but now it's sometimes none.</p>
-                <div class="row">
-                    <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
-                </div>
-            </div>
-            <div class="column">
-                    <a href="entryno.html"><h3>Social Media Tax</h3></a>
-                    <div>12/10/2018</div>
-                    <p>AKA OTT has caused a lot of in Uganda.Before you would find like 100 people on you account sending statuses but now it's sometimes none.</p>
-                    <div class="row">
-                        <button class="button3" type="button" onclick="window.location.href='entryno.html';">VIEW</button>
-                    </div>
-                </div>
-            
-        </div>
-        </section>
+    </section>
+    <h3 class="add" id='add'>Add entry &#10010;</h3>
+    <div class="entrylist" id="entrylist">
+        <ol id="myUL"></ol>
     </div>
+    <div class="clear" style="clear: both; height: 60px;"></div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="entry_name">
+                <span class="close">&times;</span>
+                <h2 id='entry_title'>title</h2>
+            </div>
+            <div class="modal-body">
+                <p id='entry_content'>Some text in the Modal Body</p>
+            </div>
+            <div class="entry_date">
+                <span class="action">&#x270E;</span>
+                <span class="action" style='float: left;'>&#x1F5D1;</span>
+                <h3 id='date'>entry_date</h3>
+            </div>
+        </div>
+
+    </div>
+    <div id="newentrymodal" class="modal">
+        <style>
+            input[type=text],
+            input[type=date],
+            select,
+            textarea {
+                width: 40%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+                font-family: Gabriola;
+            }
+        </style>
+        <!-- Modal content 2-->
+        <div class="modal-content">
+            <div class="entry_name">
+                <span class="close">&times;</span>
+                <h2 id='entry_titleheader'>New Entry</h2>
+                <h2 id='edit_title' style='display:none'>Edit Entry</h2>
+            </div>
+            <div class="modal-body">
+                <p id='entry_content'>
+                    <input type="text" id="new_entryname" pattern="[A-Za-z].{5,}" title='Title must have a minimum of 5 character' style="width:80%;font-family: 'Times New Roman', Times, serif"
+                        placeholder="Title.." minlength="5" autocomplete="off" maxlength="50">
+                    <textarea id="new_entrycontent" pattern="[A-Za-z].{5,}" style="font-size:150%;font-family: 'Times New Roman', Times, serif"
+                        style="height:100px;width: 80%" title='Content must have a minimum of 10 character' required
+                        minlength="10" maxlength="80" autocomplete="off" placeholder="Write Something..."></textarea>
+                </p>
+                <p id='msg'></p>
+
+            </div>
+            <div class="entry_date">
+                <h3 id='save_new_entry' class='save_new_entry' onclick="add_entry()">SAVE &#128190;</h3>
+                <h3 id='edit_entry' class='save_new_entry' style='display:none'>SAVE &#128190;</h3>
+            </div>
+        </div>
+
+    </div>
+    <div id='loader'></div>
+    <script src="js/loader.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/entry.js"></script>
     <footer>
-            <p>Simon, Copyright &copy; 2018</p>
+        <p>Simon, Copyright &copy; 2018</p>
     </footer>
 </body>
+
 </html>

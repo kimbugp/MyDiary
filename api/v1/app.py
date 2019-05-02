@@ -1,21 +1,34 @@
 """Main API"""
 import datetime
-from functools import wraps
+import os
 import re
-import jwt
-from pyisemail import is_email
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, jsonify, make_response, request, redirect
-from api.v1.models import dbase
-from api.v1.dbtasks import dboperations
+from functools import wraps
+import uuid
 
+import jwt
+from flask import Flask, jsonify, make_response, redirect, request
+from flask_cors import CORS
+from flask_uploads import IMAGES, UploadSet, configure_uploads
+from pyisemail import is_email
+from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
+
+from api.v1.dbtasks import Profile, dboperations
+from api.v1.models import dbase
 
 app = Flask(__name__)
+CORS(app)
+app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/static'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','txt'])
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
+
 db = dbase()
 db.create_user_table()
 db.create_entries_table()
 app.config['SECRET_KEY'] = 'tisandela'
 database = dboperations()
+profile = Profile()
 
 
 def process_entry_json(var):
@@ -107,10 +120,10 @@ def create_a_user():
     if not user and is_email(data['email']) and all(data.values()) and re.match("^[A-Za-z0-9_-]*$", data['username']):
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
-        return make_response(jsonify({'Message': 'User created'})), 201
+        return make_response(jsonify({'message': 'User created'})), 201
     if not all(data.values()) or not re.match("^[A-Za-z0-9_-]*$", data['username']) or not is_email(data['email']):
-        return make_response(jsonify({'Message': 'invalid input'}), 400)
-    return make_response(jsonify({'Message': 'User already exists'}), 400)
+        return make_response(jsonify({'message': 'invalid input'}), 400)
+    return make_response(jsonify({'message': 'User already exists'}), 400)
 
 
 @app.route('/api/v1/auth/login', methods=['POST'])
@@ -125,10 +138,10 @@ def sign_in_a_user():
     if user:
         if check_password_hash(user[0]['password'], data['password']):
             token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow() +
-                                datetime.timedelta(minutes=20)},
+                                datetime.timedelta(minutes=60)},
                                app.config['SECRET_KEY'])
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
-    return make_response(jsonify({'Message': 'Invalid login'}), 401)
+    return make_response(jsonify({'message': 'Invalid login'}), 401)
 
 
 @app.route('/')
@@ -159,10 +172,10 @@ def make_new_entry(user_id):
         data = process_entry_json(request.json)
         if data == "parameter missing" or not all(data.values()):
             return make_response(jsonify({'message': 'parameter missing'}), 400)
-        database.make_an_entry(
+        entry=database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'],
             data['entry_content'])
-    return make_response(jsonify({'Message': 'entry created'})), 201
+    return make_response(jsonify({'message': 'entry created',"entry_id":entry["entry_id"]})), 201
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
@@ -176,7 +189,7 @@ def single_entry(user_id, entry_no):
     if resultlist:
         return make_response(jsonify({'entries': resultlist})), 200
     else:
-        return make_response(jsonify({'Message': 'no entry'})), 404
+        return make_response(jsonify({'message': 'no entry'})), 404
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['PUT'])
@@ -186,15 +199,15 @@ def edit_an_entry_(user_id, entry_no):
     End Point to edit an existing entry
     """
     data = process_edit_json(request.json)
-    if data == "parameter missing":
+    if data == "parameter missing" or not all(data.values()):
         return make_response(jsonify({'message': 'parameter missing'}), 400)
     resultlist = database.get_one_entry(user_id, entry_no)
-    if resultlist:
+    if resultlist and all(data.values()):
         database.edit_one_entry(
             user_id, data['entry_name'], data['entry_content'], entry_no)
-        return make_response(jsonify({'Message': 'entry edited'})), 200
+        return make_response(jsonify({'message': 'entry edited'})), 200
     else:
-        return make_response(jsonify({'Message': 'no such entry'})), 404
+        return make_response(jsonify({'message': 'no such entry'})), 404
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['DELETE'])
@@ -205,7 +218,7 @@ def delete_an_entry(user_id, entry_no):
     """
 
     message = database.delete_entry(user_id, entry_no)
-    return make_response(jsonify({'Message': message})), 200
+    return make_response(jsonify({'message': message})), 200
 
 
 @app.errorhandler(404)
@@ -213,7 +226,7 @@ def page_not_found(e):
     """
     End Point to catch 404s
     """
-    return make_response(jsonify({'Message': 'Page not found'})), 404
+    return make_response(jsonify({'message': 'Page not found'})), 404
 
 
 @app.route('/docs')
@@ -230,5 +243,42 @@ def view_profile(user_id):
     """
     End Point to view user profile
     """
-    response = database.get_profile(user_id)
+    response = profile.get_profile(user_id)
     return make_response(jsonify(response), 200)
+
+
+@app.route('/api/v1/profile', methods=['PUT'])
+@token_header
+def edit(user_id):
+    """
+    End Point to edit user profile
+    """
+    data = request.json
+    if 'profession' in data and all(data.values()):
+        profile.edit_profile(user_id, data['profession'])
+        return make_response(jsonify({"message": "edited"}), 200)
+    return make_response(jsonify({"message": "parameter  missing"}), 400)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/api/v1/profile/pic', methods=['POST'])
+@token_header
+def add_picture(user_id):
+    """
+    End Point to edit pic
+    """
+    if 'photo' not in request.files:
+        return make_response(jsonify({'message': 'no image uploaded'}), 400)
+    form = request.files['photo']
+    if form and allowed_file(form.filename):
+        ext = form.filename.rsplit('.', 1)[1].lower()
+        filename = secure_filename(str(uuid.uuid4())+str(user_id))
+        photos.save(form, name=filename+'.'+ext)
+        file_url = photos.url(filename+'.'+ext)
+        profile.add_pic(user_id, file_url)
+        return make_response(jsonify({'message': file_url}), 201)
+    return make_response(jsonify({'message': 'no image uploaded'}), 400)

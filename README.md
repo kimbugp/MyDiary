@@ -36,7 +36,7 @@ C:\Users\User>venv\Scripts\activate
   ```
 #### Install modules required for the app 
 ```
-(venv) $ pip install>requirements.txt
+(venv) $ pip install -r requirements.txt
 ```
 #### Create database by running the following command
 ```
@@ -57,10 +57,6 @@ python -m flask run
   * Setup test database
   ```
   psql -c 'create database diarydb_test;' -U postgres
-  ```
-  * Set the environment variable
-  ```
-  $ set app_env=testing
   ```
   * Run the tests
   ```
@@ -93,6 +89,8 @@ This project is licensed under the MIT License
  | PUT             |Updating a specific entry     | api/v1/entries/<<int:entryid>>
  | Documentation  | Show documentation  | /docs
  | GET  | Show user profile   | api/v1/profile
+ | PUT | Edit profile | api/v1/profile
+ | POST | Add picture | api/v1/profile/pic
 
 ## Authors
 * Kimbugwe Simon Peter 

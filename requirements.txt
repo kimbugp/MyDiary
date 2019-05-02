@@ -1,5 +1,4 @@
 asn1crypto==0.24.0
-astroid==2.0
 atomicwrites==1.1.5
 attrs==18.1.0
 autopep8==1.3.5
@@ -10,11 +9,12 @@ click==6.7
 colorama==0.3.9
 coverage==4.5.1
 cryptography==2.3
-Django==2.0.6
 dnspython==1.15.0
 flake8==3.5.0
 Flask==1.0.2
+Flask-Cors==3.0.6
 flask-heroku==0.1.9
+Flask-Uploads==0.2.1
 gunicorn==19.9.0
 idna==2.7
 isort==4.3.4
@@ -29,7 +29,8 @@ more-itertools==4.2.0
 nose==1.3.7
 numpy==1.15.0
 pdp==0.2.1
-pluggy==0.6.0
+pep8==1.7.1
+pluggy==0.7.1
 psycopg2==2.7.5
 py==1.5.4
 pycodestyle==2.3.1
@@ -41,10 +42,12 @@ PyJWT==1.6.4
 pylint==2.0.0
 pystache==0.5.4
 pytz==2018.4
-PyYAML==3.13
-requests==2.19.1
+pyyaml>=4.2b1
+requests>=2.20.0
+rope==0.11.0
 six==1.11.0
 smartypants==2.0.1
+snowballstemmer==1.2.1
 typed-ast==1.1.0
 uritemplate==3.0.0
 urllib3==1.23

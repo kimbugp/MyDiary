@@ -1,6 +1,7 @@
 """Module to perform database tasks"""
 from api.v1.models import dbase
-
+from urllib.request import urlopen
+import psycopg2
 db = dbase()
 cursor = db.cursor
 dict_cursor = db.dict_cursor
@@ -21,11 +22,13 @@ class dboperations():
         """Method to create an entry"""
         new_entry = (
             "INSERT INTO entries(entry_date,entry_name,entry_content,user_id)\
-                                 VALUES(%s,%s,%s,%s)")
-        cursor.execute(new_entry, (entry_date,
+                                 VALUES(%s,%s,%s,%s) RETURNING entry_id")
+        dict_cursor.execute(new_entry, (entry_date,
                                    entry_name, entry_content,
                                    user_id))
-
+        entry = dict_cursor.fetchone()
+        return entry
+    
     def get_all_entries(self, user_id):
         """Method to get all entries"""
         all_entries = (
@@ -94,12 +97,25 @@ class dboperations():
         user = dict_cursor.fetchall()
         return user
 
+    
+
+class Profile():
+    def add_pic(self,user_id,path):
+        """Method to add profile pic"""
+        pic=(f"UPDATE users SET profilepic='{path}' where user_id={user_id}")
+        cursor.execute(pic)
+
+    def edit_profile(self,user_id,profession):
+        """Method to profile edit"""
+        pic=(f"UPDATE users SET profession='{profession}' where user_id={user_id}")
+        cursor.execute(pic)
+    
     def get_profile(self, user_id):
         """Method to get user profile"""
-        profile = ("select username,email,name,count(entries.user_id)\
-                   from users left join entries on entries.user_id=users.user_id\
-                   where users.user_id={} group by users.user_id"
-                   .format(user_id))
+        profile = (f"select username,email,name,count(entries.user_id)\
+                   ,profession,profilepic from users left join entries\
+                   on entries.user_id=users.user_id where users.user_id={user_id}\
+                   group by users.user_id")
         dict_cursor.execute(profile)
         user = dict_cursor.fetchall()
         return user
