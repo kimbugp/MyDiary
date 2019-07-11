@@ -1,13 +1,14 @@
 """Module to perform database tasks"""
-from api.v1.models import dbase
-from urllib.request import urlopen
+
 import psycopg2
-db = dbase()
+from app.models.models import MODELS
+
+db = MODELS()
 cursor = db.cursor
 dict_cursor = db.dict_cursor
 
 
-class dboperations():
+class UserOperations():
     """Class to perform database operations"""
 
     def create_a_user(self, username, name, email, password):
@@ -24,11 +25,11 @@ class dboperations():
             "INSERT INTO entries(entry_date,entry_name,entry_content,user_id)\
                                  VALUES(%s,%s,%s,%s) RETURNING entry_id")
         dict_cursor.execute(new_entry, (entry_date,
-                                   entry_name, entry_content,
-                                   user_id))
+                                        entry_name, entry_content,
+                                        user_id))
         entry = dict_cursor.fetchone()
         return entry
-    
+
     def get_all_entries(self, user_id):
         """Method to get all entries"""
         all_entries = (
@@ -85,7 +86,7 @@ class dboperations():
         """Method to delete an entry"""
         delete = ("DELETE FROM entries WHERE entry_id={} and \
                   user_id='{}'".format(
-                      entry_id, user_id))
+            entry_id, user_id))
         cursor.execute(delete)
         return 'successfully deleted'
 
@@ -97,25 +98,20 @@ class dboperations():
         user = dict_cursor.fetchall()
         return user
 
-    
 
 class Profile():
-    def add_pic(self,user_id,path):
-        """Method to add profile pic"""
-        pic=(f"UPDATE users SET profilepic='{path}' where user_id={user_id}")
-        cursor.execute(pic)
-
-    def edit_profile(self,user_id,profession):
-        """Method to profile edit"""
-        pic=(f"UPDATE users SET profession='{profession}' where user_id={user_id}")
-        cursor.execute(pic)
-    
     def get_profile(self, user_id):
         """Method to get user profile"""
-        profile = (f"select username,email,name,count(entries.user_id)\
+        profile = ('''select username,email,name,count(entries.user_id)\
                    ,profession,profilepic from users left join entries\
-                   on entries.user_id=users.user_id where users.user_id={user_id}\
-                   group by users.user_id")
+                   on entries.user_id=users.user_id where users.user_id={}\
+                   group by users.user_id''').format(user_id)
         dict_cursor.execute(profile)
         user = dict_cursor.fetchall()
         return user
+
+    def edit_profile(self, user_id, profession):
+        """Method to profile edit"""
+        pic = ('''UPDATE users SET profession='{}' where user_id={}''').format(
+            profession, user_id)
+        cursor.execute(pic)

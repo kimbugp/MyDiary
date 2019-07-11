@@ -2,32 +2,17 @@
 import datetime
 import os
 import re
-from functools import wraps
 import uuid
+from functools import wraps
+
+from werkzeug.security import check_password_hash, generate_password_hash
 
 import jwt
+from app import app
+from app.models.dbtasks import Profile, UserOperations
 from flask import Flask, jsonify, make_response, redirect, request
-from flask_cors import CORS
-from flask_uploads import IMAGES, UploadSet, configure_uploads
-from pyisemail import is_email
-from werkzeug.security import check_password_hash, generate_password_hash
-from werkzeug.utils import secure_filename
 
-from api.v1.dbtasks import Profile, dboperations
-from api.v1.models import dbase
-
-app = Flask(__name__)
-CORS(app)
-app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/static'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg','txt'])
-photos = UploadSet('photos', IMAGES)
-configure_uploads(app, photos)
-
-db = dbase()
-db.create_user_table()
-db.create_entries_table()
-app.config['SECRET_KEY'] = 'tisandela'
-database = dboperations()
+database = UserOperations()
 profile = Profile()
 
 
@@ -98,7 +83,7 @@ def token_header(f):
         if not token:
             return make_response(jsonify({'message': 'No auth token'}), 401)
         try:
-            data = jwt.decode(token, app.config['SECRET_KEY'])
+            data = jwt.decode(token, app.config['SECRET_KEY'], algorithm=['HS256'])
             user = database.select_user_id(data['user_id'])
             user_id = user[0]['user_id']
         except:
@@ -117,11 +102,13 @@ def create_a_user():
         return make_response(jsonify({'message': 'parameter missing'}), 400)
     hashed_password = generate_password_hash(data['password'], method='sha256')
     user = database.verify_new_user(data['username'], data['email'])
-    if not user and is_email(data['email']) and all(data.values()) and re.match("^[A-Za-z0-9_-]*$", data['username']):
+    if not user and re.match(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b',
+                             data['email'], re.I) and all(data.values()) and re.match("^[A-Za-z0-9_-]*$", data['username']):
         database.create_a_user(
             data['username'], data['name'], data['email'], hashed_password)
         return make_response(jsonify({'message': 'User created'})), 201
-    if not all(data.values()) or not re.match("^[A-Za-z0-9_-]*$", data['username']) or not is_email(data['email']):
+    if not all(data.values()) or not re.match("^[A-Za-z0-9_-]*$", data['username']) or not re.match(r'\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b',
+                                                                                                    data['email'], re.I):
         return make_response(jsonify({'message': 'invalid input'}), 400)
     return make_response(jsonify({'message': 'User already exists'}), 400)
 
@@ -137,9 +124,10 @@ def sign_in_a_user():
     user = database.select_user(data['username'])
     if user:
         if check_password_hash(user[0]['password'], data['password']):
-            token = jwt.encode({'user_id': user[0]['user_id'], 'exp': datetime.datetime.utcnow() +
+            token = jwt.encode({'user_id': user[0]['user_id'],
+                                'exp': datetime.datetime.utcnow() +
                                 datetime.timedelta(minutes=60)},
-                               app.config['SECRET_KEY'])
+                               app.config['SECRET_KEY'], algorithm='HS256')
             return make_response(jsonify({'Token': token.decode('UTF-8')}), 200)
     return make_response(jsonify({'message': 'Invalid login'}), 401)
 
@@ -172,10 +160,10 @@ def make_new_entry(user_id):
         data = process_entry_json(request.json)
         if data == "parameter missing" or not all(data.values()):
             return make_response(jsonify({'message': 'parameter missing'}), 400)
-        entry=database.make_an_entry(
+        entry = database.make_an_entry(
             user_id, data['entry_date'], data['entry_name'],
             data['entry_content'])
-    return make_response(jsonify({'message': 'entry created',"entry_id":entry["entry_id"]})), 201
+    return make_response(jsonify({'message': 'entry created', "entry_id": entry["entry_id"]})), 201
 
 
 @app.route('/api/v1/entries/<int:entry_no>', methods=['GET'])
@@ -229,14 +217,6 @@ def page_not_found(e):
     return make_response(jsonify({'message': 'Page not found'})), 404
 
 
-@app.route('/docs')
-def documentation():
-    """
-    End Point for documentation
-    """
-    return redirect('https://kimbug.docs.apiary.io', code=302)
-
-
 @app.route('/api/v1/profile', methods=['GET'])
 @token_header
 def view_profile(user_id):
@@ -258,27 +238,3 @@ def edit(user_id):
         profile.edit_profile(user_id, data['profession'])
         return make_response(jsonify({"message": "edited"}), 200)
     return make_response(jsonify({"message": "parameter  missing"}), 400)
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route('/api/v1/profile/pic', methods=['POST'])
-@token_header
-def add_picture(user_id):
-    """
-    End Point to edit pic
-    """
-    if 'photo' not in request.files:
-        return make_response(jsonify({'message': 'no image uploaded'}), 400)
-    form = request.files['photo']
-    if form and allowed_file(form.filename):
-        ext = form.filename.rsplit('.', 1)[1].lower()
-        filename = secure_filename(str(uuid.uuid4())+str(user_id))
-        photos.save(form, name=filename+'.'+ext)
-        file_url = photos.url(filename+'.'+ext)
-        profile.add_pic(user_id, file_url)
-        return make_response(jsonify({'message': file_url}), 201)
-    return make_response(jsonify({'message': 'no image uploaded'}), 400)

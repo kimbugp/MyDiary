@@ -49,32 +49,11 @@ class UserTests(TestingClass):
         response = helo(self.test_user)
         self.assertIn('hello', str(response.data))
         self.assertEqual(response.status_code, 200)
-    
+
     def test_edit_profession(self):
         """Method to test editing profession"""
-        response=edit_profession(self.test_user)
-        self.assertEqual(response.status_code,200)
-    
-    def test_edit_profile(self):
-        """Method to test editing profile"""
-        response=edit(self.test_user)
-        self.assertEqual(response.status_code,400)
-    
-    def test_add_pic(self):
-        """Method to test adding profilepic"""
-        response=pic_upload(self.test_user)
-        self.assertEqual(response.status_code,201)
-
-    def test_not_add_pic(self):
-        """Method to test not adding profilepic"""
-        response=pic_no_upload(self.test_user)
-        self.assertEqual(response.status_code,400)
-    
-    def test_added_pic_invalid(self):
-        """Method to test not adding profilepic"""
-        response=pic_not_added_upload(self.test_user)
-        self.assertEqual(response.status_code,400)
-
+        response = edit_profession(self.test_user)
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == '__main__':

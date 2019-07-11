@@ -87,7 +87,3 @@ class all_entries_test(TestingClass):
         """Method to test viewing user profile"""
         response = profile(self.test_user)
         self.assertEqual(response.status_code, 200)
-
-
-if __name__ == '__main__':
-    unittest.main()

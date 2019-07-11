@@ -2,28 +2,16 @@ language: python
 python:
   - "3.6"
 cache: pip
-# command to install dependencies
 addons:
   postgresql: "9.5"
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
   - psql -c 'create database diarydb;' -U postgres
 install:
   - pip install -r requirements.txt
-  - pip install coverage
-  - pip install coveralls
-  - pip install nose
+  - pip install -r requirements-dev.txt
 
-# for codecoverage on codeclimate.com
-env:
-  global:
-    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
-    - CC_TEST_REPORTER_ID=[c70a88ababb59bd727db7c8b91dcbc30e7c9fd5f74d599761a3d361dd6aea563]
-  
-# command to run tests
 script:
-  - nosetests -v --with-coverage --cover-package=api
+  - pytest --cov=app
 
 #for coveralls
 after_success:

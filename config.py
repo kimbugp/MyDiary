@@ -1,34 +1,31 @@
-"""Module to configure database"""
-import os
-db_user = 'postgres'
-user_password = 'qwertyuiop'
+from os import environ
 
 
-class Config:
-    """Class to configure database"""
+class BaseConfig(object):
     DEBUG = True
-    TESTING = False
+    DATABASE_URL = environ.get("DATABASE_URL")
+    SECRET_KEY = environ.get("SECRET_KEY")
 
 
-class DevelopmentConfig(Config):
-    """Class to configure database to developer"""
-    db_name = 'diarydb'
-    DATABASE_URL = 'postgresql://' + db_user + ': ' + \
-        user_password + '@localhost/' + db_name + ''
+class Development(BaseConfig):
+    pass
 
-class TestingConfig(Config):
-    """Class to configure database to testing"""
-    db_name = 'diarydb_test'
+
+class Staging(BaseConfig):
+    DEBUG = False
+
+
+class Production(Staging):
+    pass
+
+
+class Testing(BaseConfig):
     TESTING = True
-    DATABASE_URL = 'postgresql://' + db_user + ': ' + \
-        user_password + '@localhost/' + db_name + ''
 
-class HerokuConfig(Config):
-    """Class to configure database to developer"""
-    DATABASE_URL = os.getenv('DATABASE_URL',default=None)
 
 app_config = {
-    "development": DevelopmentConfig,
-    "testing": TestingConfig,
-    "heroku":HerokuConfig
+    'development': Development,
+    'staging': Staging,
+    'production': Production,
+    'testing': Testing
 }

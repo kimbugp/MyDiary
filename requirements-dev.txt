@@ -1,0 +1,4 @@
+pytest-cov==2.7.1
+coverage==4.5.1
+coveralls
+pytest==5.0.1
