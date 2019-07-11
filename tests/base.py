@@ -15,7 +15,6 @@ database = UserOperations()
 db = MODELS()
 cursor = db.cursor
 
-
 class TestingClass(unittest.TestCase):
 
     """Base Class for Testing the API"""

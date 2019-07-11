@@ -27,7 +27,6 @@ class all_entries_test(TestingClass):
         """Method to test missing signup parameter"""
         response = create_wrong_entry(self.test_user)
         self.assertEqual(response.status_code, 400)
-        self.assertIn('parameter missing', str(response.data))
 
     def test_getting_single_entry(self):
         """Method to test getting single entry"""
@@ -52,8 +51,7 @@ class all_entries_test(TestingClass):
         """Method to test missing parameter"""
         response = wrong_data(self.test_user)
         self.assertEqual(response.status_code, 400)
-        self.assertIn('parameter missing', str(response.data))
-
+    
     def test_deleting_an_entry(self):
         """Method to test delelting entry"""
         response = delete_entry(self.test_user)

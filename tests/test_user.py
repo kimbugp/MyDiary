@@ -19,7 +19,6 @@ class UserTests(TestingClass):
         """Method to test wrong signup"""
         response = wrong_user(self.test_user)
         self.assertEqual(response.status_code, 400)
-        self.assertIn('parameter missing', str(response.data))
 
     def test_user_already_exists(self):
         """Method to test existing user"""
@@ -32,11 +31,16 @@ class UserTests(TestingClass):
         """Method to test signin"""
         response = user(self.test_user)
         self.assertEqual(response.status_code, 200)
+    
+    def test_create_user_with_invalid_email(self):
+        response = wrong_user(self.test_user)
+        self.assertEqual(response.status_code, 400)
 
     def test_user_login_with_no_info(self):
         """Method to test sign in with missing parameter"""
         response = wrong_details(self.test_user)
-        self.assertIn('parameter missing', str(response.data))
+        self.assertIn(response.json['error'],
+                      "'password' is a required property")
 
     def test_wrong_user_login(self):
         """Method to test sign in with wrong detail"""
