@@ -1,8 +1,8 @@
 """ Inintialisation file for tests"""
-from config import TestingConfig
-from api import app
+from config import Testing
+from app import app
 
-app.config.from_object(TestingConfig)
+app.config.from_object(Testing)
 #Test data
 test_user_data = {
     "username": "peter",
