@@ -46,7 +46,7 @@ class UserOperations():
              WHERE entry_id={} AND user_id='{}'"
             .format(entry_id, user_id))
         dict_cursor.execute(all_entries)
-        entries = dict_cursor.fetchall()
+        entries = dict_cursor.fetchone()
         return entries
 
     def get_an_id(self):
@@ -56,7 +56,7 @@ class UserOperations():
         my_id = dict_cursor.fetchone()
         return my_id['entry_id']
 
-    def edit_one_entry(self, user_id, entry_name, entry_content, entry_id):
+    def edit_one_entry(self, user_id, entry_id, entry_name, entry_content, *args, **kwargs):
         """Method to edit an entry"""
         edit_entries = (
             "UPDATE entries SET entry_name= %s, entry_content= %s WHERE \
