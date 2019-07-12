@@ -1,9 +1,8 @@
 """Module to perform database tasks"""
 
 import psycopg2
-from app.models.models import MODELS
+from app import db
 
-db = MODELS()
 cursor = db.cursor
 dict_cursor = db.dict_cursor
 

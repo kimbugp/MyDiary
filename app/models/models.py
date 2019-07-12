@@ -8,8 +8,9 @@ from psycopg2.extras import RealDictCursor
 class MODELS():
     """Class  for database"""
 
-    def __init__(self):
-        database = os.getenv('DATABASE_URL', 'TESTING_DATABASE_URL')
+    def __init__(self, app=None):
+        self.app = app
+        database = self.db_connect()
         self.conn = psycopg2.connect(database)
         self.cursor = self.conn.cursor()
         self.dict_cursor = self.conn.cursor(
@@ -39,3 +40,6 @@ class MODELS():
                           REFERENCES users(user_id) ON DELETE CASCADE)")
 
         self.cursor.execute(entries_table)
+
+    def db_connect(self):
+        return self.app.config.get('DATABASE_URL')

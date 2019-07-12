@@ -4,16 +4,16 @@ import json
 import os
 import unittest
 
+from app import app, db
 from app.models.dbtasks import Profile, UserOperations
-from app.models.models import MODELS
+from config import app_config
 from tests import (test_entry, test_sign_in, test_user_data,
                    test_wrong_sign_in, wrong_test_entry, wrong_test_sign_in,
                    wrong_test_user_data)
-from app import app
 
 database = UserOperations()
-db = MODELS()
 cursor = db.cursor
+
 
 class TestingClass(unittest.TestCase):
 
@@ -22,6 +22,7 @@ class TestingClass(unittest.TestCase):
     def setUp(self):
         self.app = app
         self.app.testing = True
+        self.app.config.from_object(app_config.get('testing'))
         self.test_user = self.app.test_client()
 
     def tearDown(self):

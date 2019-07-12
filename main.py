@@ -8,12 +8,11 @@ def create_app(config):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config.get(config))
     app.url_map.strict_slashes = False
-    
     # add cors
     CORS(app)
     # bind app to db
-    db = MODELS()
+    db = MODELS(app)
     db.create_user_table()
     db.create_entries_table()
 
-    return app
+    return app, db
