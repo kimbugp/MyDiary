@@ -44,23 +44,32 @@ psql -c 'create database diarydb;' -U postgres
 ```
 ### Run the server with the command
 ```
-python -m flask run 
+flask run 
 ```
+### Set Up Development With Docker (Preferred setup)
+
+1. Download Docker from [here](https://docs.docker.com/)
+2. Set up an account to download Docker
+3. Install Docker after download
+4. Go to your terminal run the command `docker login`
+5. Input your Docker email and password
+
+To setup for development with Docker after cloning the repository please do/run the following commands in the order stated below:
+
+-   `cd <project dir>` to check into the dir
+-   `docker-compose build` to build the application images
+-   `docker-compose up -d` to start the api after the previous command is successful
+
+The `docker-compose build` command builds the docker image where the api and its postgres database would be situated.
+
+The `docker-compose up -d` command starts the application 
+
+To stop the running containers run the command `docker-compose down`
 
 ### Running Tests
 * Install nosetests and coverage
   ```
-  $ pip install nose coverage
-  ```
-
-* Running the tests
-  * Setup test database
-  ```
-  psql -c 'create database diarydb_test;' -U postgres
-  ```
-  * Run the tests
-  ```
-  $ nosetests -v --with-coverage --cover-package=api
+  $ pytest
   ```
 ## Features
 * Users can create an account and log in.
@@ -74,8 +83,7 @@ This project is licensed under the MIT License
 
 ## Access at:
 ### https://kimbugp.github.io/MyDiary/UI/
-### https://simondiary.herokuapp.com
-### https://simondb.herokuapp.com (with database)
+### https://simondb.herokuapp.com
 
  ## MY DIARY'S ENDPOINTS
 	
@@ -94,5 +102,3 @@ This project is licensed under the MIT License
 
 ## Authors
 * Kimbugwe Simon Peter 
-## Documentation
-### https://kimbug.docs.apiary.io
