@@ -5,24 +5,21 @@ services:
     restart: always
     image: postgres
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=secret
-      - POSTGRES_DB=diary
+      - POSTGRES_USER:'postgres'
+      - POSTGRES_PASSWORD:'postgres'
+      - POSTGRES_DB:'diary'
     ports:
       - "5433:5432"
     expose:
       - '5432'
-  test_db:
-    image: postgres
   web:
     build: .
     command: ./start.sh
     volumes:
       - .:/mydiary
-    environment:
-      FLASK_ENV: production
-      DATABASE_URL: postgres://postgres:secret@database:5432/diary
     ports:
       - "5000:5000"
+    env_file:
+      - .env
     depends_on:
       - database
