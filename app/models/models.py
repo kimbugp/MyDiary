@@ -5,17 +5,23 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 
 
-class MODELS():
+class DATABASE():
     """Class  for database"""
 
     def __init__(self, app=None):
         self.app = app
-        database = self.db_connect()
-        self.conn = psycopg2.connect(database)
-        self.cursor = self.conn.cursor()
-        self.dict_cursor = self.conn.cursor(
-            cursor_factory=RealDictCursor)
-        self.conn.autocommit = True
+
+    @classmethod
+    def connect(cls, app, connector=psycopg2, auto_commit=False):
+        database = app.config.get('DATABASE_URL')
+        cls.get_connection(database, connector, auto_commit)
+        return cls(app)
+
+    @classmethod
+    def get_connection(cls, database, connector=psycopg2, auto_commit=False):
+        cls.conn = connector.connect(database)
+        cls.conn.autocommit = auto_commit
+        return cls.conn
 
     def create_user_table(self):
         """Method to create user table"""
@@ -41,5 +47,11 @@ class MODELS():
 
         self.cursor.execute(entries_table)
 
-    def db_connect(self):
-        return self.app.config.get('DATABASE_URL')
+    @property
+    def cursor(self):
+        return self.conn.cursor()
+
+    @property
+    def dict_cursor(self):
+        return self.conn.cursor(
+            cursor_factory=RealDictCursor)

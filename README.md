@@ -42,6 +42,10 @@ C:\Users\User>venv\Scripts\activate
 ```
 psql -c 'create database diarydb;' -U postgres
 ```
+### Run create and add test data to the db by
+```
+flask migrate && flask seed 
+```
 ### Run the server with the command
 ```
 flask run 

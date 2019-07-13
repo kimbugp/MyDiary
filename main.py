@@ -1,7 +1,10 @@
-from config import app_config
+
 from flask import Flask
-from app.models.models import MODELS
 from flask_cors import CORS
+
+import psycopg2
+from app.models.models import DATABASE
+from config import app_config
 
 
 def create_app(config):
@@ -11,8 +14,6 @@ def create_app(config):
     # add cors
     CORS(app)
     # bind app to db
-    db = MODELS(app)
-    db.create_user_table()
-    db.create_entries_table()
-
+    db = DATABASE.connect(app, psycopg2, auto_commit=True)
+    
     return app, db

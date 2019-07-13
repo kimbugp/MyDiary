@@ -3,16 +3,16 @@ import io
 import json
 import os
 import unittest
-
-from app import app, db
 from app.models.dbtasks import Profile, UserOperations
+from app.utils.fixtures import create_tables
 from config import app_config
 from tests import (test_entry, test_sign_in, test_user_data,
                    test_wrong_sign_in, wrong_test_entry, wrong_test_sign_in,
                    wrong_test_user_data)
 
+from app import app, db
+
 database = UserOperations()
-cursor = db.cursor
 
 
 class TestingClass(unittest.TestCase):
@@ -21,13 +21,17 @@ class TestingClass(unittest.TestCase):
 
     def setUp(self):
         self.app = app
-        self.app.testing = True
         self.app.config.from_object(app_config.get('testing'))
+        self.app.testing = True
+        # change test db
+        db_url = app.config.get('TEST_DATABASE_URL')
+        db.get_connection(db_url, auto_commit=True)
+        create_tables()
         self.test_user = self.app.test_client()
 
     def tearDown(self):
         clear_user_table = "DELETE from users CASCADE"
-        cursor.execute(clear_user_table)
+        database.cursor.execute(clear_user_table)
 
 
 def user_create_token(test_user):
