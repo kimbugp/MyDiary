@@ -21,7 +21,7 @@ class Production(Staging):
 
 class Testing(BaseConfig):
     TESTING = True
-    TEST_DATABASE_URL = environ.get("TEST_DATABASE_URL")
+    DATABASE_URL = environ.get("TEST_DATABASE_URL")
 
 
 app_config = {

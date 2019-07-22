@@ -2,8 +2,6 @@ import json
 from tests import (test_entry, test_sign_in, test_user_data,
                    test_wrong_sign_in, wrong_test_entry, wrong_test_sign_in,
                    wrong_test_user_data)
-from app.models.dbtasks import Profile, UserOperations
-database = UserOperations()
 
 
 class Helpers():
@@ -77,7 +75,7 @@ class Helpers():
 
     def get_single_entry(self):
         """Function to all get an entry"""
-        my_id = database.get_an_id()
+        my_id = self.database.get_an_id()
         response = self.test_user.get('/api/v1/entries/{}'.format(my_id),
                                       headers=self.user_create_token(),
                                       content_type='application/json')
@@ -93,7 +91,7 @@ class Helpers():
     def edit_entry(self):
         """Function to test editing an entry"""
         self.create_an_entry()
-        my_id = database.get_an_id()
+        my_id = self.database.get_an_id()
         response = self.test_user.put('/api/v1/entries/{}'.format(my_id),
                                       headers=self.user_create_token(),
                                       data=json.dumps(test_entry),
@@ -103,7 +101,7 @@ class Helpers():
     def delete_entry(self):
         """Function to test deleting an entry"""
         self.create_an_entry()
-        my_id = database.get_an_id()
+        my_id = self.database.get_an_id()
         response = self.test_user.delete('/api/v1/entries/{}'.format(my_id),
                                          headers=self.user_create_token(),
                                          data=json.dumps(test_entry),
@@ -113,7 +111,7 @@ class Helpers():
     def no_token(self):
         """Function to test operation with no token"""
         self.create_an_entry()
-        my_id = database.get_an_id()
+        my_id = self.database.get_an_id()
         response = self.test_user.put('/api/v1/entries/{}'.format(my_id),
                                       data=json.dumps(test_entry),
                                       content_type='application/json')
@@ -122,7 +120,7 @@ class Helpers():
     def wrong_token(self):
         """Function to test operation with wrong token"""
         self.create_an_entry()
-        my_id = database.get_an_id()
+        my_id = self.database.get_an_id()
         response = self.test_user.put('/api/v1/entries/{}'.format(my_id),
                                       headers={"token": "ddddd"},
                                       data=json.dumps(test_entry),
@@ -148,7 +146,7 @@ class Helpers():
     def wrong_data(self):
         """Function to test trying make wrong entry"""
         self.create_an_entry()
-        my_id = database.get_an_id()
+        my_id = self.database.get_an_id()
         response = self.test_user.put('/api/v1/entries/{}'.format(my_id),
                                       headers=self.user_create_token(),
                                       data=json.dumps(wrong_test_entry),

@@ -1,7 +1,7 @@
 """Module to perform database tasks"""
 
 import psycopg2
-from app import db
+from app.utils import db
 
 
 class BaseOperations():
@@ -99,6 +99,14 @@ class UserOperations(BaseOperations):
         self.dict_cursor.execute(signin)
         user = self.dict_cursor.fetchall()
         return user
+    
+    def seed_user(self, user_id, username, name, email, password):
+        """Method to seed a user"""
+        new_user = (
+            "INSERT INTO users(user_id,username,name,email,password)\
+                                 VALUES(%s,%s,%s,%s,%s)")
+        self.cursor.execute(new_user, (user_id, username, name,
+                                       email, password))
 
 
 class Profile(BaseOperations):
