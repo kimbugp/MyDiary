@@ -8,7 +8,7 @@ class BaseConfig(object):
 
 
 class Development(BaseConfig):
-    pass
+    PROFILE = True
 
 
 class Staging(BaseConfig):
