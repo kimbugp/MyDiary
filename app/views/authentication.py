@@ -38,8 +38,6 @@ def sign_in_a_user():
 
     data = request.json
     process_signin_json(data)
-    if data == "parameter missing":
-        return make_response(jsonify({'message': 'parameter missing'}), 400)
     user = database.select_user(data['username'])
     if user:
         if check_password_hash(user[0]['password'], data['password']):
