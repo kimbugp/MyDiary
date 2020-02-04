@@ -7,3 +7,4 @@ requests>=2.20.0
 PyJWT==1.6.4
 jsonschema==3.0.1
 python-dotenv==0.10.3
+boto3
