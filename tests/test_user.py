@@ -47,12 +47,6 @@ class UserTests(TestingClass, Helpers):
         self.assertEqual(response.status_code, 401)
         self.assertIn('Invalid login', str(response.data))
 
-    def test_hello_world(self):
-        """Method to test hello world"""
-        response = self.helo()
-        self.assertIn('hello', str(response.data))
-        self.assertEqual(response.status_code, 200)
-
     def test_edit_profession(self):
         """Method to test editing profession"""
         response = self.edit_profession()
